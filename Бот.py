@@ -4,6 +4,7 @@ import time
 import random
 import requests
 import pyperclip
+import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
@@ -116,7 +117,8 @@ options.add_argument('--headless')
 
 browser = webdriver.Firefox(options=options)
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
-vk = vk_api.VkApi(token='Vk_Token')
+tok = os.environ.get('BOT_TOKEN')
+vk = vk_api.VkApi(token=tok)
 
 
 def gettablinfile(filename): #запоминание массивов в фаил
