@@ -5,6 +5,8 @@ import random
 import requests
 import pyperclip
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.firefox.options import Options
 
 day1 = [['','','','','','',''],
         ['','','','','','',''],
@@ -109,19 +111,23 @@ day6old = [['','','','','','',''],
 #/html/body/div/div[2]/table/tbody/tr[6]/th Второй день недели
 #/html/body/div/div[2]/table/tbody/tr[7]/th[1] Второе название заголовка 
 
-browser = webdriver.Firefox()
+options = Options()
+options.add_argument('--headless')
+
+browser = webdriver.Firefox(options=options)
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
-#time.sleep(1)
+vk = vk_api.VkApi(token='482f8dc4ecafde67fa566cb2e6b870d990195b3ecfc8773e1c62ed3d8a0447d0afbc31ce3595c6677802e')
+
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
         file = open(filename,'w')
         numline = 0
         numelem = 0
-        for num in range(1,6):
+        for num in range(1,7):
             for line in day('day'+str(num)+'old'):
                 for elem in line:
-                    print('Попытка загрузить элемент',num,numline,numelem)
+                    #print('Попытка загрузить элемент',num,numline,numelem)
                     file.write(day('day'+str(num)+'old')[numline][numelem]+'\n')
                     numelem += 1
                 numline += 1
@@ -149,7 +155,7 @@ def loadfile(filename):
                 numelem = 0
                 numline = 0
                 num += 1
-            if num >= 6:
+            if num > 6:
                 break
         file.close()
         print('Сохраненые массивы скопированны в фаил')
@@ -171,9 +177,12 @@ def save(): #перевод основных массивов в память
         print(e)
 
 def update(): #открытие страницы
-    save()
-    browser.find_element_by_xpath('//*[@id="group_id"]').click()
-    browser.find_element_by_xpath('//*[@id="group_id"]/option[20]').click()
+    browser.refresh()
+    time.sleep(0.5)
+    try:
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
+    except:
+        print('Опять ебаная ошибка с поиском элемента')
     browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
  
 def day(nameday): #Выбор массива по названию
@@ -244,10 +253,72 @@ def taketabl(): #Заполнение всех основных массивов
             #print('Не найдена строка под номером',line)
             print()
         
-    for num in range(1,6):
+    for num in range(1,7):
         print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
-
+def eq(): #сравнение таблиц
+    global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1
+    if day1 != day1old:
+        file = open('logs.txt','a')
+        print('Понедельник изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Понедельник изменен'+'\n'+'Новое расписание - '+str(day1)+'\n'+'Старое расписание - '+str(day1old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    if day2 != day2old:
+        file = open('logs.txt','a')
+        print('Вторник изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Вторник изменен'+'\n'+'Новое расписание - '+str(day2)+'\n'+'Старое расписание - '+str(day2old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    if day3 != day3old:
+        file = open('logs.txt','a')
+        print('Среду изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Среда изменена'+'\n'+'Новое расписание - '+str(day3)+'\n'+'Старое расписание - '+str(day3old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    if day4 != day4old:
+        file = open('logs.txt','a')
+        print('Четверг изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Четверг изменен'+'\n'+'Новое расписание - '+str(day4)+'\n'+'Старое расписание - '+str(day4old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    if day5 != day5old:
+        file = open('logs.txt','a')
+        print('Пятницу изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Пятница изменена'+'\n'+'Новое расписание - '+str(day5)+'\n'+'Старое расписание - '+str(day5old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    if day6 != day6old:
+        file = open('logs.txt','a')
+        print('Субботу изменили')
+        txt = '['+str(time.ctime(time.time()))+']'+' Суббота изменена'+'\n'+'Новое расписание - '+str(day6)+'\n'+'Старое расписание - '+str(day6old)+'\n'
+        if flag1:
+            txt = '{Первый цикл}' + txt
+        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
+        file.write(txt)
+        file.close()
+    
 loadfile('bd.txt')
-for test in range(1,6):
-    print(day('day'+str(test)+'old')) #Вывод в консоль собранных массивов
+flag1 = 1
+while True:
+    update()
+    taketabl()
+    eq()
+    flag1 = 0
+    save()
+    time.sleep(5)
