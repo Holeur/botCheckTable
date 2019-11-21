@@ -218,7 +218,7 @@ def save(): #перевод основных массивов в память
 
 def update(): #открытие страницы
     browser.refresh()
-    time.sleep(0.5)
+    time.sleep(1)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
     except:
