@@ -114,7 +114,7 @@ browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token='482f8dc4ecafde67fa566cb2e6b870d990195b3ecfc8773e1c62ed3d8a0447d0afbc31ce3595c6677802e')
 
 
-def gettablinfile(filename): #запоминание массивов в фаил
+def gettablinfile(filename):
     try:
         file = open(filename,'w')
         numline = 0
@@ -157,7 +157,7 @@ def loadfile(filename):
     except Exception as e:
         print(e)
     
-def save(): #перевод основных массивов в память
+def save():
     global day1old,day2old,day3old,day4old,day5old,day6old
     try:
         day1old = day1
@@ -171,7 +171,7 @@ def save(): #перевод основных массивов в память
     except Exception as e:
         print(e)
 
-def update(): #открытие страницы
+def update():
     browser.refresh()
     time.sleep(0.5)
     try:
@@ -180,7 +180,7 @@ def update(): #открытие страницы
         print('Опять ебаная ошибка с поиском элемента')
     browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
  
-def day(nameday): #Выбор массива по названию
+def day(nameday):
     if nameday == 'day1':
         return day1
     elif nameday == 'day2':
@@ -206,7 +206,7 @@ def day(nameday): #Выбор массива по названию
     elif nameday == 'day6old':
         return day6old
   
-def zap(nday): #Заполнение выбранного массива
+def zap(nday):
     global line,browser
     flag1 = 1
     line2 = 2
@@ -222,7 +222,7 @@ def zap(nday): #Заполнение выбранного массива
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
 
-def taketabl(): #Заполнение всех основных массивов по дням недели
+def taketabl():
     global line
     for line in range(1,36):
         try:
@@ -249,9 +249,9 @@ def taketabl(): #Заполнение всех основных массивов
             print()
         
     for num in range(1,7):
-        print(day('day'+str(num))) #Вывод в консоль собранных массивов
+        print(day('day'+str(num)))
 
-def eq(): #сравнение таблиц
+def eq():
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1
     if day1 != day1old:
         file = open('logs.txt','a')
