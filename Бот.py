@@ -274,6 +274,7 @@ def zap(nday): #Заполнение выбранного массива
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line
+    zeromas()
     for line in range(1,36):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
