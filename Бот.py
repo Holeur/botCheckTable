@@ -359,7 +359,7 @@ def eq(): #сравнение таблиц
         file.write(txt)
         file.close()
         
-zeromas() 
+zeromas(0) 
 loadfile('bd.txt')
 flag1 = 1
 while True:
