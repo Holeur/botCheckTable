@@ -3,13 +3,59 @@ import selenium
 import vk_api
 import time
 import random
-import requests
-import pyperclip
-import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
+day1 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+        
+day2 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+        
+day3 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+        
+day4 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+        
+day5 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+        
+day6 = [['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','',''],
+        ['','','','','','','']]
+    
+    
 def zeromas():
     day1 = [['','','','','','',''],
             ['','','','','','',''],
@@ -108,18 +154,17 @@ day6old = [['','','','','','',''],
         ['','','','','','',''],
         ['','','','','','','']]
         
-options = webdriver.ChromeOptions()
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-options.add_argument('--headless')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--no-sandbox')
+#/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
+#/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
+#/html/body/div/div[2]/table/tbody/tr[3]/td[1] Первый элемент таблицы
+#/html/body/div/div[2]/table/tbody/tr[6]/th Второй день недели
+#/html/body/div/div[2]/table/tbody/tr[7]/th[1] Второе название заголовка 
 
-browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
+browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token='482f8dc4ecafde67fa566cb2e6b870d990195b3ecfc8773e1c62ed3d8a0447d0afbc31ce3595c6677802e')
 
-
-def gettablinfile(filename):
+def gettablinfile(filename): #запоминание массивов в фаил
     try:
         file = open(filename,'w')
         numline = 0
@@ -127,6 +172,7 @@ def gettablinfile(filename):
         for num in range(1,7):
             for line in day('day'+str(num)+'old'):
                 for elem in line:
+                    #print('Попытка загрузить элемент',num,numline,numelem)
                     file.write(day('day'+str(num)+'old')[numline][numelem]+'\n')
                     numelem += 1
                 numline += 1
@@ -161,7 +207,7 @@ def loadfile(filename):
     except Exception as e:
         print(e)
     
-def save():
+def save(): #перевод основных массивов в память
     global day1old,day2old,day3old,day4old,day5old,day6old
     try:
         day1old = day1
@@ -171,20 +217,20 @@ def save():
         day5old = day5
         day6old = day6
         print('Массивы сохранены')
-        #gettablinfile('bd.txt')
+        gettablinfile('bd.txt')
     except Exception as e:
         print(e)
 
-def update():
+def update(): #открытие страницы
     browser.refresh()
-    time.sleep(1)
+    time.sleep(0.5)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
     except:
         print('Опять ебаная ошибка с поиском элемента')
     browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
  
-def day(nameday):
+def day(nameday): #Выбор массива по названию
     if nameday == 'day1':
         return day1
     elif nameday == 'day2':
@@ -209,8 +255,8 @@ def day(nameday):
         return day5old
     elif nameday == 'day6old':
         return day6old
-  
-def zap(nday):
+
+def zap(nday): #Заполнение выбранного массива
     global line,browser
     flag1 = 1
     line2 = 2
@@ -226,9 +272,8 @@ def zap(nday):
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
 
-def taketabl():
+def taketabl(): #Заполнение всех основных массивов по дням недели
     global line
-    zeromas()
     for line in range(1,36):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
@@ -250,12 +295,13 @@ def taketabl():
                 print('Суббота')
                 zap('day6')
         except selenium.common.exceptions.NoSuchElementException:
-            print()
+            print('Не найдена строка под номером',line)
+            #print()
         
     for num in range(1,7):
-        print(day('day'+str(num)))
+        print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
-def eq():
+def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1
     if day1 != day1old:
         file = open('logs.txt','a')
@@ -311,11 +357,13 @@ def eq():
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
         file.write(txt)
         file.close()
-    
-#loadfile('bd.txt')
+        
+zeromas() 
+loadfile('bd.txt')
 flag1 = 1
 while True:
     update()
+    time.sleep(1)
     taketabl()
     eq()
     flag1 = 0
