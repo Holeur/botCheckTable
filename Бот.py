@@ -106,12 +106,6 @@ day6old = [['','','','','','',''],
         ['','','','','','',''],
         ['','','','','','','']]
         
-#/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
-#/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
-#/html/body/div/div[2]/table/tbody/tr[3]/td[1] Первый элемент таблицы
-#/html/body/div/div[2]/table/tbody/tr[6]/th Второй день недели
-#/html/body/div/div[2]/table/tbody/tr[7]/th[1] Второе название заголовка 
-
 options = Options()
 options.add_argument('--headless')
 
