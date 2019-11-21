@@ -107,10 +107,13 @@ day6old = [['','','','','','',''],
         ['','','','','','',''],
         ['','','','','','','']]
         
-options = Options()
+options = webdriver.ChromeOptions()
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 options.add_argument('--headless')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--no-sandbox')
 
-browser = webdriver.Firefox(options=options)
+browser = webdriver.Chrome(excutable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token='482f8dc4ecafde67fa566cb2e6b870d990195b3ecfc8773e1c62ed3d8a0447d0afbc31ce3595c6677802e')
 
