@@ -122,7 +122,6 @@ def gettablinfile(filename):
         for num in range(1,7):
             for line in day('day'+str(num)+'old'):
                 for elem in line:
-                    #print('Попытка загрузить элемент',num,numline,numelem)
                     file.write(day('day'+str(num)+'old')[numline][numelem]+'\n')
                     numelem += 1
                 numline += 1
@@ -245,7 +244,6 @@ def taketabl():
                 print('Суббота')
                 zap('day6')
         except selenium.common.exceptions.NoSuchElementException:
-            #print('Не найдена строка под номером',line)
             print()
         
     for num in range(1,7):
