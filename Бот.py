@@ -269,31 +269,26 @@ def zap(nday): #Заполнение выбранного массива
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line
+    zeromas(0)
     for line in range(1,36):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
-                zeromas(1)
                 zap('day1')
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
-                zeromas(2)
                 zap('day2')
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
-                zeromas(3)
                 zap('day3')
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
-                zeromas(4)
                 zap('day4')
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
-                zeromas(5)
                 zap('day5')
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
-                zeromas(6)
                 zap('day6')
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
