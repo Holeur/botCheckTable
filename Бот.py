@@ -359,7 +359,7 @@ loadfile('bd.txt')
 flag1 = 1
 while True:
     update()
-    time.sleep(1)
+    time.sleep(2)
     taketabl()
     eq()
     flag1 = 0
