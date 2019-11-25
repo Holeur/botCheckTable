@@ -157,7 +157,7 @@ day6old = [['','','','','','',''],
 
 browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
-vk = vk_api.VkApi(token='BOT_TOKEN')
+vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
@@ -212,7 +212,7 @@ def save(): #перевод основных массивов в память
         day5old = day5
         day6old = day6
         print('Массивы сохранены')
-        gettablinfile('bd.txt')
+        #gettablinfile('bd.txt')
     except Exception as e:
         print(e)
 
@@ -307,7 +307,7 @@ def eq(): #сравнение таблиц
     if day1 != day1old:
         file = open('logs.txt','a')
         print('Понедельник изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Понедельник изменен'+'\n'+'Новое расписание - '+str(day1)+'\n'+'Старое расписание - '+str(day1old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Понедельник изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day1)+'\n'+'Старое расписание - '+str(day1old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -316,7 +316,7 @@ def eq(): #сравнение таблиц
     if day2 != day2old:
         file = open('logs.txt','a')
         print('Вторник изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Вторник изменен'+'\n'+'Новое расписание - '+str(day2)+'\n'+'Старое расписание - '+str(day2old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Вторник изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day2)+'\n'+'Старое расписание - '+str(day2old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -325,7 +325,7 @@ def eq(): #сравнение таблиц
     if day3 != day3old:
         file = open('logs.txt','a')
         print('Среду изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Среда изменена'+'\n'+'Новое расписание - '+str(day3)+'\n'+'Старое расписание - '+str(day3old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Среда изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day3)+'\n'+'Старое расписание - '+str(day3old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -334,7 +334,7 @@ def eq(): #сравнение таблиц
     if day4 != day4old:
         file = open('logs.txt','a')
         print('Четверг изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Четверг изменен'+'\n'+'Новое расписание - '+str(day4)+'\n'+'Старое расписание - '+str(day4old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Четверг изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day4)+'\n'+'Старое расписание - '+str(day4old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -343,7 +343,7 @@ def eq(): #сравнение таблиц
     if day5 != day5old:
         file = open('logs.txt','a')
         print('Пятницу изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Пятница изменена'+'\n'+'Новое расписание - '+str(day5)+'\n'+'Старое расписание - '+str(day5old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Пятница изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day5)+'\n'+'Старое расписание - '+str(day5old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -352,15 +352,15 @@ def eq(): #сравнение таблиц
     if day6 != day6old:
         file = open('logs.txt','a')
         print('Субботу изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Суббота изменена'+'\n'+'Новое расписание - '+str(day6)+'\n'+'Старое расписание - '+str(day6old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Суббота изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day6)+'\n'+'Старое расписание - '+str(day6old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
         file.write(txt)
         file.close()
-        
+
 zeromas(0)
-loadfile('bd.txt')
+#loadfile('bd.txt')
 flag1 = 1
 while True:
     update()
