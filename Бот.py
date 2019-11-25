@@ -157,7 +157,7 @@ day6old = [['','','','','','',''],
 
 browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
-vk = vk_api.VkApi(token='BOT_TOKEN')
+vk = vk_api.VkApi(token=BOT_TOKEN)
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
