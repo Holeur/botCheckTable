@@ -3,7 +3,6 @@ import selenium
 import vk_api
 import time
 import random
-import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
@@ -308,7 +307,7 @@ def eq(): #сравнение таблиц
     if day1 != day1old:
         file = open('logs.txt','a')
         print('Понедельник изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Понедельник изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day1)+'\n'+'Старое расписание - '+str(day1old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Понедельник изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day1)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day1old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -317,7 +316,7 @@ def eq(): #сравнение таблиц
     if day2 != day2old:
         file = open('logs.txt','a')
         print('Вторник изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Вторник изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day2)+'\n'+'Старое расписание - '+str(day2old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Вторник изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day2)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day2old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -326,7 +325,7 @@ def eq(): #сравнение таблиц
     if day3 != day3old:
         file = open('logs.txt','a')
         print('Среду изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Среда изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day3)+'\n'+'Старое расписание - '+str(day3old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Среда изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day3)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day3old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -335,7 +334,7 @@ def eq(): #сравнение таблиц
     if day4 != day4old:
         file = open('logs.txt','a')
         print('Четверг изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Четверг изменен'+'\n'+'-------------------------------'+'Новое расписание - '+str(day4)+'\n'+'Старое расписание - '+str(day4old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Четверг изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day4)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day4old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -344,7 +343,7 @@ def eq(): #сравнение таблиц
     if day5 != day5old:
         file = open('logs.txt','a')
         print('Пятницу изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Пятница изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day5)+'\n'+'Старое расписание - '+str(day5old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Пятница изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day5)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day5old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -353,7 +352,7 @@ def eq(): #сравнение таблиц
     if day6 != day6old:
         file = open('logs.txt','a')
         print('Субботу изменили')
-        txt = '['+str(time.ctime(time.time()))+']'+' Суббота изменена'+'\n'+'-------------------------------'+'Новое расписание - '+str(day6)+'\n'+'Старое расписание - '+str(day6old)+'\n'
+        txt = '['+str(time.ctime(time.time()))+']'+' Суббота изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day6)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day6old)+'\n'
         if flag1:
             txt = '{Первый цикл}' + txt
         vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
