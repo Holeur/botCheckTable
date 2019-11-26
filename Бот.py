@@ -351,7 +351,18 @@ def writetxtall(numday):
         numline += 1
         numelem = 0
         txtall += '---------------------------\n'
-    txtall = 'Понедельник изменили\n-------------------\n'+txtall+'\n'
+    if numday == 'day1':
+        txtall = 'Понедельник изменили\n-------------------\n'+txtall+'\n'
+    elif numday == 'day2':
+        txtall = 'Вторник изменили\n-------------------\n'+txtall+'\n'
+    elif numday == 'day3':
+        txtall = 'Среду изменили\n-------------------\n'+txtall+'\n'
+    elif numday == 'day4':
+        txtall = 'Четверг изменили\n-------------------\n'+txtall+'\n'
+    elif numday == 'day5':
+        txtall = 'Пятницу изменили\n-------------------\n'+txtall+'\n'
+    elif numday == 'day6':
+        txtall = 'Суббота изменили\n-------------------\n'+txtall+'\n'
     if flag1:
         txtall = '{Первый цикл}\n' + txtall
 
