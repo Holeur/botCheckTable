@@ -303,62 +303,96 @@ def taketabl(): #Заполнение всех основных массивов
     for num in range(1,7):
         print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
+def writetxtall(numday):
+    global txtall,flag1
+    txt = ''
+    txtall = ''
+    numelem = 0
+    numline = 0
+    for line in day(str(numday)):
+        for elem in line:
+            if numelem == 0:
+                if day(str(numday))[0][numline] != day(str(numday+'old'))[0][numline]:
+                    txt = 'Пара> ' + elem + ' | '+ str(day(str(numday+'old'))[0][numline]) + '<Старая Пара' + '\n'
+                else:
+                    txt = 'Пара> ' + elem + '\n'
+            elif numelem == 1:
+                if day(str(numday))[1][numline] != day(str(numday+'old'))[1][numline]:
+                    txt = 'Время> ' + elem + ' | '+ str(day(str(numday+'old'))[1][numline]) + '<Старое Время' + '\n'
+                else:
+                    txt = 'Время> ' + elem + '\n'
+            elif numelem == 2:
+                if day(str(numday))[2][numline] != day(str(numday+'old'))[2][numline]:
+                    txt = 'Предмет> ' + elem + ' | '+ str(day(str(numday+'old'))[2][numline]) + '<Старый Предмет' + '\n'
+                else:
+                    txt = 'Предмет> ' + elem + '\n'
+            elif numelem == 3:
+                if day(str(numday))[3][numline] != day(str(numday+'old'))[3][numline]:
+                    txt = 'Подгруппа> ' + elem + ' | '+ str(day(str(numday+'old'))[3][numline]) + '<Старая Подгруппа' + '\n'
+                else:
+                    txt = 'Подгруппа> ' + elem + '\n'
+            elif numelem == 4:
+                if day(str(numday))[4][numline] != day(str(numday+'old'))[4][numline]:
+                    txt = 'Группа> ' + elem + ' | '+ str(day(str(numday+'old'))[4][numline]) + '<Старая Группа' + '\n'
+                else:
+                    txt = 'Группа> ' + elem + '\n'
+            elif numelem == 5:
+                if day(str(numday))[5][numline] != day(str(numday+'old'))[5][numline]:
+                    txt = 'Преподаватель> ' + elem + ' | '+ str(day(str(numday+'old'))[5][numline]) + '<Старый Преподаватель' + '\n'
+                else:
+                    txt = 'Преподаватель> ' + elem + '\n'
+            elif numelem == 6:
+                if day(str(numday))[6][numline] != day(str(numday+'old'))[6][numline]:
+                    txt = 'Кабинет> ' + elem + ' | '+ str(day(str(numday+'old'))[6][numline]) + '<Старый Кабинет' + '\n'
+                else:
+                    txt = 'Кабинет> ' + elem + '\n'
+            txtall += txt
+            numelem += 1
+        numline += 1
+        numelem = 0
+        txtall += '---------------------------\n'
+    txtall = 'Понедельник изменили\n-------------------\n'+txtall+'\n'
+    if flag1:
+        txtall = '{Первый цикл}\n' + txtall
+
+def filewrite(text):
+    file = open('logs.txt','a')
+    file.write(text)
+    file.close()
+    
 def eq(): #сравнение таблиц
-    global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1
+    global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if day1 != day1old:
-        file = open('logs.txt','a')
         print('Понедельник изменили')
-        txt = 'Понедельник изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day1)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day1old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day1')
+        vk.method("messages.send", {"domain": 'holeur', "message":'Понедельник изменили\n-------------------'+txtall, "random_id": random.randint(100, 2147483647)})
+        print(txtall)
+        #filewrite(txtall)
     if day2 != day2old:
-        file = open('logs.txt','a')
         print('Вторник изменили')
-        txt = 'Вторник изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day2)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day2old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day2')
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        #filewrite(txtall)
     if day3 != day3old:
-        file = open('logs.txt','a')
         print('Среду изменили')
-        txt = 'Среда изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day3)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day3old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day3')
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        #filewrite(txtall)
     if day4 != day4old:
-        file = open('logs.txt','a')
         print('Четверг изменили')
-        txt = 'Четверг изменен'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day4)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day4old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day4')
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        #filewrite(txtall)
     if day5 != day5old:
-        file = open('logs.txt','a')
         print('Пятницу изменили')
-        txt = 'Пятница изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day5)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day5old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day5')
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        #filewrite(txtall)
     if day6 != day6old:
-        file = open('logs.txt','a')
         print('Субботу изменили')
-        txt = 'Суббота изменена'+'\n'+'-------------------------------'+'\n'+'Новое расписание - '+str(day6)+'\n'+'-------------------------------'+'\n'+'Старое расписание - '+str(day6old)+'\n'
-        if flag1:
-            txt = '{Первый цикл}' + txt
-        vk.method("messages.send", {"domain": 'holeur', "message":txt, "random_id": random.randint(100, 2147483647)})
-        file.write(txt)
-        file.close()
+        writetxtall('day6')
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        #filewrite(txtall)
 
 zeromas(0)
 #loadfile('bd.txt')
