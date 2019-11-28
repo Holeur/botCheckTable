@@ -199,7 +199,7 @@ def loadfile(filename):
             if num > 6:
                 break
         file.close()
-        print('Сохраненые массивы скопированны в фаил')
+        print('Массивы загружены из файла')
     except Exception as e:
         print(e)
     
@@ -309,41 +309,41 @@ def writetxtall(numday):
     txtall = ''
     numelem = 0
     numline = 0
-    for line in day(str(numday)):
+    for line in day(numday):
         for elem in line:
             if numelem == 0:
-                if day(str(numday))[0][numline] != day(str(numday+'old'))[0][numline]:
-                    txt = 'Пара> ' + elem + ' | '+ str(day(str(numday+'old'))[0][numline]) + '<Старая Пара' + '\n'
+                if day(numday)[0][numline] != day(numday+'old')[0][numline]:
+                    txt = 'Пара> ' + elem + ' | ' + str(day(numday+'old')[numline][0]) + '\n'
                 else:
                     txt = 'Пара> ' + elem + '\n'
             elif numelem == 1:
-                if day(str(numday))[1][numline] != day(str(numday+'old'))[1][numline]:
-                    txt = 'Время> ' + elem + ' | '+ str(day(str(numday+'old'))[1][numline]) + '<Старое Время' + '\n'
+                if day(numday)[1][numline] != day(numday+'old')[1][numline]:
+                    txt = 'Время> ' + elem + ' | ' + str(day(numday+'old')[numline][1]) + '\n'
                 else:
                     txt = 'Время> ' + elem + '\n'
             elif numelem == 2:
-                if day(str(numday))[2][numline] != day(str(numday+'old'))[2][numline]:
-                    txt = 'Предмет> ' + elem + ' | '+ str(day(str(numday+'old'))[2][numline]) + '<Старый Предмет' + '\n'
+                if day(numday)[2][numline] != day(numday+'old')[2][numline]:
+                    txt = 'Предмет> ' + elem + ' | ' + str(day(numday+'old')[numline][2]) + '\n'
                 else:
                     txt = 'Предмет> ' + elem + '\n'
             elif numelem == 3:
-                if day(str(numday))[3][numline] != day(str(numday+'old'))[3][numline]:
-                    txt = 'Подгруппа> ' + elem + ' | '+ str(day(str(numday+'old'))[3][numline]) + '<Старая Подгруппа' + '\n'
+                if day(numday)[3][numline] != day(numday+'old')[3][numline]:
+                    txt = 'Подгруппа> ' + elem + ' | ' + str(day(numday+'old')[numline][3]) + '\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
             elif numelem == 4:
-                if day(str(numday))[4][numline] != day(str(numday+'old'))[4][numline]:
-                    txt = 'Группа> ' + elem + ' | '+ str(day(str(numday+'old'))[4][numline]) + '<Старая Группа' + '\n'
+                if day(numday)[4][numline] != day(numday+'old')[4][numline]:
+                    txt = 'Группа> ' + elem + ' | ' + str(day(numday+'old')[numline][4]) + '\n'
                 else:
                     txt = 'Группа> ' + elem + '\n'
             elif numelem == 5:
-                if day(str(numday))[5][numline] != day(str(numday+'old'))[5][numline]:
-                    txt = 'Преподаватель> ' + elem + ' | '+ str(day(str(numday+'old'))[5][numline]) + '<Старый Преподаватель' + '\n'
+                if day(numday)[5][numline] != day(numday+'old')[5][numline]:
+                    txt = 'Преподаватель> ' + elem + ' | ' + str(day(numday+'old')[numline][5]) + '\n'
                 else:
                     txt = 'Преподаватель> ' + elem + '\n'
             elif numelem == 6:
-                if day(str(numday))[6][numline] != day(str(numday+'old'))[6][numline]:
-                    txt = 'Кабинет> ' + elem + ' | '+ str(day(str(numday+'old'))[6][numline]) + '<Старый Кабинет' + '\n'
+                if day(numday)[6][numline] != day(numday+'old')[6][numline]:
+                    txt = 'Кабинет> ' + elem + ' | ' + str(day(numday+'old')[numline][6]) + '\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
             txtall += txt
@@ -362,7 +362,7 @@ def writetxtall(numday):
     elif numday == 'day5':
         txtall = 'Пятницу изменили\n-------------------\n'+txtall+'\n'
     elif numday == 'day6':
-        txtall = 'Суббота изменили\n-------------------\n'+txtall+'\n'
+        txtall = 'Субботу изменили\n-------------------\n'+txtall+'\n'
     if flag1:
         txtall = '{Первый цикл}\n' + txtall
 
@@ -377,7 +377,6 @@ def eq(): #сравнение таблиц
         print('Понедельник изменили')
         writetxtall('day1')
         vk.method("messages.send", {"domain": 'holeur', "message":'Понедельник изменили\n-------------------'+txtall, "random_id": random.randint(100, 2147483647)})
-        print(txtall)
         #filewrite(txtall)
     if day2 != day2old:
         print('Вторник изменили')
