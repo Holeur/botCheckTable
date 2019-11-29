@@ -376,7 +376,7 @@ def eq(): #сравнение таблиц
     if day1 != day1old:
         print('Понедельник изменили')
         writetxtall('day1')
-        vk.method("messages.send", {"domain": 'holeur', "message":'Понедельник изменили\n-------------------'+txtall, "random_id": random.randint(100, 2147483647)})
+        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day2 != day2old:
         print('Вторник изменили')
