@@ -219,7 +219,7 @@ def save(): #перевод основных массивов в память
 
 def update(): #открытие страницы
     browser.refresh()
-    time.sleep(2)
+    time.sleep(3)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
     except:
@@ -409,7 +409,7 @@ zeromas(0)
 flag1 = 1
 while True:
     update()
-    time.sleep(2)
+    time.sleep(3)
     taketabl()
     eq()
     flag1 = 0
