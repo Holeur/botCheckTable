@@ -408,10 +408,13 @@ zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
-    update()
-    time.sleep(3)
-    taketabl()
-    eq()
-    flag1 = 0
-    save()
-    time.sleep(3)
+    try:
+        update()
+        time.sleep(3)
+        taketabl()
+        eq()
+        flag1 = 0
+        save()
+        time.sleep(3)
+    except Exception as e:
+        vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
