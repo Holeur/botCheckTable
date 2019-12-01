@@ -314,37 +314,37 @@ def writetxtall(numday):
         for elem in line:
             if numelem == 0:
                 if day(numday)[numline][0] != day(numday+'old')[numline][0]:
-                    txt = '*Пара> ' + elem + ' (было>' + str(day(numday+'old')[numline][0]) + ')\n'
+                    txt = '*Пара> ' + elem + ' (Было>' + str(day(numday+'old')[numline][0]) + ')\n'
                 else:
                     txt = 'Пара> ' + elem + '\n'
             elif numelem == 1:
                 if day(numday)[numline][1] != day(numday+'old')[numline][1]:
-                    txt = '*Время> ' + elem + ' (было>' + str(day(numday+'old')[numline][1]) + ')\n'
+                    txt = '*Время> ' + elem + ' (Было>' + str(day(numday+'old')[numline][1]) + ')\n'
                 else:
                     txt = 'Время> ' + elem + '\n'
             elif numelem == 2:
                 if day(numday)[numline][2] != day(numday+'old')[numline][2]:
-                    txt = '*Предмет> ' + elem + ' (было>' + str(day(numday+'old')[numline][2]) + ')\n'
+                    txt = '*Предмет> ' + elem + ' (Было>' + str(day(numday+'old')[numline][2]) + ')\n'
                 else:
                     txt = 'Предмет> ' + elem + '\n'
             elif numelem == 3:
                 if day(numday)[numline][3] != day(numday+'old')[numline][3]:
-                    txt = '*Подгруппа> ' + elem + ' (было>' + str(day(numday+'old')[numline][3]) + ')\n'
+                    txt = '*Подгруппа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][3]) + ')\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
             elif numelem == 4:
                 if day(numday)[numline][4] != day(numday+'old')[numline][4]:
-                    txt = '*Группа> ' + elem + ' (было>' + str(day(numday+'old')[numline][4]) + ')\n'
+                    txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
                 else:
                     txt = 'Группа> ' + elem + '\n'
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
-                    txt = '*Преподаватель> ' + elem + ' (было>' + str(day(numday+'old')[numline][5]) + ')\n'
+                    txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
                 else:
                     txt = 'Преподаватель> ' + elem + '\n'
             elif numelem == 6:
                 if day(numday)[numline][6] != day(numday+'old')[numline][6]:
-                    txt = '*Кабинет> ' + elem + ' (было>' + str(day(numday+'old')[numline][6]) + ')\n'
+                    txt = '*Кабинет> ' + elem + ' (Было>' + str(day(numday+'old')[numline][6]) + ')\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
             txtall += txt
