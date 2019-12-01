@@ -212,6 +212,7 @@ def save(): #перевод основных массивов в память
         day4old = day4
         day5old = day5
         day6old = day6
+        zeromas(0)
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
