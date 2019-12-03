@@ -223,9 +223,11 @@ def update(): #открытие страницы
     time.sleep(3)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
+        browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
-    browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
+        update()
+    
  
 def day(nameday): #Выбор массива по названию
     if nameday == 'day1':
