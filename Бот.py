@@ -8,8 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
-names = ['holeur','elitespp']
-
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6
     if x==1:
@@ -161,6 +159,8 @@ day6old = [['','','','','','',''],
 browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
+
+names = ['holeur','elitespp']
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
@@ -341,7 +341,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     # txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
                 # else:
                     # txt = 'Группа> ' + elem + '\n'
-                continue
+                print(elem+'пропускаем')
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
                     txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
@@ -378,6 +378,7 @@ def filewrite(text): #Запись полученного текста в фаи
     file.close()
     
 def sendmes(text): #Скидывание оповещений нескольким людям
+    global names
     for elem in names:
         try:
             vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
