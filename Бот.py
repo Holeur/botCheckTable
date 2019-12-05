@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
-names = ['holeur']
+names = ['holeur','elitespp']
 
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6
