@@ -379,32 +379,38 @@ def eq(): #сравнение таблиц
     if day1 != day1old:
         print('Понедельник изменили')
         writetxtall('day1')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day2 != day2old:
         print('Вторник изменили')
         writetxtall('day2')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day3 != day3old:
         print('Среду изменили')
         writetxtall('day3')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day4 != day4old:
         print('Четверг изменили')
         writetxtall('day4')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day5 != day5old:
         print('Пятницу изменили')
         writetxtall('day5')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
     if day6 != day6old:
         print('Субботу изменили')
         writetxtall('day6')
-        vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+        if flag1 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
         #filewrite(txtall)
 
 zeromas(0)
@@ -412,11 +418,10 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        if flag1 == 0:
-            update()
-            time.sleep(3)
-            taketabl()
-            eq()
+        update()
+        time.sleep(3)
+        taketabl()
+        eq()
         flag1 = 0
         save()
         time.sleep(3)
