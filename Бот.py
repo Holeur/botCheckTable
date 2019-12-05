@@ -8,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
+names = ['holeur',540932670]
+
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6
     if x==1:
@@ -374,43 +376,53 @@ def filewrite(text): #Запись полученного текста в фаи
     file.write(text)
     file.close()
     
+def sendmes(text): #Скидывание оповещений нескольким людям
+    for elem in names:
+        try:
+            vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+        except:
+            try:
+                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+            except Exception as e:
+                vk.method("messages.send", {"domain": 'holeur', "message":text, "random_id": random.randint(100, 2147483647)})
+
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if day1 != day1old:
         print('Понедельник изменили')
         writetxtall('day1')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
     if day2 != day2old:
         print('Вторник изменили')
         writetxtall('day2')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
     if day3 != day3old:
         print('Среду изменили')
         writetxtall('day3')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
     if day4 != day4old:
         print('Четверг изменили')
         writetxtall('day4')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
     if day5 != day5old:
         print('Пятницу изменили')
         writetxtall('day5')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
     if day6 != day6old:
         print('Субботу изменили')
         writetxtall('day6')
         if flag1 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+            sendmes(txtall)
         #filewrite(txtall)
 
 zeromas(0)
