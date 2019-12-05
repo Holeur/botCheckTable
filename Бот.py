@@ -179,7 +179,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
     except Exception as e:
         print(e)
         
-def loadfile(filename):
+def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
     global day1old,day2old,day3old,day4old,day5old,day6old
     try:
         file = open(filename,'r')
@@ -306,7 +306,7 @@ def taketabl(): #Заполнение всех основных массивов
     for num in range(1,7):
         print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
-def writetxtall(numday):
+def writetxtall(numday): #Алгоритм создания сообщения
     global txtall,flag1
     txt = ''
     txtall = ''
@@ -334,11 +334,11 @@ def writetxtall(numday):
                     txt = '*Подгруппа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][3]) + ')\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
-            elif numelem == 4:
-                if day(numday)[numline][4] != day(numday+'old')[numline][4]:
-                    txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
-                else:
-                    txt = 'Группа> ' + elem + '\n'
+            # elif numelem == 4:
+                # if day(numday)[numline][4] != day(numday+'old')[numline][4]:
+                    # txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
+                # else:
+                    # txt = 'Группа> ' + elem + '\n'
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
                     txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
@@ -369,7 +369,7 @@ def writetxtall(numday):
     if flag1:
         txtall = '{Первый цикл}\n' + txtall
 
-def filewrite(text):
+def filewrite(text): #Запись полученного текста в фаил
     file = open('logs.txt','a')
     file.write(text)
     file.close()
@@ -412,10 +412,11 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        update()
-        time.sleep(3)
-        taketabl()
-        eq()
+        if flag1:
+            update()
+            time.sleep(3)
+            taketabl()
+            eq()
         flag1 = 0
         save()
         time.sleep(3)
