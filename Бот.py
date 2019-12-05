@@ -336,11 +336,12 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     txt = '*Подгруппа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][3]) + ')\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
-            # elif numelem == 4:
+            elif numelem == 4:
                 # if day(numday)[numline][4] != day(numday+'old')[numline][4]:
                     # txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
                 # else:
                     # txt = 'Группа> ' + elem + '\n'
+                continue
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
                     txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
