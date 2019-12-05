@@ -412,7 +412,7 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        if flag1:
+        if flag1 == 0:
             update()
             time.sleep(3)
             taketabl()
