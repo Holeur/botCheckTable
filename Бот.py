@@ -380,12 +380,14 @@ def sendmes(text): #Скидывание оповещений нескольки
     for elem in names:
         try:
             vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+            print('Отправлено на домен '+elem)
         except:
             try:
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+                print('Отправлено на id '+elem)
             except Exception as e:
                 vk.method("messages.send", {"domain": 'holeur', "message":text, "random_id": random.randint(100, 2147483647)})
-
+                   
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if day1 != day1old:
