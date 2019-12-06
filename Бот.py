@@ -341,7 +341,10 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     # txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
                 # else:
                     # txt = 'Группа> ' + elem + '\n'
-                print(elem+'пропускаем')
+                if elem == '':
+                    print('Пропускаем пустоту')
+                else:
+                    print(elem+'пропускаем')
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
                     txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
@@ -352,23 +355,25 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     txt = '*Кабинет> ' + elem + ' (Было>' + str(day(numday+'old')[numline][6]) + ')\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
+            else:
+                print('Что-то пропущено...')
             txtall += txt
             numelem += 1
         numline += 1
         numelem = 0
         txtall += '---------------------------\n'
     if numday == 'day1':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     elif numday == 'day2':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     elif numday == 'day3':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     elif numday == 'day4':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     elif numday == 'day5':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     elif numday == 'day6':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\\n'+txtall+'\n'
+        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
     if flag1:
         txtall = '{Первый цикл}\n' + txtall
 
@@ -388,7 +393,7 @@ def sendmes(text): #Скидывание оповещений нескольки
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
                 print('Отправлено на id '+elem)
             except Exception as e:
-                vk.method("messages.send", {"domain": 'holeur', "message":text+elem, "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.send", {"domain": 'holeur', "message":e+elem, "random_id": random.randint(100, 2147483647)})
                    
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
