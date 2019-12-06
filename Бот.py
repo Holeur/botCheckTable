@@ -429,17 +429,27 @@ def eq(): #сравнение таблиц
             sendmes(txtall)
         #filewrite(txtall)
 
+def checkupt():
+    global checkflag,tabledate
+    try:
+        tabledate = browser.find_element_by_xpath('/html/body/div/div[1]/form/div[1]/select').text
+        checkflag = 1
+    except:
+        checkflag = 0
+    
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
         update()
-        time.sleep(3)
-        taketabl()
-        eq()
-        flag1 = 0
-        save()
-        time.sleep(3)
+        checkupt()
+        if checkflag:
+            time.sleep(3)
+            taketabl()
+            eq()
+            flag1 = 0
+            save()
+            time.sleep(3)
     except Exception as e:
         vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
