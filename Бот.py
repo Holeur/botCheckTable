@@ -160,7 +160,7 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-names = ['holeur','elitespp']
+names = ['holeur']
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
@@ -394,7 +394,7 @@ def sendmes(text): #Скидывание оповещений нескольки
                 print('Отправлено на id '+elem)
             except Exception as e:
                 vk.method("messages.send", {"domain": 'holeur', "message":e+elem, "random_id": random.randint(100, 2147483647)})
-                   
+                continue 
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if day1 != day1old:
