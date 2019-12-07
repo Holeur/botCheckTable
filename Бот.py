@@ -358,6 +358,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
             else:
                 print('Что-то пропущено...')
             txtall += txt
+            txt = ''
             numelem += 1
         numline += 1
         numelem = 0
