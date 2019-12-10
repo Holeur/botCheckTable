@@ -214,6 +214,7 @@ def save(): #перевод основных массивов в память
         day4old = day4
         day5old = day5
         day6old = day6
+        olddate = date
         zeromas(0)
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
@@ -274,7 +275,8 @@ def zap(nday): #Заполнение выбранного массива
             flag1 = 0
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
-    global line
+    global line,date
+    date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
     for line in range(1,36):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
@@ -398,43 +400,59 @@ def sendmes(text): #Скидывание оповещений нескольки
                 continue 
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
-    if day1 != day1old:
-        print('Понедельник изменили')
-        writetxtall('day1')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-    if day2 != day2old:
-        print('Вторник изменили')
-        writetxtall('day2')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-    if day3 != day3old:
-        print('Среду изменили')
-        writetxtall('day3')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-    if day4 != day4old:
-        print('Четверг изменили')
-        writetxtall('day4')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-    if day5 != day5old:
-        print('Пятницу изменили')
-        writetxtall('day5')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-    if day6 != day6old:
-        print('Субботу изменили')
-        writetxtall('day6')
-        if flag1 == 0:
-            sendmes(txtall)
-        #filewrite(txtall)
-
+    if date == olddate:
+        if day1 != day1old:
+            print('Понедельник изменили')
+            writetxtall('day1')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+        if day2 != day2old:
+            print('Вторник изменили')
+            writetxtall('day2')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+        if day3 != day3old:
+            print('Среду изменили')
+            writetxtall('day3')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+        if day4 != day4old:
+            print('Четверг изменили')
+            writetxtall('day4')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+        if day5 != day5old:
+            print('Пятницу изменили')
+            writetxtall('day5')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+        if day6 != day6old:
+            print('Субботу изменили')
+            writetxtall('day6')
+            if flag1 == 0:
+                sendmes(txtall)
+            #filewrite(txtall)
+    else:
+        txtin = "Появилось расписание на следуйщую неделю на: "
+        if day1 != day1old:
+            txtin += '  Понедельник\n'
+        if day2 != day2old:
+            txtin += '  Вторник\n'
+        if day3 != day3old:
+            txtin += '  Среду\n'
+        if day4 != day4old:
+            txtin += '  Четверг\n'
+        if day5 != day5old:
+            txtin += '  Пятницу\n'
+        if day6 != day6old:
+            txtin += '  Субботу\n'
+        
+        sendmes("Появилось расписание на следуйщую неделю")
 def checkupt():
     global checkflag,tabledate
     try:
