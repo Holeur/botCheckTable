@@ -161,6 +161,8 @@ browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
 names = ['holeur']
+date = ''
+olddate = ''
 
 def gettablinfile(filename): #запоминание массивов в фаил
     try:
@@ -231,7 +233,6 @@ def update(): #открытие страницы
         print('Опять ошибка с поиском элемента')
         update()
     
- 
 def day(nameday): #Выбор массива по названию
     if nameday == 'day1':
         return day1
@@ -306,7 +307,6 @@ def taketabl(): #Заполнение всех основных массивов
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
-        
     for num in range(1,7):
         print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
@@ -398,6 +398,7 @@ def sendmes(text): #Скидывание оповещений нескольки
             except Exception as e:
                 vk.method("messages.send", {"domain": 'holeur', "message":e+elem, "random_id": random.randint(100, 2147483647)})
                 continue 
+                
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if date == olddate:
@@ -451,8 +452,8 @@ def eq(): #сравнение таблиц
             txtin += '  Пятницу\n'
         if day6 != day6old:
             txtin += '  Субботу\n'
+        sendmes(txtin)
         
-        sendmes("Появилось расписание на следуйщую неделю")
 def checkupt():
     global checkflag,tabledate
     try:
