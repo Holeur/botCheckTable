@@ -208,7 +208,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         print(e)
     
 def save(): #перевод основных массивов в память
-    global day1old,day2old,day3old,day4old,day5old,day6old
+    global day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
     try:
         day1old = day1
         day2old = day2
