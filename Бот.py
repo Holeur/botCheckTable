@@ -396,7 +396,7 @@ def sendmes(text): #Скидывание оповещений нескольки
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
                 print('Отправлено на id '+elem)
             except Exception as e:
-                vk.method("messages.send", {"domain": 'holeur', "message":e+elem, "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.send", {"domain": 'holeur', "message":e+str(elem), "random_id": random.randint(100, 2147483647)})
                 continue 
                 
 def eq(): #сравнение таблиц
