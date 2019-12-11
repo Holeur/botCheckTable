@@ -160,7 +160,7 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-names = ['holeur',137600777]
+names = ['holeur','137600777']
 date = ''
 olddate = ''
 
