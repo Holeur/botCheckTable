@@ -435,7 +435,7 @@ def eq(): #сравнение таблиц
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-    else:
+    elif flag1 == 0:
         txtin = "Появилось расписание на следуйщую неделю на: "
         if day1 != day1old:
             txtin += '  Понедельник\n'
@@ -450,6 +450,8 @@ def eq(): #сравнение таблиц
         if day6 != day6old:
             txtin += '  Субботу\n'
         sendmes(txtin)
+    else:
+        vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
         
 def checkupt():
     global checkflag,tabledate
