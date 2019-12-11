@@ -160,7 +160,7 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-names = ['holeur',137600777]
+names = ['holeur',137600777,'kleschevnikovs']
 date = ''
 olddate = ''
 
@@ -395,6 +395,7 @@ def sendmes(text): #Скидывание оповещений нескольки
                 vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
         except Exception as e:
             print(e)
+            
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if date == olddate:
