@@ -465,19 +465,19 @@ def checkupt():
 def getnames():
     global names
     names = ['holeur']
-    messages = vk.method("messages.getConversationsById",{"peer_ids":"125524519"})
-    print(messages["items"][0]["unread_count"])
-    for num in range(messages["items"][0]["unread_count"]):
-        text = messages["items"][0]["in_read"]
-        if '+add' == text[:4]:
-            name = text[5:]
+    number = 0
+    messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
+    print(messages["count"])
+    for mes in messages["items"]:
+        if '+add' == mes["text"][:4]:
+            name = mes["text"][5:]
             try:
                 names.append(int(name))
                 print('Добавлен в массив',name)
             except ValueError:
                 names.append(name)
                 print('Добавлен в массив',name)
-        vk.method("messages.markAsRead",{"message_ids":str(messages["items"][0]["in_read"]),"peer_id":"125524519"})
+        number += 1
         
 zeromas(0)
 #loadfile('bd.txt')
