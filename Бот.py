@@ -477,7 +477,7 @@ def getnames():
             except ValueError:
                 names.append(name)
                 print('Добавлен в массив',name)
-        vk.method("messages.markAsRead",{"message_ids":str(messages["items"]["in_read"]),"peer_id":"125524519"})
+        vk.method("messages.markAsRead",{"message_ids":str(messages["items"][0]["in_read"]),"peer_id":"125524519"})
         
 zeromas(0)
 #loadfile('bd.txt')
