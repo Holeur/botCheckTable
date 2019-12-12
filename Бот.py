@@ -464,6 +464,7 @@ def checkupt():
 
 def getnames():
     global names
+    oldnames = names
     names = ['holeur']
     number = 0
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
@@ -474,10 +475,12 @@ def getnames():
             try:
                 if int(name) not in names:
                     names.append(int(name))
+                if int(name) not in oldnames:
                     print('Добавлен в массив',name)
             except ValueError:
                 if name not in names:
                     names.append(name)
+                if name not in oldnames
                     print('Добавлен в массив',name)
         number += 1
     print(names)
