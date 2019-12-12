@@ -467,7 +467,7 @@ def getnames():
     names = ['holeur']
     messages = vk.method("messages.getConversationsById",{"peer_ids":"125524519"})
     for num in range(messages["items"][0]["unread_count"]):
-        text = messages["items"]["in_read"]
+        text = messages["items"][0]["in_read"]
         if '+add' == text[:4]:
             name = text[5:]
             try:
@@ -481,7 +481,7 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        getnames()
+        #getnames()
         update()
         checkupt()
         if checkflag:
