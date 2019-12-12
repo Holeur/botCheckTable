@@ -160,7 +160,8 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-names = ['holeur',137600777,'kleschevnikovs']
+#names = ['holeur',137600777,'kleschevnikovs']
+names = ['holeur']
 date = ''
 olddate = ''
 
@@ -460,12 +461,27 @@ def checkupt():
         checkflag = 1
     except:
         checkflag = 0
-    
+
+def getnames():
+    global names
+    names = ['holeur']
+    messages = vk.method("messages.getConversationsById",{"peer_ids":"125524519"})
+    for num in range(messages["items"]["unread_count"]):
+        text = messages["items"]["in_read"]
+        if '+add' == text[:4]:
+            name = text[5:]
+            try:
+                names.append(int(name))
+            except ValueError:
+                names.append(name)
+        vk.method("messages.markAsRead",{"message_ids":str(messages["items"]["in_read"]),"peer_id":"125524519"})
+        
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
+        getnames()
         update()
         checkupt()
         if checkflag:
