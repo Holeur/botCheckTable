@@ -472,12 +472,15 @@ def getnames():
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
             try:
-                names.append(int(name))
-                print('Добавлен в массив',name)
+                if int(name) not in names:
+                    names.append(int(name))
+                    print('Добавлен в массив',name)
             except ValueError:
-                names.append(name)
-                print('Добавлен в массив',name)
+                if name not in names:
+                    names.append(name)
+                    print('Добавлен в массив',name)
         number += 1
+    print(names)
         
 zeromas(0)
 #loadfile('bd.txt')
