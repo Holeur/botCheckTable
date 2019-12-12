@@ -466,14 +466,17 @@ def getnames():
     global names
     names = ['holeur']
     messages = vk.method("messages.getConversationsById",{"peer_ids":"125524519"})
+    print(messages["items"][0]["unread_count"])
     for num in range(messages["items"][0]["unread_count"]):
         text = messages["items"][0]["in_read"]
         if '+add' == text[:4]:
             name = text[5:]
             try:
                 names.append(int(name))
+                print('Добавлен в массив',name)
             except ValueError:
                 names.append(name)
+                print('Добавлен в массив',name)
         vk.method("messages.markAsRead",{"message_ids":str(messages["items"]["in_read"]),"peer_id":"125524519"})
         
 zeromas(0)
@@ -481,7 +484,7 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        #getnames()
+        getnames()
         update()
         checkupt()
         if checkflag:
