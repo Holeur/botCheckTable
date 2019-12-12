@@ -466,7 +466,7 @@ def getnames():
     global names
     names = ['holeur']
     messages = vk.method("messages.getConversationsById",{"peer_ids":"125524519"})
-    for num in range(messages["items"]["unread_count"]):
+    for num in range(messages["items"][0]["unread_count"]):
         text = messages["items"]["in_read"]
         if '+add' == text[:4]:
             name = text[5:]
