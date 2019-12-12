@@ -480,7 +480,7 @@ def getnames():
             except ValueError:
                 if name not in names:
                     names.append(name)
-                if name not in oldnames
+                if name not in oldnames:
                     print('Добавлен в массив',name)
         number += 1
     print(names)
