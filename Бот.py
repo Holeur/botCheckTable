@@ -488,7 +488,7 @@ def getnames():
 def debug(): #2000000078
     chats = vk.method("messages.getConversations",{"filter":"all","count":200})
     for num in range(chats["count"]):
-        txtalll = chats["items"][num-1]["conversation"]["peer"]["id"],chat["items"][num-1]["conversation"]["chat_settings"]["title"],"\n"
+        txtalll = chats["items"][num-1]["conversation"]["peer"]["id"],chats["items"][num-1]["conversation"]["chat_settings"]["title"],"\n"
     vk.method("messages.send", {"domain": 'holeur', "message":txtalll, "random_id": random.randint(100, 2147483647)})
         
 zeromas(0)
