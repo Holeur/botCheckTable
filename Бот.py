@@ -494,7 +494,7 @@ while True:
         update()
         checkupt()
         if checkflag:
-            time.sleep(3)
+            time.sleep(4)
             taketabl()
             eq()
             flag1 = 0
