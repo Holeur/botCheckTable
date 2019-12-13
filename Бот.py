@@ -489,7 +489,10 @@ def debug(): #2000000078
     txtalll = ''
     chats = vk.method("messages.getConversations",{"filter":"all","count":200})
     for num in range(chats["count"]):
-        print(chats["items"][num]["conversation"]["peer"]["id"],chats["items"][num]["conversation"]["chat_settings"][0]["title"])
+        id = chats["items"][num]["conversation"]["peer"]["id"]
+        print(id)
+        txtalll += vk.method("messages.getChat",{"chat_id":id,"count":200})["title"]+'\n'
+        vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
         
 zeromas(0)
 #loadfile('bd.txt')
