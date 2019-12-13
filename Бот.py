@@ -160,6 +160,7 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
+#names = ['holeur',137600777,'kleschevnikovs']
 names = ['holeur']
 date = ''
 olddate = ''
@@ -389,16 +390,13 @@ def sendmes(text): #Скидывание оповещений нескольки
     global names
     for elem in names:
         try:
-            vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-            print('Отправлено на домен '+elem)
-        except:
-            try:
+            if isinstance(elem,int):
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-                print('Отправлено на id '+elem)
-            except Exception as e:
-                vk.method("messages.send", {"domain": 'holeur', "message":e+elem, "random_id": random.randint(100, 2147483647)})
-                continue 
-                
+            else:
+                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+        except Exception as e:
+            print(e)
+            
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if date == olddate:
@@ -438,7 +436,7 @@ def eq(): #сравнение таблиц
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-    else:
+    elif flag1 == 0:
         txtin = "Появилось расписание на следуйщую неделю на: "
         if day1 != day1old:
             txtin += '  Понедельник\n'
@@ -453,6 +451,8 @@ def eq(): #сравнение таблиц
         if day6 != day6old:
             txtin += '  Субботу\n'
         sendmes(txtin)
+    else:
+        vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
         
 def checkupt():
     global checkflag,tabledate
@@ -461,16 +461,40 @@ def checkupt():
         checkflag = 1
     except:
         checkflag = 0
-    
+
+def getnames():
+    global names
+    oldnames = names
+    names = ['holeur']
+    number = 0
+    messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
+    print(messages["count"])
+    for mes in messages["items"]:
+        if '+add' == mes["text"][:4]:
+            name = mes["text"][5:]
+            try:
+                if int(name) not in names:
+                    names.append(int(name))
+                if int(name) not in oldnames:
+                    print('Добавлен в массив',name)
+            except ValueError:
+                if name not in names:
+                    names.append(name)
+                if name not in oldnames:
+                    print('Добавлен в массив',name)
+        number += 1
+    print(names)
+        
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
+        getnames()
         update()
         checkupt()
         if checkflag:
-            time.sleep(3)
+            time.sleep(4)
             taketabl()
             eq()
             flag1 = 0
