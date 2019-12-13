@@ -485,21 +485,15 @@ def getnames():
         number += 1
     print(names)
 
-def debug(): #2000000078
-    txtalll = ''
-    chats = vk.method("messages.getConversations",{"filter":"all","count":200})
-    for num in range(chats["count"]):
-        id = chats["items"][num]["conversation"]["peer"]["id"]
-        print(id)
-        txtalll += vk.method("messages.getChat",{"chat_id":id,"count":200})["title"]+'\n'
-        vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
-        
+def debug(): 
+    vk.method("messages.editChat", {"chat_id": 78, "title":str(random.randint(100, 2147483647))})
+    
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
-debug()
 while True:
     try:
+        debug()
         getnames()
         update()
         checkupt()
