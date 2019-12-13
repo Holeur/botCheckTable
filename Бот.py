@@ -489,7 +489,7 @@ def debug(): #2000000078
     txtalll = ''
     chats = vk.method("messages.getConversations",{"filter":"all","count":200})
     for num in range(chats["count"]):
-        print(chats["items"][num]["conversation"]["peer"]["id"])
+        print(chats["items"][num]["conversation"]["peer"]["id"],chats["items"][num]["conversation"]["chat_settings"]["title"])
         
 zeromas(0)
 #loadfile('bd.txt')
