@@ -486,6 +486,7 @@ def getnames():
     print(names)
 
 def debug(): #2000000078
+    txtalll = ''
     chats = vk.method("messages.getConversations",{"filter":"all","count":200})
     for num in range(chats["count"]):
         txtalll += chats["items"][num]["conversation"]["peer"]["id"],chats["items"][num]["conversation"]["chat settings"]["title"],"\n"
