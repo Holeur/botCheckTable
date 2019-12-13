@@ -489,7 +489,7 @@ def debug(): #2000000078
     txtalll = ''
     chats = vk.method("messages.getConversations",{"filter":"all","count":200})
     for num in range(chats["count"]):
-        txtalll += chats["items"][num]["conversation"]["peer"]["id"],"\n"
+        print(chats["items"][num]["conversation"]["peer"]["id"])
     vk.method("messages.send", {"domain": 'holeur', "message":txtalll, "random_id": random.randint(100, 2147483647)})
         
 zeromas(0)
