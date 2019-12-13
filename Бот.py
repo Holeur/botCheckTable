@@ -486,7 +486,9 @@ def getnames():
     print(names)
 
 def debug(): 
-    vk.method("messages.editChat", {"chat_id": 78, "title":str(random.randint(100, 2147483647))})
+    messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
+    id = messages["items"][0]["last_message"]["from_id"]
+    print(id)
     
 zeromas(0)
 #loadfile('bd.txt')
