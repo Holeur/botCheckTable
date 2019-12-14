@@ -490,7 +490,7 @@ def debug():
     id = messages["items"][0]["id"]
     vk.method("messages.send", {"peer": id, "message":'Понял', "random_id": random.randint(100, 2147483647)})
     mesid = messages["items"][0]["last_message"]["from_id"]
-    vk.method("messages.markAsRead", {"message_ids": 'holeur', "peer_id":id, "group_id": "181204528"})
+    vk.method("messages.markAsRead", {"message_ids": mesid, "peer_id":id, "group_id": "181204528"})
     
 zeromas(0)
 #loadfile('bd.txt')
