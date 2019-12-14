@@ -497,7 +497,7 @@ zeromas(0)
 flag1 = 1
 while True:
     try:
-        #debug()
+        debug()
         getnames()
         update()
         checkupt()
