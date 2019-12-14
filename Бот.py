@@ -486,9 +486,11 @@ def getnames():
     print(names)
 
 def debug(): 
-    messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
-    id = messages["items"][0]["last_message"]["from_id"]
-    print(id)
+    messages = vk.method("messages.search",{"q":"+info","peer_id":"125524519","group_id":"181204528"})
+    id = messages["items"][0]["id"]
+    vk.method("messages.send", {"peer": id, "message":'Понял', "random_id": random.randint(100, 2147483647)})
+    mesid = messages["items"][0]["last_message"]["from_id"]
+    vk.method("messages.markAsRead", {"message_ids": 'holeur', "peer_id":id, "group_id": "181204528"})
     
 zeromas(0)
 #loadfile('bd.txt')
