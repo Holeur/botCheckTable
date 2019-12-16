@@ -517,4 +517,4 @@ while True:
             save()
             time.sleep(3)
     except Exception as e:
-        vk.method("messages.send", {"domain": 'holeur', "message":'err:',e, "random_id": random.randint(100, 2147483647)})
+        vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
