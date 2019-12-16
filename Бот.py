@@ -487,14 +487,14 @@ def getnames():
 
 def delerr(): 
     ids = []
-    messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"200"})
+    messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for mes in messages["items"]:
         ids.append(mes["id"])
     for id in ids:
         vk.method("messages.delete",{"message_ids":idss,"delete_for_all":"1","group_id":"181204528"})
 
 def detectcomm():
-    messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"200"})
+    messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for mes in messages["items"]:
         if mes["body"] == "com:del":
             delerr()
