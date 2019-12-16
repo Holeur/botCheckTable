@@ -355,7 +355,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     txt = 'Преподаватель> ' + elem + '\n'
             elif numelem == 6:
                 if day(numday)[numline][6] != day(numday+'old')[numline][6]:
-                    txt = '*Кабинет> ' + elem + + '\n'
+                    txt = '*Кабинет> ' + elem + '\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
             else:
