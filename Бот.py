@@ -438,17 +438,17 @@ def eq(): #сравнение таблиц
             #filewrite(txtall)
     elif flag1 == 0:
         txtin = "Появилось расписание на следуйщую неделю на: "
-        if day1 = day1old:
+        if day1 == day1old:
             txtin += '  Понедельник\n'
-        if day2 = day2old:
+        if day2 == day2old:
             txtin += '  Вторник\n'
-        if day3 = day3old:
+        if day3 == day3old:
             txtin += '  Среду\n'
-        if day4 = day4old:
+        if day4 == day4old:
             txtin += '  Четверг\n'
-        if day5 = day5old:
+        if day5 == day5old:
             txtin += '  Пятницу\n'
-        if day6 = day6old:
+        if day6 == day6old:
             txtin += '  Субботу\n'
         sendmes(txtin)
     else:
