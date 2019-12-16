@@ -182,7 +182,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         file.close()
         print('Сохраненые массивы скопированны в фаил')
     except Exception as e:
-        print(e)
+        print('gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
     global day1old,day2old,day3old,day4old,day5old,day6old
@@ -206,7 +206,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         file.close()
         print('Массивы загружены из файла')
     except Exception as e:
-        print(e)
+        print('loadfile err:',e)
     
 def save(): #перевод основных массивов в память
     global day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
@@ -222,7 +222,7 @@ def save(): #перевод основных массивов в память
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
-        print(e)
+        print('save err:',e)
 
 def update(): #открытие страницы
     browser.refresh()
@@ -395,7 +395,7 @@ def sendmes(text): #Скидывание оповещений нескольки
             else:
                 vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
         except Exception as e:
-            print(e)
+            print('sendmes err:',e)
             
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
@@ -485,19 +485,27 @@ def getnames():
         number += 1
     print(names)
 
-def debug(): 
-    messages = vk.method("messages.search",{"q":"+info","peer_id":"125524519","group_id":"181204528"})
-    id = messages["items"][0]["id"]
-    vk.method("messages.send", {"peer": id, "message":'Понял', "random_id": random.randint(100, 2147483647)})
-    mesid = messages["items"][0]["last_message"]["from_id"]
-    vk.method("messages.markAsRead", {"message_ids": mesid, "peer_id":id, "group_id": "181204528"})
+def delerr(): 
+    ids = []
+    messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"200"})
+    for mes in messages["items"]:
+        ids.append(mes["id"])
+    for id in ids:
+        vk.method("messages.delete",{"message_ids":idss,"delete_for_all":"1","group_id":"181204528"})
+
+def detectcomm():
+    messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"200"})
+    for mes in messages["items"]:
+        if mes["body"] == "com:del":
+            delerr()
+            vk.method("messages.delete",{"message_ids":mes["id"],"delete_for_all":"1","group_id":"181204528"})
     
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
-        #debug()
+        detectcomm()
         getnames()
         update()
         checkupt()
@@ -509,4 +517,4 @@ while True:
             save()
             time.sleep(3)
     except Exception as e:
-        vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
+        vk.method("messages.send", {"domain": 'holeur', "message":'err:',e, "random_id": random.randint(100, 2147483647)})
