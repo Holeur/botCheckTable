@@ -485,7 +485,7 @@ def getnames():
         number += 1
     print(names)
 
-def delerr(): 
+def delerr():
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for mes in messages["items"]:
@@ -496,16 +496,16 @@ def delerr():
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for mes in messages["items"]:
-        if mes["body"] == "com:del":
+        if mes.body == "com:del":
             delerr()
             vk.method("messages.delete",{"message_ids":mes["id"],"delete_for_all":"1","group_id":"181204528"})
-    
+
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
-        detectcomm()
+        #detectcomm()
         getnames()
         update()
         checkupt()
