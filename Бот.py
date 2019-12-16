@@ -321,27 +321,27 @@ def writetxtall(numday): #Алгоритм создания сообщения
         for elem in line:
             if numelem == 0:
                 if day(numday)[numline][0] != day(numday+'old')[numline][0]:
-                    txt = '*Пара> ' + elem + ' (Было>' + str(day(numday+'old')[numline][0]) + ')\n'
+                    txt = '*Пара> ' + elem + '\n'
                 else:
                     txt = 'Пара> ' + elem + '\n'
             elif numelem == 1:
                 if day(numday)[numline][1] != day(numday+'old')[numline][1]:
-                    txt = '*Время> ' + elem + ' (Было>' + str(day(numday+'old')[numline][1]) + ')\n'
+                    txt = '*Время> ' + elem + '\n'
                 else:
                     txt = 'Время> ' + elem + '\n'
             elif numelem == 2:
                 if day(numday)[numline][2] != day(numday+'old')[numline][2]:
-                    txt = '*Предмет> ' + elem + ' (Было>' + str(day(numday+'old')[numline][2]) + ')\n'
+                    txt = '*Предмет> ' + elem + '\n'
                 else:
                     txt = 'Предмет> ' + elem + '\n'
             elif numelem == 3:
                 if day(numday)[numline][3] != day(numday+'old')[numline][3]:
-                    txt = '*Подгруппа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][3]) + ')\n'
+                    txt = '*Подгруппа> ' + elem + '\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
             elif numelem == 4:
                 # if day(numday)[numline][4] != day(numday+'old')[numline][4]:
-                    # txt = '*Группа> ' + elem + ' (Было>' + str(day(numday+'old')[numline][4]) + ')\n'
+                    # txt = '*Группа> ' + elem + '\n'
                 # else:
                     # txt = 'Группа> ' + elem + '\n'
                 if elem == '':
@@ -350,12 +350,12 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     print(elem+'пропускаем')
             elif numelem == 5:
                 if day(numday)[numline][5] != day(numday+'old')[numline][5]:
-                    txt = '*Преподаватель> ' + elem + ' (Было>' + str(day(numday+'old')[numline][5]) + ')\n'
+                    txt = '*Преподаватель> ' + elem + '\n'
                 else:
                     txt = 'Преподаватель> ' + elem + '\n'
             elif numelem == 6:
                 if day(numday)[numline][6] != day(numday+'old')[numline][6]:
-                    txt = '*Кабинет> ' + elem + ' (Было>' + str(day(numday+'old')[numline][6]) + ')\n'
+                    txt = '*Кабинет> ' + elem + '\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
             else:
@@ -438,17 +438,17 @@ def eq(): #сравнение таблиц
             #filewrite(txtall)
     elif flag1 == 0:
         txtin = "Появилось расписание на следуйщую неделю на: "
-        if day1 != day1old:
+        if day1 == day1old:
             txtin += '  Понедельник\n'
-        if day2 != day2old:
+        if day2 == day2old:
             txtin += '  Вторник\n'
-        if day3 != day3old:
+        if day3 == day3old:
             txtin += '  Среду\n'
-        if day4 != day4old:
+        if day4 == day4old:
             txtin += '  Четверг\n'
-        if day5 != day5old:
+        if day5 == day5old:
             txtin += '  Пятницу\n'
-        if day6 != day6old:
+        if day6 == day6old:
             txtin += '  Субботу\n'
         sendmes(txtin)
     else:
@@ -484,12 +484,20 @@ def getnames():
                     print('Добавлен в массив',name)
         number += 1
     print(names)
-        
+
+def debug(): 
+    messages = vk.method("messages.search",{"q":"+info","peer_id":"125524519","group_id":"181204528"})
+    id = messages["items"][0]["id"]
+    vk.method("messages.send", {"peer": id, "message":'Понял', "random_id": random.randint(100, 2147483647)})
+    mesid = messages["items"][0]["last_message"]["from_id"]
+    vk.method("messages.markAsRead", {"message_ids": mesid, "peer_id":id, "group_id": "181204528"})
+    
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
+        #debug()
         getnames()
         update()
         checkupt()
