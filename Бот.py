@@ -224,11 +224,11 @@ def save(): #перевод основных массивов в память
     except Exception as e:
         print('save err:',e)
 
-def update(): #открытие страницы
+def update(group): #открытие страницы
     browser.refresh()
     time.sleep(3)
     try:
-        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value(group)
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
@@ -488,26 +488,33 @@ def getnames():
 def delerr():
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
-    for mes in messages["items"]:
-        ids.append(mes["id"])
+    for num in range(messages["count"]):
+        ids.append(messages["items"][num]["id"])
     for id in ids:
-        vk.method("messages.delete",{"message_ids":idss,"delete_for_all":"1","group_id":"181204528"})
-
+        try:
+            vk.method("messages.delete",{"message_ids":idss,"delete_for_all":"1","group_id":"181204528"})
+        except Exception as e:
+            print("Error",id,"can not be deleted:",e)
+            
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
-    for mes in messages["items"]:
-        if mes.body == "com:del":
+    for num in range(messages["count"]):
+        if messages["items"][num]["body"] == "com:del":
             delerr()
-            vk.method("messages.delete",{"message_ids":mes["id"],"delete_for_all":"1","group_id":"181204528"})
+            try:
+                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"1","group_id":"181204528"})
+            except Exception as e:
+                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"0","group_id":"181204528"})
+                print("Command can not be deleted for 1")
 
 zeromas(0)
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
-        #detectcomm()
+        detectcomm()
         getnames()
-        update()
+        update("81")
         checkupt()
         if checkflag:
             time.sleep(4)
