@@ -232,7 +232,7 @@ def update(group): #открытие страницы
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
-        update()
+        update(group)
     
 def day(nameday): #Выбор массива по названию
     if nameday == 'day1':
@@ -495,6 +495,7 @@ def delerr():
             vk.method("messages.delete",{"message_ids":id,"delete_for_all":"1","group_id":"181204528"})
         except Exception as e:
             print("Error",id,"can not be deleted:",e)
+            vk.method("messages.delete",{"message_ids":id,"delete_for_all":"0","group_id":"181204528"})
             
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
