@@ -489,7 +489,7 @@ def delerr():
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for num in range(messages["count"]):
-        ids.append(messages["items"][num]["id"])
+        ids.append(messages["items"][num-1]["id"])
     for id in ids:
         try:
             vk.method("messages.delete",{"message_ids":idss,"delete_for_all":"1","group_id":"181204528"})
@@ -499,15 +499,22 @@ def delerr():
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for num in range(messages["count"]):
-        if messages["items"][num]["text"] == "com:del":
+        if messages["items"][num-1]["text"] == "com:del":
             delerr()
             try:
-                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"1","group_id":"181204528"})
+                vk.method("messages.delete",{"message_ids":messages["items"][num-1]["id"],"delete_for_all":"1","group_id":"181204528"})
             except Exception as e:
-                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"0","group_id":"181204528"})
+                vk.method("messages.delete",{"message_ids":messages["items"][num-1]["id"],"delete_for_all":"0","group_id":"181204528"})
                 print("Command can not be deleted for 1")
 
-zeromas(0)
+#/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[12]/div[2]/ul/li[42]
+#/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[12]/div[2]/ul/li[43]
+
+#/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[16]/div[2]/ul/li[4]
+#/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[17]/div[2]/ul/li
+#/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[18]/div[2]/ul/li
+
+zeromas(0) #Для того, чтобы обьявить массивы
 #loadfile('bd.txt')
 flag1 = 1
 while True:
