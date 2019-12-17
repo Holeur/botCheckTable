@@ -499,7 +499,7 @@ def delerr():
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for num in range(messages["count"]):
-        if messages["items"][num]["body"] == "com:del":
+        if messages["items"][num]["text"] == "com:del":
             delerr()
             try:
                 vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"1","group_id":"181204528"})
