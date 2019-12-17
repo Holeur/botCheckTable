@@ -488,8 +488,8 @@ def getnames():
 def delerr():
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
-    for num in range(messages["count"]):
-        ids.append(messages["items"][num]["id"])
+    for message in messages["items"]:
+        ids.append(message["id"])
     for id in ids:
         try:
             vk.method("messages.delete",{"message_ids":id,"delete_for_all":"1","group_id":"181204528"})
@@ -498,13 +498,13 @@ def delerr():
             
 def detectcomm():
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
-    for num in range(messages["count"]):
-        if messages["items"][num]["text"] == "com:del":
+    for message in messages["items"]:
+        if message["text"] == "com:del":
             delerr()
             try:
-                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"1","group_id":"181204528"})
+                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"1","group_id":"181204528"})
             except Exception as e:
-                vk.method("messages.delete",{"message_ids":messages["items"][num]["id"],"delete_for_all":"0","group_id":"181204528"})
+                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
                 print("Command can not be deleted for 1")
 
 #//*[@id="content"]/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[19]/div[2]/ul/li
