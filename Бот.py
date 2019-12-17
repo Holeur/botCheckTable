@@ -485,7 +485,7 @@ def getnames():
         number += 1
     print(names)
 
-def delerr():
+def delerr(): #Функция удаления всех ошибок
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
@@ -497,20 +497,26 @@ def delerr():
             print("Error",id,"can not be deleted:",e)
             vk.method("messages.delete",{"message_ids":id,"delete_for_all":"0","group_id":"181204528"})
             
-def detectcomm():
+def checklist(): #Список участников в боте
+    global names
+    txtall = ''
+    for name in names:
+        txt = str(name),':',str(vk.method("users.get",{"user_ids":name})[0]["first_name"]),str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+        txtall += txt
+    vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+    
+def detectcomm(): #Обработка комманд
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
         if message["text"] == "com:del":
             delerr()
-            try:
-                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"1","group_id":"181204528"})
-            except Exception as e:
-                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
-                print("Command can not be deleted for 1")
-
-#//*[@id="content"]/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[19]/div[2]/ul/li
-#//*[@id="content"]/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[21]/div[2]/ul/li
-#//*[@id="content"]/div/div[1]/div[3]/div[2]/div[3]/div/div/div[2]/div/div[1]/div[23]/div[2]/ul/li
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        elif message["text"] == "com:list":
+            checklist()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        else:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
 
 zeromas(0) #Для того, чтобы обьявить массивы
 #loadfile('bd.txt')
