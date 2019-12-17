@@ -501,7 +501,7 @@ def checklist(): #Список участников в боте
     global names
     txtall = ''
     for name in names:
-        txt = str(name),':',str(vk.method("users.get",{"user_ids":name})[0]["first_name"]),str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+        txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
     
