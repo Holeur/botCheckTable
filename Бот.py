@@ -302,60 +302,63 @@ def sendmes(text): #Скидывание оповещений нескольки
             
 def eq(): #сравнение таблиц
     global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
-    if date == olddate:
-        if day1 != globaldayold[0]: #day1old
-            print('Понедельник изменили')
-            writetxtall('day1')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day2 != globaldayold[1]:
-            print('Вторник изменили')
-            writetxtall('day2')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day3 != globaldayold[2]:
-            print('Среду изменили')
-            writetxtall('day3')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day4 != globaldayold[3]:
-            print('Четверг изменили')
-            writetxtall('day4')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day5 != globaldayold[4]:
-            print('Пятницу изменили')
-            writetxtall('day5')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day6 != globaldayold[5]:
-            print('Субботу изменили')
-            writetxtall('day6')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-    elif flag1 == 0:
-        txtin = "Появилось расписание на следуйщую неделю на: "
-        if day1 == globaldayold[0]: #day1old
-            txtin += '  Понедельник\n'
-        if day2 == globaldayold[1]:
-            txtin += '  Вторник\n'
-        if day3 == globaldayold[2]:
-            txtin += '  Среду\n'
-        if day4 == globaldayold[3]:
-            txtin += '  Четверг\n'
-        if day5 == globaldayold[4]:
-            txtin += '  Пятницу\n'
-        if day6 == globaldayold[5]:
-            txtin += '  Субботу\n'
-        sendmes(txtin)
-    else:
-        vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
+    try:
+        if date == olddate:
+            if day1 != globaldayold[0]: #day1old
+                print('Понедельник изменили')
+                writetxtall('day1')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if day2 != globaldayold[1]:
+                print('Вторник изменили')
+                writetxtall('day2')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if day3 != globaldayold[2]:
+                print('Среду изменили')
+                writetxtall('day3')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if day4 != globaldayold[3]:
+                print('Четверг изменили')
+                writetxtall('day4')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if day5 != globaldayold[4]:
+                print('Пятницу изменили')
+                writetxtall('day5')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if day6 != globaldayold[5]:
+                print('Субботу изменили')
+                writetxtall('day6')
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+        elif flag1 == 0:
+            txtin = "Появилось расписание на следуйщую неделю на: "
+            if day1 == globaldayold[0]: #day1old
+                txtin += '  Понедельник\n'
+            if day2 == globaldayold[1]:
+                txtin += '  Вторник\n'
+            if day3 == globaldayold[2]:
+                txtin += '  Среду\n'
+            if day4 == globaldayold[3]:
+                txtin += '  Четверг\n'
+            if day5 == globaldayold[4]:
+                txtin += '  Пятницу\n'
+            if day6 == globaldayold[5]:
+                txtin += '  Субботу\n'
+            sendmes(txtin)
+        else:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
+    except Exception as e:
+        print('eq err:',e)
         
 def checkupt():
     global checkflag,tabledate
