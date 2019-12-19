@@ -174,7 +174,6 @@ def zap(nday): #Заполнение выбранного массива
                 globalday[nday-1].append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
-            del globalday[nday-1][line2-2]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date,globalday
@@ -208,6 +207,8 @@ def taketabl(): #Заполнение всех основных массивов
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
+        except Exception as e:
+            print('taketabl err:',e)
     for num in range(1,7):
         print(globalday) #Вывод в консоль собранных массивов
 
@@ -424,6 +425,8 @@ def detectcomm(): #Обработка комманд
         elif message["text"] == "com:list":
             checklist()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:dickpick":
+            
         elif message["text"] == "com:erroff":
             if sendingerrflag:
                 sendingerrflag = 0
