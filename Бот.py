@@ -12,16 +12,22 @@ def zeromas(x):
     global day1,day2,day3,day4,day5,day6,globalday
     if x==1:
         day1 = [['','','','','','','']]
-    elif x==2:        
+        globalday[0] = [['','','','','','','']]
+    elif x==2:
         day2 = [['','','','','','','']]
-    elif x==3:   
+        globalday[1] = [['','','','','','','']]
+    elif x==3:
         day3 = [['','','','','','','']]
-    elif x==4:   
+        globalday[2] = [['','','','','','','']]
+    elif x==4:
         day4 = [['','','','','','','']]
-    elif x==5:        
+        globalday[3] = [['','','','','','','']]
+    elif x==5:
         day5 = [['','','','','','','']]
-    elif x==6:   
+        globalday[4] = [['','','','','','','']]
+    elif x==6:
         day6 = [['','','','','','','']]
+        globalday[5] = [['','','','','','','']]
     else:
         day1 = [['','','','','','','']]
         day2 = [['','','','','','','']]
@@ -29,8 +35,7 @@ def zeromas(x):
         day4 = [['','','','','','','']]
         day5 = [['','','','','','','']]
         day6 = [['','','','','','','']]
-
-    globalday = [[['','','','','','','']]]
+        globalday = [[['','','','','','','']]]
 
 day1old = []
 day2old = []
@@ -77,14 +82,14 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         print('gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
-    global globaldayold,globalday,day1old,day2old,day3old,day4old,day5old,day6old
+    global globaldayold,globalday
     try:
         file = open(filename,'r')
         numline = 0
         numelem = 0
         num = 1
         for line in file:
-            day('day'+str(num)+'old')[numline][numelem] = line[0:len(line)-1]
+            globalday[num-1][numline][numelem] = line[0:len(line)-1]
             numelem += 1
             if numelem >= 7:
                 numelem = 0
@@ -101,7 +106,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         print('loadfile err:',e)
         
 def save(): #перевод основных массивов в память
-    global globaldayold,globalday,day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
+    global globaldayold,globalday,olddate,date
     try:
         for num in range(6): #day1old = day1...
             try:
@@ -297,7 +302,7 @@ def sendmes(text): #Скидывание оповещений нескольки
             print('sendmes err:',e)
             
 def eq(): #сравнение таблиц
-    global sendingerrflag,globaldayold,globalday,day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
+    global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
             if globalday[0] != globaldayold[0]: #day1old
