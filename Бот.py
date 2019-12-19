@@ -30,13 +30,17 @@ def zeromas(x):
         day5 = [['','','','','','','']]
         day6 = [['','','','','','','']]
 
+globalday = [[['','','','','','','']]]
+
 day1old = []
 day2old = []
 day3old = []
 day4old = []
 day5old = []
 day6old = []
-        
+
+globaldayold = [[['','','','','','','']]]
+
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
 #/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
 #/html/body/div/div[2]/table/tbody/tr[3]/td[1] Первый элемент таблицы
@@ -73,7 +77,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         print('gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
-    global day1old,day2old,day3old,day4old,day5old,day6old
+    global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old
     try:
         file = open(filename,'r')
         numline = 0
@@ -97,14 +101,20 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         print('loadfile err:',e)
     
 def save(): #перевод основных массивов в память
-    global day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
+    global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
     try:
-        day1old = day1
-        day2old = day2
-        day3old = day3
-        day4old = day4
-        day5old = day5
-        day6old = day6
+        # day1old = day1
+        # day2old = day2
+        # day3old = day3
+        # day4old = day4
+        # day5old = day5
+        # day6old = day6
+        for num in range(1,6):
+            try:
+                globaldayold[num] = day('day'+str(num))
+            except IndexError:
+                globaldayold[num].append([])
+                globaldayold[num] = day('day'+str(num))
         olddate = date
         zeromas(0)
         print('Массивы сохранены')
@@ -210,27 +220,27 @@ def writetxtall(numday): #Алгоритм создания сообщения
     for line in day(numday):
         for elem in line:
             if numelem == 0:
-                if day(numday)[numline][0] != day(numday+'old')[numline][0]:
+                if day(numday)[numline][0] != globaldayold[numday-1][numline][0]: #day(numday+'old')[numline][0]:
                     txt = '*Пара> ' + elem + '\n'
                 else:
                     txt = 'Пара> ' + elem + '\n'
             elif numelem == 1:
-                if day(numday)[numline][1] != day(numday+'old')[numline][1]:
+                if day(numday)[numline][1] != globaldayold[numday-1][numline][1]:
                     txt = '*Время> ' + elem + '\n'
                 else:
                     txt = 'Время> ' + elem + '\n'
             elif numelem == 2:
-                if day(numday)[numline][2] != day(numday+'old')[numline][2]:
+                if day(numday)[numline][2] != globaldayold[numday-1][numline][2]:
                     txt = '*Предмет> ' + elem + '\n'
                 else:
                     txt = 'Предмет> ' + elem + '\n'
             elif numelem == 3:
-                if day(numday)[numline][3] != day(numday+'old')[numline][3]:
+                if day(numday)[numline][3] != globaldayold[numday-1][numline][3]:
                     txt = '*Подгруппа> ' + elem + '\n'
                 else:
                     txt = 'Подгруппа> ' + elem + '\n'
             elif numelem == 4:
-                # if day(numday)[numline][4] != day(numday+'old')[numline][4]:
+                # if day(numday)[numline][4] != globaldayold[numday-1][numline][4]:
                     # txt = '*Группа> ' + elem + '\n'
                 # else:
                     # txt = 'Группа> ' + elem + '\n'
@@ -239,12 +249,12 @@ def writetxtall(numday): #Алгоритм создания сообщения
                 else:
                     print(elem+'пропускаем')
             elif numelem == 5:
-                if day(numday)[numline][5] != day(numday+'old')[numline][5]:
+                if day(numday)[numline][5] != globaldayold[numday-1][numline][5]:
                     txt = '*Преподаватель> ' + elem + '\n'
                 else:
                     txt = 'Преподаватель> ' + elem + '\n'
             elif numelem == 6:
-                if day(numday)[numline][6] != day(numday+'old')[numline][6]:
+                if day(numday)[numline][6] != globaldayold[numday-1][numline][6]:
                     txt = '*Кабинет> ' + elem + '\n'
                 else:
                     txt = 'Кабинет> ' + elem + '\n'
@@ -288,39 +298,39 @@ def sendmes(text): #Скидывание оповещений нескольки
             print('sendmes err:',e)
             
 def eq(): #сравнение таблиц
-    global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
+    global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     if date == olddate:
-        if day1 != day1old:
+        if day1 != globaldayold[0]: #day1old
             print('Понедельник изменили')
             writetxtall('day1')
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-        if day2 != day2old:
+        if day2 != globaldayold[1]:
             print('Вторник изменили')
             writetxtall('day2')
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-        if day3 != day3old:
+        if day3 != globaldayold[2]:
             print('Среду изменили')
             writetxtall('day3')
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-        if day4 != day4old:
+        if day4 != globaldayold[3]:
             print('Четверг изменили')
             writetxtall('day4')
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-        if day5 != day5old:
+        if day5 != globaldayold[4]:
             print('Пятницу изменили')
             writetxtall('day5')
             if flag1 == 0:
                 sendmes(txtall)
             #filewrite(txtall)
-        if day6 != day6old:
+        if day6 != globaldayold[5]:
             print('Субботу изменили')
             writetxtall('day6')
             if flag1 == 0:
@@ -328,17 +338,17 @@ def eq(): #сравнение таблиц
             #filewrite(txtall)
     elif flag1 == 0:
         txtin = "Появилось расписание на следуйщую неделю на: "
-        if day1 == day1old:
+        if day1 == globaldayold[0]: #day1old
             txtin += '  Понедельник\n'
-        if day2 == day2old:
+        if day2 == globaldayold[1]:
             txtin += '  Вторник\n'
-        if day3 == day3old:
+        if day3 == globaldayold[2]:
             txtin += '  Среду\n'
-        if day4 == day4old:
+        if day4 == globaldayold[3]:
             txtin += '  Четверг\n'
-        if day5 == day5old:
+        if day5 == globaldayold[4]:
             txtin += '  Пятницу\n'
-        if day6 == day6old:
+        if day6 == globaldayold[5]:
             txtin += '  Субботу\n'
         sendmes(txtin)
     else:
