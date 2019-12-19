@@ -37,13 +37,6 @@ def zeromas(x):
         day6 = [['','','','','','','']]
         globalday = [[['','','','','','','']]]
 
-day1old = []
-day2old = []
-day3old = []
-day4old = []
-day5old = []
-day6old = []
-
 globaldayold = [[['','','','','','','']]]
 
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
@@ -165,7 +158,11 @@ def zap(nday): #Заполнение выбранного массива
     elem = 1
     while flag1:
         try:
-            globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            try:
+                globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            except IndexError:
+                globalday.append([])
+                globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
             #print(globalday[nday-1][line2-2][elem-1])
             elem += 1
             if elem > 7:
