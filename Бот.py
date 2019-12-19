@@ -113,7 +113,7 @@ def save(): #перевод основных массивов в память
             try:
                 globaldayold[num-1] = day('day'+str(num))
             except IndexError:
-                globaldayold[num-1].append([])
+                globaldayold.append([])
                 globaldayold[num-1] = day('day'+str(num))
         olddate = date
         zeromas(0)
