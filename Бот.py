@@ -8,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
+groups = ['81']
+
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6
     if x==1:
@@ -228,7 +230,7 @@ def update(group): #открытие страницы
     browser.refresh()
     time.sleep(3)
     try:
-        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value(group)
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(group)
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
@@ -525,7 +527,7 @@ while True:
     try:
         detectcomm()
         getnames()
-        update("81")
+        update("17СПИ3")
         checkupt()
         if checkflag:
             time.sleep(4)
