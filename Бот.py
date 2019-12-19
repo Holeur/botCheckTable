@@ -51,6 +51,7 @@ names = ['holeur']
 groups = ['17СПИ3']
 date = ''
 olddate = ''
+sendingerrflag = 1
 
 def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется
     try:
@@ -163,7 +164,7 @@ def zap(nday): #Заполнение выбранного массива
                 day(nday).append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
-            day(nday)[line2-2].remove()
+            del day(nday)[line2-2]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date
@@ -393,7 +394,7 @@ def checklist(): #Список участников в боте
         txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
-    
+
 def detectcomm(): #Обработка комманд
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
@@ -403,6 +404,13 @@ def detectcomm(): #Обработка комманд
         elif message["text"] == "com:list":
             checklist()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:erroff":
+            if sendingerrflag:
+                sendingerrflag = 0
+                vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок выключен.', "random_id": random.randint(100, 2147483647)})
+            else:
+                sendingerrflag = 1
+                vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок включен.', "random_id": random.randint(100, 2147483647)})
         else:
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
@@ -426,4 +434,5 @@ while True:
                 save()
             index += 1
     except Exception as e:
-        vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
+        if sendingerrflag:
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
