@@ -172,7 +172,7 @@ def zap(nday): #Заполнение выбранного массива
             del globalday[nday-1][line2-2]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
-    global line,date
+    global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
     for line in range(1,36):
         try:
@@ -207,6 +207,7 @@ def taketabl(): #Заполнение всех основных массивов
         print(globalday) #Вывод в консоль собранных массивов
 
 def writetxtall(numday): #Алгоритм создания сообщения
+    global globalday
     try:
         global txtall,flag1
         txt = ''
