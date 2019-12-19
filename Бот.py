@@ -109,7 +109,7 @@ def save(): #перевод основных массивов в память
         # day4old = day4
         # day5old = day5
         # day6old = day6
-        for num in range(1,6):
+        for num in range(1,7):
             try:
                 globaldayold[num-1] = day('day'+str(num))
             except IndexError:
