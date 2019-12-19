@@ -111,10 +111,10 @@ def save(): #перевод основных массивов в память
         # day6old = day6
         for num in range(1,6):
             try:
-                globaldayold[num] = day('day'+str(num))
+                globaldayold[num-1] = day('day'+str(num))
             except IndexError:
-                globaldayold[num].append([])
-                globaldayold[num] = day('day'+str(num))
+                globaldayold[num-1].append([])
+                globaldayold[num-1] = day('day'+str(num))
         olddate = date
         zeromas(0)
         print('Массивы сохранены')
