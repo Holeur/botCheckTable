@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
 def zeromas(x):
-    global day1,day2,day3,day4,day5,day6
+    global day1,day2,day3,day4,day5,day6,globalday
     if x==1:
         day1 = [['','','','','','','']]
     elif x==2:        
