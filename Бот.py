@@ -99,7 +99,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         print('Массивы загружены из файла')
     except Exception as e:
         print('loadfile err:',e)
-    
+        
 def save(): #перевод основных массивов в память
     global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
     try:
@@ -115,6 +115,7 @@ def save(): #перевод основных массивов в память
             except IndexError:
                 globaldayold.append([])
                 globaldayold[num-1] = day('day'+str(num))
+        print(globaldayold)
         olddate = date
         zeromas(0)
         print('Массивы сохранены')
@@ -301,7 +302,7 @@ def sendmes(text): #Скидывание оповещений нескольки
             print('sendmes err:',e)
             
 def eq(): #сравнение таблиц
-    global globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
+    global sendingerrflag,globaldayold,day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
     try:
         if date == olddate:
             if day1 != globaldayold[0]: #day1old
@@ -359,6 +360,8 @@ def eq(): #сравнение таблиц
             vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
         print('eq err:',e)
+        if sendingerrflag:
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
 def checkupt():
     global checkflag,tabledate
