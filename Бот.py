@@ -425,8 +425,6 @@ def detectcomm(): #Обработка комманд
         elif message["text"] == "com:list":
             checklist()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
-        elif message["text"] == "com:dickpick":
-            
         elif message["text"] == "com:erroff":
             if sendingerrflag:
                 sendingerrflag = 0
