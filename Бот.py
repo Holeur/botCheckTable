@@ -212,75 +212,78 @@ def taketabl(): #Заполнение всех основных массивов
         print(day('day'+str(num))) #Вывод в консоль собранных массивов
 
 def writetxtall(numday): #Алгоритм создания сообщения
-    global txtall,flag1
-    txt = ''
-    txtall = ''
-    numelem = 0
-    numline = 0
-    for line in day(numday):
-        for elem in line:
-            if numelem == 0:
-                if day(numday)[numline][0] != globaldayold[numday-1][numline][0]: #day(numday+'old')[numline][0]:
-                    txt = '*Пара> ' + elem + '\n'
-                else:
-                    txt = 'Пара> ' + elem + '\n'
-            elif numelem == 1:
-                if day(numday)[numline][1] != globaldayold[numday-1][numline][1]:
-                    txt = '*Время> ' + elem + '\n'
-                else:
-                    txt = 'Время> ' + elem + '\n'
-            elif numelem == 2:
-                if day(numday)[numline][2] != globaldayold[numday-1][numline][2]:
-                    txt = '*Предмет> ' + elem + '\n'
-                else:
-                    txt = 'Предмет> ' + elem + '\n'
-            elif numelem == 3:
-                if day(numday)[numline][3] != globaldayold[numday-1][numline][3]:
-                    txt = '*Подгруппа> ' + elem + '\n'
-                else:
-                    txt = 'Подгруппа> ' + elem + '\n'
-            elif numelem == 4:
-                # if day(numday)[numline][4] != globaldayold[numday-1][numline][4]:
-                    # txt = '*Группа> ' + elem + '\n'
-                # else:
-                    # txt = 'Группа> ' + elem + '\n'
-                if elem == '':
-                    print('Пропускаем пустоту')
-                else:
-                    print(elem+'пропускаем')
-            elif numelem == 5:
-                if day(numday)[numline][5] != globaldayold[numday-1][numline][5]:
-                    txt = '*Преподаватель> ' + elem + '\n'
-                else:
-                    txt = 'Преподаватель> ' + elem + '\n'
-            elif numelem == 6:
-                if day(numday)[numline][6] != globaldayold[numday-1][numline][6]:
-                    txt = '*Кабинет> ' + elem + '\n'
-                else:
-                    txt = 'Кабинет> ' + elem + '\n'
-            else:
-                print('Что-то пропущено...')
-            txtall += txt
-            txt = ''
-            numelem += 1
-        numline += 1
+    try:
+        global txtall,flag1
+        txt = ''
+        txtall = ''
         numelem = 0
-        txtall += '---------------------------\n'
-    if numday == 'day1':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day2':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day3':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day4':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day5':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day6':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    if flag1:
-        txtall = '{Первый цикл}\n' + txtall
-
+        numline = 0
+        for line in day(numday):
+            for elem in line:
+                if numelem == 0:
+                    if day(numday)[numline][0] != globaldayold[numday-1][numline][0]: #day(numday+'old')[numline][0]:
+                        txt = '*Пара> ' + elem + '\n'
+                    else:
+                        txt = 'Пара> ' + elem + '\n'
+                elif numelem == 1:
+                    if day(numday)[numline][1] != globaldayold[numday-1][numline][1]:
+                        txt = '*Время> ' + elem + '\n'
+                    else:
+                        txt = 'Время> ' + elem + '\n'
+                elif numelem == 2:
+                    if day(numday)[numline][2] != globaldayold[numday-1][numline][2]:
+                        txt = '*Предмет> ' + elem + '\n'
+                    else:
+                        txt = 'Предмет> ' + elem + '\n'
+                elif numelem == 3:
+                    if day(numday)[numline][3] != globaldayold[numday-1][numline][3]:
+                        txt = '*Подгруппа> ' + elem + '\n'
+                    else:
+                        txt = 'Подгруппа> ' + elem + '\n'
+                elif numelem == 4:
+                    # if day(numday)[numline][4] != globaldayold[numday-1][numline][4]:
+                        # txt = '*Группа> ' + elem + '\n'
+                    # else:
+                        # txt = 'Группа> ' + elem + '\n'
+                    if elem == '':
+                        print('Пропускаем пустоту')
+                    else:
+                        print(elem+'пропускаем')
+                elif numelem == 5:
+                    if day(numday)[numline][5] != globaldayold[numday-1][numline][5]:
+                        txt = '*Преподаватель> ' + elem + '\n'
+                    else:
+                        txt = 'Преподаватель> ' + elem + '\n'
+                elif numelem == 6:
+                    if day(numday)[numline][6] != globaldayold[numday-1][numline][6]:
+                        txt = '*Кабинет> ' + elem + '\n'
+                    else:
+                        txt = 'Кабинет> ' + elem + '\n'
+                else:
+                    print('Что-то пропущено...')
+                txtall += txt
+                txt = ''
+                numelem += 1
+            numline += 1
+            numelem = 0
+            txtall += '---------------------------\n'
+        if numday == 'day1':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 'day2':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 'day3':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 'day4':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 'day5':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 'day6':
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        if flag1:
+            txtall = '{Первый цикл}\n' + txtall
+    except Exception as e:
+        print('writetextall err:',e)
+    
 def filewrite(text): #Запись полученного текста в фаил
     file = open('logs.txt','a')
     file.write(text)
