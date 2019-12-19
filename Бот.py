@@ -396,6 +396,7 @@ def checklist(): #Список участников в боте
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
 def detectcomm(): #Обработка комманд
+    global sendingerrflag
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
         if message["text"] == "com:del":
@@ -407,9 +408,11 @@ def detectcomm(): #Обработка комманд
         elif message["text"] == "com:erroff":
             if sendingerrflag:
                 sendingerrflag = 0
+                print('errsend:',sendingerrflag)
                 vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок выключен.', "random_id": random.randint(100, 2147483647)})
             else:
                 sendingerrflag = 1
+                print('errsend:',sendingerrflag)
                 vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок включен.', "random_id": random.randint(100, 2147483647)})
         else:
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
