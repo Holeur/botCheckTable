@@ -163,7 +163,7 @@ def zap(nday): #Заполнение выбранного массива
                 day(nday).append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
-            day(nday)[line2].remove()
+            day(nday)[line2-2].remove()
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date
