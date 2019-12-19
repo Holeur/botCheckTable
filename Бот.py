@@ -182,7 +182,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         file.close()
         print('Сохраненые массивы скопированны в фаил')
     except Exception as e:
-        print(e)
+        print('gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
     global day1old,day2old,day3old,day4old,day5old,day6old
@@ -206,7 +206,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         file.close()
         print('Массивы загружены из файла')
     except Exception as e:
-        print(e)
+        print('loadfile err:',e)
     
 def save(): #перевод основных массивов в память
     global day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
@@ -222,17 +222,17 @@ def save(): #перевод основных массивов в память
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
-        print(e)
+        print('save err:',e)
 
-def update(): #открытие страницы
+def update(group): #открытие страницы
     browser.refresh()
     time.sleep(3)
     try:
-        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value('81')
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value(group)
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
-        update()
+        update(group)
     
 def day(nameday): #Выбор массива по названию
     if nameday == 'day1':
@@ -395,7 +395,7 @@ def sendmes(text): #Скидывание оповещений нескольки
             else:
                 vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
         except Exception as e:
-            print(e)
+            print('sendmes err:',e)
             
 def eq(): #сравнение таблиц
     global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
@@ -485,21 +485,47 @@ def getnames():
         number += 1
     print(names)
 
-def debug(): 
-    messages = vk.method("messages.search",{"q":"+info","peer_id":"125524519","group_id":"181204528"})
-    id = messages["items"][0]["id"]
-    vk.method("messages.send", {"peer": id, "message":'Понял', "random_id": random.randint(100, 2147483647)})
-    mesid = messages["items"][0]["last_message"]["from_id"]
-    vk.method("messages.markAsRead", {"message_ids": mesid, "peer_id":id, "group_id": "181204528"})
+def delerr(): #Функция удаления всех ошибок
+    ids = []
+    messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
+    for message in messages["items"]:
+        ids.append(message["id"])
+    for id in ids:
+        try:
+            vk.method("messages.delete",{"message_ids":id,"delete_for_all":"1","group_id":"181204528"})
+        except Exception as e:
+            print("Error",id,"can not be deleted:",e)
+            vk.method("messages.delete",{"message_ids":id,"delete_for_all":"0","group_id":"181204528"})
+            
+def checklist(): #Список участников в боте
+    global names
+    txtall = ''
+    for name in names:
+        txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+        txtall += txt
+    vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
     
-zeromas(0)
+def detectcomm(): #Обработка комманд
+    messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
+    for message in messages["items"]:
+        if message["text"] == "com:del":
+            delerr()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        elif message["text"] == "com:list":
+            checklist()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        else:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+
+zeromas(0) #Для того, чтобы обьявить массивы
 #loadfile('bd.txt')
 flag1 = 1
 while True:
     try:
-        #debug()
+        detectcomm()
         getnames()
-        update()
+        update("81")
         checkupt()
         if checkflag:
             time.sleep(4)
@@ -509,4 +535,4 @@ while True:
             save()
             time.sleep(3)
     except Exception as e:
-        vk.method("messages.send", {"domain": 'holeur', "message":e, "random_id": random.randint(100, 2147483647)})
+        vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
