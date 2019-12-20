@@ -207,7 +207,7 @@ def taketabl(): #Заполнение всех основных массивов
     print(globalday) #Вывод в консоль собранных массивов
 
 def writetxtall(numday): #Алгоритм создания сообщения
-    global globalday
+    global globalday,globaldayold
     try:
         global txtall,flag1
         txt = ''
@@ -244,7 +244,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                     if elem == '':
                         print('Пропускаем пустоту')
                     else:
-                        print(elem+'пропускаем')
+                        print(elem,'пропускаем')
                 elif numelem == 5:
                     if globalday[numday-1][numline][5] != globaldayold[numday-1][numline][5]:
                         txt = '*Преподаватель> ' + elem + '\n'
@@ -287,15 +287,14 @@ def filewrite(text): #Запись полученного текста в фаи
     
 def sendmes(text): #Скидывание оповещений нескольким людям
     global names
-    for groupnum in range(len(names)):
-        for elem in names[groupnum]:
-            try:
-                if isinstance(elem,int):
-                    vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-                else:
-                    vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-            except Exception as e:
-                print('sendmes err:',e)
+    for elem in names[0]:
+        try:
+            if isinstance(elem,int):
+                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+            else:
+                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+        except Exception as e:
+            print('sendmes',elem,'err:',e)
                 
 def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
