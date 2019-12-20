@@ -372,7 +372,6 @@ def getnames():
     for groupnum in range(len(names)):
         oldnames = names[groupnum]
         names[groupnum] = ['holeur']
-        number = 0
         messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
         print(messages["count"])
         for mes in messages["items"]:
@@ -388,7 +387,6 @@ def getnames():
                         names[groupnum].append(name)
                     if name not in oldnames:
                         print('Добавлен в массив имен',name,'В группу',groups[groupnum])
-            number += 1
     print(names)
 
 def getgroups():
@@ -404,8 +402,7 @@ def getgroups():
                 groups.append(group)
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
-        number += 1
-    print(names)
+    print(groups)
     
 def delerr(): #Функция удаления всех ошибок
     ids = []
