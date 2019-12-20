@@ -286,7 +286,7 @@ def filewrite(text): #Запись полученного текста в фаи
     file.close()
     
 def sendmes(text): #Скидывание оповещений нескольким людям
-    global names,kastilflag
+    global names
     for groupnum in range(len(names)):
         for elem in names[groupnum]:
             try:
@@ -420,7 +420,7 @@ def checklist(): #Список участников в боте
     global names
     txtall = ''
     for num in range(len(names)):
-        txtall += 'Группа: '+str(groups[num])+'\n'
+        txtall += '------------------------'+'\n'+'Группа: '+str(groups[num])+'\n'
         for name in names[num]:
             txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
             txtall += txt
@@ -479,7 +479,7 @@ while True:
     try:
         detectcomm()
         getnames()
-        getgroups()
+        #getgroups()
         index = 0
         for group in groups:
             update(group)
