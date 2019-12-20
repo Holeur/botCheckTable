@@ -37,6 +37,7 @@ globalday = [[['','','','','','','']],
             [['','','','','','','']],
             [['','','','','','','']]]
 globaldayold = [[['','','','','','','']]]
+empty = globalday
 
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
 #/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
@@ -53,6 +54,8 @@ groups = ['17СПИ3']
 date = ''
 olddate = ''
 sendingerrflag = 1
+kastilflag = 1
+kastilcheck = 0
 
 def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется
     try:
@@ -200,9 +203,8 @@ def taketabl(): #Заполнение всех основных массивов
             print('Не найдена строка под номером',line)
             #print()
         except Exception as e:
-            print('taketabl err:',e)
-    for num in range(1,7): #Вывод в консоль собранных массивов
-        print(globalday) 
+            print('taketabl err:',e) 
+    print(globalday) #Вывод в консоль собранных массивов
 
 def writetxtall(numday): #Алгоритм создания сообщения
     global globalday
@@ -284,16 +286,19 @@ def filewrite(text): #Запись полученного текста в фаи
     file.close()
     
 def sendmes(text): #Скидывание оповещений нескольким людям
-    global names
-    for elem in names:
-        try:
-            if isinstance(elem,int):
-                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-            else:
-                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
-        except Exception as e:
-            print('sendmes err:',e)
-            
+    global names,kastilflag
+    if kastilflag == 0:
+        for elem in names:
+            try:
+                if isinstance(elem,int):
+                    vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+                else:
+                    vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+            except Exception as e:
+                print('sendmes err:',e)
+    else:
+        kastilflag = 0
+                
 def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
@@ -432,6 +437,16 @@ def detectcomm(): #Обработка комманд
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
 
+def checkbug(): 
+    global kastilcheck,globalday,kastilflag
+    if globalday == empty and kastilcheck <= 0:
+        kastilcheck = 10
+    if kastilcheck > 0:
+        if globalday == empty:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Опять наебнулись массивы.', "random_id": random.randint(100, 2147483647)})
+            kastilflag = 0
+        kastilcheck -= 1
+            
 #loadfile('bd.txt')
 flag1 = 1
 while True:
@@ -445,9 +460,11 @@ while True:
             if checkflag:
                 time.sleep(4)
                 taketabl()
-                eq()
-                flag1 = 0
-                save()
+                checkbug()
+                if kastilflag:
+                    eq()
+                    flag1 = 0
+                    save()
             index += 1
     except Exception as e:
         if sendingerrflag:
