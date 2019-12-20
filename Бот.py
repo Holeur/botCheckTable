@@ -369,24 +369,23 @@ def checkupt():
 
 def getnames():
     global names
-    for groupnum in range(len(names)):
-        oldnames = names[groupnum]
-        names[groupnum] = ['holeur']
-        messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
-        print(messages["count"])
-        for mes in messages["items"]:
-            if '+add' == mes["text"][:4]:
-                name = mes["text"][5:]
-                try:
-                    if int(name) not in names[groupnum]:
-                        names[groupnum].append(int(name))
-                    if int(name) not in oldnames:
-                        print('Добавлен в массив имен',name,'В группу',groups[groupnum])
-                except ValueError:
-                    if name not in names[groupnum]:
-                        names[groupnum].append(name)
-                    if name not in oldnames:
-                        print('Добавлен в массив имен',name,'В группу',groups[groupnum])
+    oldnames = names[0]
+    names[0] = ['holeur']
+    messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
+    print(messages["count"])
+    for mes in messages["items"]:
+        if '+add' == mes["text"][:4]:
+            name = mes["text"][5:]
+            try:
+                if int(name) not in names[0]:
+                    names[0].append(int(name))
+                if int(name) not in oldnames:
+                    print('Добавлен в массив имен',name)
+            except ValueError:
+                if name not in names[0]:
+                    names[0].append(name)
+                if name not in oldnames:
+                    print('Добавлен в массив имен',name)
     print(names)
 
 def getgroups():
