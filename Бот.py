@@ -477,6 +477,19 @@ def checkgroups():
         txt = group+'\n'
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+
+def testperm():
+    global names
+    txtall = ''
+    for name in names[0]:
+        try:
+            if vk.method("messages.isMessagesFromGroupAllowed",{"group_id":"181204528","user_id":name}):
+                txt = name,'красавчик.'
+            else:
+                txt = name,'не читает закреп.'
+            txtall += txt+'\n'
+        except Exception as e:
+            print('testperm err:',e,name)
     
 def detectcomm(): #Обработка комманд
     global sendingerrflag
