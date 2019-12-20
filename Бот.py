@@ -49,7 +49,7 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-names = ['holeur']
+names = [['holeur']]
 groups = ['17СПИ3']
 date = ''
 olddate = ''
@@ -287,8 +287,8 @@ def filewrite(text): #Запись полученного текста в фаи
     
 def sendmes(text): #Скидывание оповещений нескольким людям
     global names,kastilflag
-    if kastilflag == 0:
-        for elem in names:
+    for groupnum in range(len(names))
+        for elem in names[groupnum]:
             try:
                 if isinstance(elem,int):
                     vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
@@ -296,8 +296,6 @@ def sendmes(text): #Скидывание оповещений нескольки
                     vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
             except Exception as e:
                 print('sendmes err:',e)
-    else:
-        kastilflag = 0
                 
 def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
@@ -371,27 +369,44 @@ def checkupt():
 
 def getnames():
     global names
-    oldnames = names
-    names = ['holeur']
-    number = 0
-    messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
-    print(messages["count"])
-    for mes in messages["items"]:
-        if '+add' == mes["text"][:4]:
-            name = mes["text"][5:]
-            try:
-                if int(name) not in names:
-                    names.append(int(name))
-                if int(name) not in oldnames:
-                    print('Добавлен в массив',name)
-            except ValueError:
-                if name not in names:
-                    names.append(name)
-                if name not in oldnames:
-                    print('Добавлен в массив',name)
-        number += 1
+    for groupnum in range(len(names)):
+        oldnames = names[groupnum]
+        names[groupnum] = ['holeur']
+        number = 0
+        messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
+        print(messages["count"])
+        for mes in messages["items"]:
+            if '+add' == mes["text"][:4]:
+                name = mes["text"][5:]
+                try:
+                    if int(name) not in names[groupnum]:
+                        names[groupnum].append(int(name))
+                    if int(name) not in oldnames:
+                        print('Добавлен в массив имен',name,'В группу',groups[groupnum])
+                except ValueError:
+                    if name not in names[groupnum]:
+                        names[groupnum].append(name)
+                    if name not in oldnames:
+                        print('Добавлен в массив имен',name,'В группу',groups[groupnum])
+            number += 1
     print(names)
 
+def getgroups():
+    global groups
+    oldgroups = groups
+    groups = ['17СПИ3']
+    messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
+    print(messages["count"])
+    for mes in messages["items"]:
+        if '+addgr' == mes["text"][:6]:
+            group = mes["text"][7:]
+            if group not in groups:
+                groups.append(group)
+            if group not in oldgroups:
+                print('Добавлен в массив групп',group)
+        number += 1
+    print(names)
+    
 def delerr(): #Функция удаления всех ошибок
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
@@ -407,13 +422,20 @@ def delerr(): #Функция удаления всех ошибок
 def checklist(): #Список участников в боте
     global names
     txtall = ''
-    for name in names:
-        txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
-        txtall += txt
+    for num in range(len(names)):
+        txtall += 'Группа: '+str(groups[num])+'\n'
+        for name in names[num]:
+            txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+            txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
 def checkgroups():
     global globalday
+    txtall = ''
+    for group in groups:
+        txt = group+'\n'
+        txtall += txt
+    vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
     
 def detectcomm(): #Обработка комманд
     global sendingerrflag
@@ -436,6 +458,9 @@ def detectcomm(): #Обработка комманд
                 print('errsend:',sendingerrflag)
                 vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок включен.', "random_id": random.randint(100, 2147483647)})
                 vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:groupslist":
+            checkgroups()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})   
         else:
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
@@ -457,6 +482,7 @@ while True:
     try:
         detectcomm()
         getnames()
+        getgroups()
         index = 0
         for group in groups:
             update(group)
