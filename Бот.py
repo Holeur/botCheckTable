@@ -11,32 +11,31 @@ from selenium.webdriver.firefox.options import Options
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6,globalday
     if x==1:
-        day1 = [['','','','','','','']]
         globalday[0] = [['','','','','','','']]
     elif x==2:
-        day2 = [['','','','','','','']]
         globalday[1] = [['','','','','','','']]
     elif x==3:
-        day3 = [['','','','','','','']]
         globalday[2] = [['','','','','','','']]
     elif x==4:
-        day4 = [['','','','','','','']]
         globalday[3] = [['','','','','','','']]
     elif x==5:
-        day5 = [['','','','','','','']]
         globalday[4] = [['','','','','','','']]
     elif x==6:
-        day6 = [['','','','','','','']]
         globalday[5] = [['','','','','','','']]
     else:
-        day1 = [['','','','','','','']]
-        day2 = [['','','','','','','']]
-        day3 = [['','','','','','','']]
-        day4 = [['','','','','','','']]
-        day5 = [['','','','','','','']]
-        day6 = [['','','','','','','']]
-        globalday = [[['','','','','','','']]]
+        globalday = [[['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],]
 
+globalday = [[['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],]
 globaldayold = [[['','','','','','','']]]
 
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
@@ -158,11 +157,7 @@ def zap(nday): #Заполнение выбранного массива
     elem = 1
     while flag1:
         try:
-            try:
-                globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            except IndexError:
-                globalday.append([])
-                globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
             #print(globalday[nday-1][line2-2][elem-1])
             elem += 1
             if elem > 7:
@@ -175,7 +170,7 @@ def zap(nday): #Заполнение выбранного массива
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
-    for line in range(1,36):
+    for line in range(1,37):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
@@ -206,8 +201,8 @@ def taketabl(): #Заполнение всех основных массивов
             #print()
         except Exception as e:
             print('taketabl err:',e)
-    for num in range(1,7):
-        print(globalday) #Вывод в консоль собранных массивов
+    for num in range(1,7): #Вывод в консоль собранных массивов
+        print(globalday) 
 
 def writetxtall(numday): #Алгоритм создания сообщения
     global globalday
@@ -303,7 +298,7 @@ def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
-            if globalday[0] != globaldayold[0]: #day1old
+            if globalday[0] != globaldayold[0]:
                 print('Понедельник изменили')
                 writetxtall(1)
                 if flag1 == 0:
@@ -341,7 +336,7 @@ def eq(): #сравнение таблиц
                 #filewrite(txtall)
         elif flag1 == 0:
             txtin = "Появилось расписание на следуйщую неделю на: "
-            if globalday[0] == globaldayold[0]: #day1old
+            if globalday[0] == globaldayold[0]:
                 txtin += '  Понедельник\n'
             if globalday[1] == globaldayold[1]:
                 txtin += '  Вторник\n'
@@ -437,7 +432,6 @@ def detectcomm(): #Обработка комманд
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
 
-zeromas(0) #Для того, чтобы обьявить массивы
 #loadfile('bd.txt')
 flag1 = 1
 while True:
