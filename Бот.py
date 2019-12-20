@@ -379,6 +379,7 @@ def getnames():
     for mes in messages["items"]:
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
+            if 
             try:
                 if int(name) not in names:
                     names.append(int(name))
@@ -412,6 +413,9 @@ def checklist(): #Список участников в боте
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
+def checkgroups():
+    global globalday
+    
 def detectcomm(): #Обработка комманд
     global sendingerrflag
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
@@ -437,7 +441,7 @@ def detectcomm(): #Обработка комманд
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
 
-def checkbug(): 
+def checkbug(): #Если опять будет err:Опять наебнулись массивы. - дофиксить и вписать в цикл
     global kastilcheck,globalday,kastilflag
     if globalday == empty and kastilcheck <= 0:
         kastilcheck = 10
@@ -449,7 +453,7 @@ def checkbug():
             
 #loadfile('bd.txt')
 flag1 = 1
-flag228 = 1
+flag228 = 0
 while True:
     try:
         detectcomm()
@@ -461,14 +465,9 @@ while True:
             if checkflag:
                 time.sleep(4)
                 taketabl()
-                if flag228:
-                    flag228 = 0
-                elif flag228 == 0:
-                    checkbug()
-                if kastilflag:
-                    eq()
-                    flag1 = 0
-                    save()
+                eq()
+                flag1 = 0
+                save()
             index += 1
     except Exception as e:
         if sendingerrflag:
