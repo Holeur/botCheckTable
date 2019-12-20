@@ -287,7 +287,7 @@ def filewrite(text): #Запись полученного текста в фаи
     
 def sendmes(text): #Скидывание оповещений нескольким людям
     global names,kastilflag
-    for groupnum in range(len(names))
+    for groupnum in range(len(names)):
         for elem in names[groupnum]:
             try:
                 if isinstance(elem,int):
