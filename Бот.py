@@ -169,6 +169,7 @@ def zap(nday): #Заполнение выбранного массива
                 globalday[nday-1].append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
+            del globalday[nday-1][-1]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date,globalday
@@ -286,7 +287,7 @@ def filewrite(text): #Запись полученного текста в фаи
     file.close()
     
 def sendmes(text): #Скидывание оповещений нескольким людям
-    global names
+    global names,sendingerrflag
     for elem in names[0]:
         try:
             if isinstance(elem,int):
@@ -295,6 +296,9 @@ def sendmes(text): #Скидывание оповещений нескольки
                 vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
         except Exception as e:
             print('sendmes',elem,'err:',e)
+            if sendingerrflag:
+                vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
+        
                 
 def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
