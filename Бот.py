@@ -379,7 +379,6 @@ def getnames():
     for mes in messages["items"]:
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
-            if 
             try:
                 if int(name) not in names:
                     names.append(int(name))
