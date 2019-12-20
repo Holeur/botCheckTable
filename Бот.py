@@ -218,44 +218,86 @@ def writetxtall(numday): #Алгоритм создания сообщения
         for line in globalday[numday-1]:
             for elem in line:
                 if numelem == 0:
-                    if globalday[numday-1][numline][0] != globaldayold[numday-1][numline][0]: #day(numday+'old')[numline][0]:
-                        txt = '*Пара> ' + elem + '\n'
-                    else:
-                        txt = 'Пара> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][0] != globaldayold[numday-1][numline][0]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][0] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 elif numelem == 1:
-                    if globalday[numday-1][numline][1] != globaldayold[numday-1][numline][1]:
-                        txt = '*Время> ' + elem + '\n'
-                    else:
-                        txt = 'Время> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][1] != globaldayold[numday-1][numline][1]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][1] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 elif numelem == 2:
-                    if globalday[numday-1][numline][2] != globaldayold[numday-1][numline][2]:
-                        txt = '*Предмет> ' + elem + '\n'
-                    else:
-                        txt = 'Предмет> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][2] != globaldayold[numday-1][numline][2]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][2] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 elif numelem == 3:
-                    if globalday[numday-1][numline][3] != globaldayold[numday-1][numline][3]:
-                        txt = '*Подгруппа> ' + elem + '\n'
-                    else:
-                        txt = 'Подгруппа> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][3] != globaldayold[numday-1][numline][3]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][3] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 elif numelem == 4:
-                    # if globalday[numday-1][numline][4] != globaldayold[numday-1][numline][4]:
-                        # txt = '*Группа> ' + elem + '\n'
-                    # else:
-                        # txt = 'Группа> ' + elem + '\n'
+                    # try:
+                        # if globalday[numday-1][numline][4] != globaldayold[numday-1][numline][4]:
+                            # txt = '*Кабинет> ' + elem + '\n'
+                        # else:
+                            # txt = 'Кабинет> ' + elem + '\n'
+                    # except IndexError:
+                        # if globalday[numday-1][numline][4] != '':
+                            # txt = '*Кабинет> ' + elem + '\n'
+                        # else:
+                            # txt = 'Кабинет> ' + elem + '\n'
                     if elem == '':
                         print('Пропускаем пустоту')
                     else:
                         print(elem,'пропускаем')
                 elif numelem == 5:
-                    if globalday[numday-1][numline][5] != globaldayold[numday-1][numline][5]:
-                        txt = '*Преподаватель> ' + elem + '\n'
-                    else:
-                        txt = 'Преподаватель> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][5] != globaldayold[numday-1][numline][5]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][5] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 elif numelem == 6:
-                    if globalday[numday-1][numline][6] != globaldayold[numday-1][numline][6]:
-                        txt = '*Кабинет> ' + elem + '\n'
-                    else:
-                        txt = 'Кабинет> ' + elem + '\n'
+                    try:
+                        if globalday[numday-1][numline][6] != globaldayold[numday-1][numline][6]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][6] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
                 else:
                     print('Что-то пропущено...')
                 txtall += txt
