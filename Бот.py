@@ -443,7 +443,7 @@ def checkbug():
         kastilcheck = 10
     if kastilcheck > 0:
         if globalday == empty:
-            vk.method("messages.send", {"domain": 'holeur', "message":'Опять наебнулись массивы.', "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:Опять наебнулись массивы.', "random_id": random.randint(100, 2147483647)})
             kastilflag = 0
         kastilcheck -= 1
             
