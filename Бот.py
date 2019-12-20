@@ -449,6 +449,7 @@ def checkbug():
             
 #loadfile('bd.txt')
 flag1 = 1
+flag228 = 1
 while True:
     try:
         detectcomm()
@@ -460,7 +461,10 @@ while True:
             if checkflag:
                 time.sleep(4)
                 taketabl()
-                checkbug()
+                if flag228:
+                    flag228 = 0
+                elif flag228 == 0:
+                    checkbug()
                 if kastilflag:
                     eq()
                     flag1 = 0
