@@ -541,7 +541,7 @@ while True:
         getnames()
         getgroups()
         index = 0
-        update(group[0])
+        update(groups[0])
         checkupt()
         if checkflag:
             time.sleep(4)
