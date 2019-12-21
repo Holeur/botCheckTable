@@ -24,18 +24,19 @@ def zeromas(x):
         globalday[0][5] = [['','','','','','','']]
     else:
         globalday = [[[['','','','','','','']],
-                     [['','','','','','','']],
-                     [['','','','','','','']],
-                     [['','','','','','','']],
-                     [['','','','','','','']],
-                     [['','','','','','','']]]]
+                      [['','','','','','','']],
+                      [['','','','','','','']],
+                      [['','','','','','','']],
+                      [['','','','','','','']],
+                      [['','','','','','','']]]]
 
 globalday = [[[['','','','','','','']],
-            [['','','','','','','']],
-            [['','','','','','','']],
-            [['','','','','','','']],
-            [['','','','','','','']],
-            [['','','','','','','']]]]
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']]]]
+
 globaldayold = [[['','','','','','','']]]
 empty = globalday
 
@@ -60,6 +61,15 @@ sendingerrflag = 1
 kastilflag = 1
 kastilcheck = 0
 
+def groupappend():
+    global globalday
+    globalday.append([[['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']],
+              [['','','','','','','']]])
+    
 def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется
     try:
         file = open(filename,'w')
@@ -161,18 +171,19 @@ def zap(nday): #Заполнение выбранного массива
     flag1 = 1
     line2 = 2
     elem = 1
-    while flag1:
-        try:
-            globalday[0][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            #print(globalday[0][nday-1][line2-2][elem-1])
-            elem += 1
-            if elem > 7:
-                elem = 1
-                line2 += 1
-                globalday[0][nday-1].append(['','','','','','',''])
-        except selenium.common.exceptions.NoSuchElementException:
-            flag1 = 0
-            del globalday[0][nday-1][-1]
+    for groupnum in range(len(groups)):
+        while flag1:
+            try:
+                globalday[groupnum][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+                #print(globalday[0][nday-1][line2-2][elem-1])
+                elem += 1
+                if elem > 7:
+                    elem = 1
+                    line2 += 1
+                    globalday[0][nday-1].append(['','','','','','',''])
+            except selenium.common.exceptions.NoSuchElementException:
+                flag1 = 0
+                del globalday[0][nday-1][-1]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date,globalday
@@ -447,6 +458,7 @@ def getgroups():
             group = mes["text"][7:]
             if group not in groups:
                 groups.append(group)
+                groupappend()
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
     print(groups)
@@ -498,14 +510,14 @@ def checkmassive(x4,x3,x2,x1):
     global globalday,sendingerrflag
     try:
         print(globalday[x4][x3][x2][x1])
-        vk.method("messages.send", {"domain": 'holeur', "message":'Элеммент:'+str(globalday[x4][x3][x2][x1]), "random_id": random.randint(100, 2147483647)})
+        vk.method("messages.send", {"domain": 'holeur', "message":'Элемент:'+str(globalday[x4][x3][x2][x1]), "random_id": random.randint(100, 2147483647)})
     except IndexError:
         print('Индекса не существует.')
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
     
 def detectcomm(): #Обработка комманд
-    global sendingerrflag
+    global sendingerrflag,globalday
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
         if message["text"] == "com:del":
