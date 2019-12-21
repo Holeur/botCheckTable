@@ -37,7 +37,7 @@ globalday = [[[['','','','','','','']],
               [['','','','','','','']],
               [['','','','','','','']]]]
 
-globaldayold = [[['','','','','','','']]]
+globaldayold = [[[['','','','','','','']]]]
 empty = globalday
 
 #Структура массива - [индекс группы][индекс дня недели][индекс пары][индекс элемента пары]
@@ -61,7 +61,7 @@ sendingerrflag = 1
 kastilflag = 1
 kastilcheck = 0
 
-def globalgroupappend():
+def globalgroupappend(): #Добавление место под группу в массиве.
     global globalday
     globalday.append([[['','','','','','','']],
               [['','','','','','','']],
@@ -70,7 +70,7 @@ def globalgroupappend():
               [['','','','','','','']],
               [['','','','','','','']]])
     
-def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется
+def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется.
     try:
         file = open(filename,'w')
         numline = 0
@@ -89,7 +89,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
     except Exception as e:
         print('gettablinfile err:',e)
         
-def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
+def loadfile(filename): #Загрзка day*old в фаил. Пока не используется.
     global globaldayold,globalday
     try:
         file = open(filename,'r')
@@ -113,15 +113,15 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
     except Exception as e:
         print('loadfile err:',e)
         
-def save(): #перевод основных массивов в память
+def save(): #Перевод основных массивов в память.
     global globaldayold,globalday,olddate,date
     try:
         for num in range(6): #day1old = day1...
             try:
-                globaldayold[num] = globalday[0][num]
+                globaldayold[0][num] = globalday[0][num]
             except IndexError:
-                globaldayold.append([])
-                globaldayold[num] = globalday[0][num]
+                globaldayold[0].append([])
+                globaldayold[0][num] = globalday[0][num]
         #print(globaldayold)
         olddate = date
         zeromas(0)
@@ -130,7 +130,7 @@ def save(): #перевод основных массивов в память
     except Exception as e:
         print('save err:',e)
 
-def update(group): #открытие страницы
+def update(group): #открытие страницы.
     browser.refresh()
     time.sleep(3)
     try:
@@ -140,7 +140,7 @@ def update(group): #открытие страницы
         print('Опять ошибка с поиском элемента')
         update(group)
     
-def day(nameday): #Выбор массива по названию. Не используется. Лежит в память о старом алгоритме
+def day(nameday): #Выбор массива по названию. Не используется. Лежит в память о старом алгоритме.
     if nameday == 'day1':
         return day1
     elif nameday == 'day2':
@@ -233,7 +233,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
             for elem in line:
                 if numelem == 0:
                     try:
-                        if globalday[0][numday-1][numline][0] != globaldayold[numday-1][numline][0]:
+                        if globalday[0][numday-1][numline][0] != globaldayold[0][numday-1][numline][0]:
                             txt = '*Пара> ' + elem + '\n'
                         else:
                             txt = 'Пара> ' + elem + '\n'
@@ -244,7 +244,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                             txt = 'Пара> ' + elem + '\n'
                 elif numelem == 1:
                     try:
-                        if globalday[0][numday-1][numline][1] != globaldayold[numday-1][numline][1]:
+                        if globalday[0][numday-1][numline][1] != globaldayold[0][numday-1][numline][1]:
                             txt = '*Время> ' + elem + '\n'
                         else:
                             txt = 'Время> ' + elem + '\n'
@@ -255,7 +255,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                             txt = 'Время> ' + elem + '\n'
                 elif numelem == 2:
                     try:
-                        if globalday[0][numday-1][numline][2] != globaldayold[numday-1][numline][2]:
+                        if globalday[0][numday-1][numline][2] != globaldayold[0][numday-1][numline][2]:
                             txt = '*Предмет> ' + elem + '\n'
                         else:
                             txt = 'Предмет> ' + elem + '\n'
@@ -266,7 +266,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                             txt = 'Предмет> ' + elem + '\n'
                 elif numelem == 3:
                     try:
-                        if globalday[0][numday-1][numline][3] != globaldayold[numday-1][numline][3]:
+                        if globalday[0][numday-1][numline][3] != globaldayold[0][numday-1][numline][3]:
                             txt = '*Подгруппа> ' + elem + '\n'
                         else:
                             txt = 'Подгруппа> ' + elem + '\n'
@@ -277,7 +277,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                             txt = 'Подгруппа> ' + elem + '\n'
                 elif numelem == 4:
                     # try:
-                        # if globalday[0][numday-1][numline][4] != globaldayold[numday-1][numline][4]:
+                        # if globalday[0][numday-1][numline][4] != globaldayold[0][numday-1][numline][4]:
                             # txt = '*Группа> ' + elem + '\n'
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
@@ -292,7 +292,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                         print(elem,'пропускаем')
                 elif numelem == 5:
                     try:
-                        if globalday[0][numday-1][numline][5] != globaldayold[numday-1][numline][5]:
+                        if globalday[0][numday-1][numline][5] != globaldayold[0][numday-1][numline][5]:
                             txt = '*Преподаватель> ' + elem + '\n'
                         else:
                             txt = 'Преподаватель> ' + elem + '\n'
@@ -303,7 +303,7 @@ def writetxtall(numday): #Алгоритм создания сообщения
                             txt = 'Преподаватель> ' + elem + '\n'
                 elif numelem == 6:
                     try:
-                        if globalday[0][numday-1][numline][6] != globaldayold[numday-1][numline][6]:
+                        if globalday[0][numday-1][numline][6] != globaldayold[0][numday-1][numline][6]:
                             txt = '*Кабинет> ' + elem + '\n'
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
@@ -360,37 +360,37 @@ def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
-            if globalday[0][0] != globaldayold[0]:
+            if globalday[0][0] != globaldayold[0][0]:
                 print('Понедельник изменили')
                 writetxtall(1)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][1] != globaldayold[1]:
+            if globalday[0][1] != globaldayold[0][1]:
                 print('Вторник изменили')
                 writetxtall(2)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][2] != globaldayold[2]:
+            if globalday[0][2] != globaldayold[0][2]:
                 print('Среду изменили')
                 writetxtall(3)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][3] != globaldayold[3]:
+            if globalday[0][3] != globaldayold[0][3]:
                 print('Четверг изменили')
                 writetxtall(4)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][4] != globaldayold[4]:
+            if globalday[0][4] != globaldayold[0][4]:
                 print('Пятницу изменили')
                 writetxtall(5)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][5] != globaldayold[5]:
+            if globalday[0][5] != globaldayold[0][5]:
                 print('Субботу изменили')
                 writetxtall(6)
                 if flag1 == 0:
@@ -398,17 +398,17 @@ def eq(): #сравнение таблиц
                 #filewrite(txtall)
         elif flag1 == 0:
             txtin = "Появилось расписание на следуйщую неделю на: "
-            if globalday[0][0] == globaldayold[0]:
+            if globalday[0][0] == globaldayold[0][0]:
                 txtin += '  Понедельник\n'
-            if globalday[0][1] == globaldayold[1]:
+            if globalday[0][1] == globaldayold[0][1]:
                 txtin += '  Вторник\n'
-            if globalday[0][2] == globaldayold[2]:
+            if globalday[0][2] == globaldayold[0][2]:
                 txtin += '  Среду\n'
-            if globalday[0][3] == globaldayold[3]:
+            if globalday[0][3] == globaldayold[0][3]:
                 txtin += '  Четверг\n'
-            if globalday[0][4] == globaldayold[4]:
+            if globalday[0][4] == globaldayold[0][4]:
                 txtin += '  Пятницу\n'
-            if globalday[0][5] == globaldayold[5]:
+            if globalday[0][5] == globaldayold[0][5]:
                 txtin += '  Субботу\n'
             sendmes(txtin)
         else:
@@ -548,7 +548,7 @@ def detectcomm(): #Обработка комманд
             sendmes(message["text"][9:])
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
         elif message["text"] == "com:help":
-            help(message["id"])
+            help('holeur')
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
         elif message["text"] == "com:groupslist":
             checkgroups()
