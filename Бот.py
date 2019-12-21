@@ -23,21 +23,24 @@ def zeromas(x):
     elif x==6:
         globalday[5] = [['','','','','','','']]
     else:
-        globalday = [[['','','','','','','']],
+        globalday = [[[['','','','','','','']],
                      [['','','','','','','']],
                      [['','','','','','','']],
                      [['','','','','','','']],
                      [['','','','','','','']],
-                     [['','','','','','','']]]
+                     [['','','','','','','']]]]
 
-globalday = [[['','','','','','','']],
+globalday = [[[['','','','','','','']],
             [['','','','','','','']],
             [['','','','','','','']],
             [['','','','','','','']],
             [['','','','','','','']],
             [['','','','','','','']]]
-globaldayold = [[['','','','','','','']]]
+globaldayold = [[['','','','','','','']]]]
 empty = globalday
+
+#Структура массива - [индекс группы][индекс дня недели][индекс пары][индекс элемента пары]
+#Индексы элементов пары - Пара:0 Время:1 Предмет:2 Подгруппа:3 Группа:4 Преподователь:5 Кабинет:6
 
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
 #/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
@@ -84,7 +87,7 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         numelem = 0
         num = 1
         for line in file:
-            globalday[num-1][numline][numelem] = line[0:len(line)-1]
+            globalday[0][num-1][numline][numelem] = line[0:len(line)-1]
             numelem += 1
             if numelem >= 7:
                 numelem = 0
@@ -105,10 +108,10 @@ def save(): #перевод основных массивов в память
     try:
         for num in range(6): #day1old = day1...
             try:
-                globaldayold[num] = globalday[num]
+                globaldayold[num] = globalday[0][num]
             except IndexError:
                 globaldayold.append([])
-                globaldayold[num] = globalday[num]
+                globaldayold[num] = globalday[0][num]
         #print(globaldayold)
         olddate = date
         zeromas(0)
@@ -160,16 +163,16 @@ def zap(nday): #Заполнение выбранного массива
     elem = 1
     while flag1:
         try:
-            globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            #print(globalday[nday-1][line2-2][elem-1])
+            globalday[0][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            #print(globalday[0][nday-1][line2-2][elem-1])
             elem += 1
             if elem > 7:
                 elem = 1
                 line2 += 1
-                globalday[nday-1].append(['','','','','','',''])
+                globalday[0][nday-1].append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
-            del globalday[nday-1][-1]
+            del globalday[0][nday-1][-1]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
     global line,date,globalday
@@ -215,60 +218,60 @@ def writetxtall(numday): #Алгоритм создания сообщения
         txtall = ''
         numelem = 0
         numline = 0
-        for line in globalday[numday-1]:
+        for line in globalday[0][numday-1]:
             for elem in line:
                 if numelem == 0:
                     try:
-                        if globalday[numday-1][numline][0] != globaldayold[numday-1][numline][0]:
+                        if globalday[0][numday-1][numline][0] != globaldayold[numday-1][numline][0]:
                             txt = '*Пара> ' + elem + '\n'
                         else:
                             txt = 'Пара> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][0] != '':
+                        if globalday[0][numday-1][numline][0] != '':
                             txt = '*Пара> ' + elem + '\n'
                         else:
                             txt = 'Пара> ' + elem + '\n'
                 elif numelem == 1:
                     try:
-                        if globalday[numday-1][numline][1] != globaldayold[numday-1][numline][1]:
+                        if globalday[0][numday-1][numline][1] != globaldayold[numday-1][numline][1]:
                             txt = '*Время> ' + elem + '\n'
                         else:
                             txt = 'Время> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][1] != '':
+                        if globalday[0][numday-1][numline][1] != '':
                             txt = '*Время> ' + elem + '\n'
                         else:
                             txt = 'Время> ' + elem + '\n'
                 elif numelem == 2:
                     try:
-                        if globalday[numday-1][numline][2] != globaldayold[numday-1][numline][2]:
+                        if globalday[0][numday-1][numline][2] != globaldayold[numday-1][numline][2]:
                             txt = '*Предмет> ' + elem + '\n'
                         else:
                             txt = 'Предмет> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][2] != '':
+                        if globalday[0][numday-1][numline][2] != '':
                             txt = '*Предмет> ' + elem + '\n'
                         else:
                             txt = 'Предмет> ' + elem + '\n'
                 elif numelem == 3:
                     try:
-                        if globalday[numday-1][numline][3] != globaldayold[numday-1][numline][3]:
+                        if globalday[0][numday-1][numline][3] != globaldayold[numday-1][numline][3]:
                             txt = '*Подгруппа> ' + elem + '\n'
                         else:
                             txt = 'Подгруппа> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][3] != '':
+                        if globalday[0][numday-1][numline][3] != '':
                             txt = '*Подгруппа> ' + elem + '\n'
                         else:
                             txt = 'Подгруппа> ' + elem + '\n'
                 elif numelem == 4:
                     # try:
-                        # if globalday[numday-1][numline][4] != globaldayold[numday-1][numline][4]:
+                        # if globalday[0][numday-1][numline][4] != globaldayold[numday-1][numline][4]:
                             # txt = '*Группа> ' + elem + '\n'
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
                     # except IndexError:
-                        # if globalday[numday-1][numline][4] != '':
+                        # if globalday[0][numday-1][numline][4] != '':
                             # txt = '*Группа> ' + elem + '\n'
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
@@ -278,23 +281,23 @@ def writetxtall(numday): #Алгоритм создания сообщения
                         print(elem,'пропускаем')
                 elif numelem == 5:
                     try:
-                        if globalday[numday-1][numline][5] != globaldayold[numday-1][numline][5]:
+                        if globalday[0][numday-1][numline][5] != globaldayold[numday-1][numline][5]:
                             txt = '*Преподаватель> ' + elem + '\n'
                         else:
                             txt = 'Преподаватель> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][5] != '':
+                        if globalday[0][numday-1][numline][5] != '':
                             txt = '*Преподаватель> ' + elem + '\n'
                         else:
                             txt = 'Преподаватель> ' + elem + '\n'
                 elif numelem == 6:
                     try:
-                        if globalday[numday-1][numline][6] != globaldayold[numday-1][numline][6]:
+                        if globalday[0][numday-1][numline][6] != globaldayold[numday-1][numline][6]:
                             txt = '*Кабинет> ' + elem + '\n'
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
                     except IndexError:
-                        if globalday[numday-1][numline][6] != '':
+                        if globalday[0][numday-1][numline][6] != '':
                             txt = '*Кабинет> ' + elem + '\n'
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
@@ -346,37 +349,37 @@ def eq(): #сравнение таблиц
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
-            if globalday[0] != globaldayold[0]:
+            if globalday[0][0] != globaldayold[0]:
                 print('Понедельник изменили')
                 writetxtall(1)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[1] != globaldayold[1]:
+            if globalday[0][1] != globaldayold[1]:
                 print('Вторник изменили')
                 writetxtall(2)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[2] != globaldayold[2]:
+            if globalday[0][2] != globaldayold[2]:
                 print('Среду изменили')
                 writetxtall(3)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[3] != globaldayold[3]:
+            if globalday[0][3] != globaldayold[3]:
                 print('Четверг изменили')
                 writetxtall(4)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[4] != globaldayold[4]:
+            if globalday[0][4] != globaldayold[4]:
                 print('Пятницу изменили')
                 writetxtall(5)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[5] != globaldayold[5]:
+            if globalday[0][5] != globaldayold[5]:
                 print('Субботу изменили')
                 writetxtall(6)
                 if flag1 == 0:
@@ -384,17 +387,17 @@ def eq(): #сравнение таблиц
                 #filewrite(txtall)
         elif flag1 == 0:
             txtin = "Появилось расписание на следуйщую неделю на: "
-            if globalday[0] == globaldayold[0]:
+            if globalday[0][0] == globaldayold[0]:
                 txtin += '  Понедельник\n'
-            if globalday[1] == globaldayold[1]:
+            if globalday[0][1] == globaldayold[1]:
                 txtin += '  Вторник\n'
-            if globalday[2] == globaldayold[2]:
+            if globalday[0][2] == globaldayold[2]:
                 txtin += '  Среду\n'
-            if globalday[3] == globaldayold[3]:
+            if globalday[0][3] == globaldayold[3]:
                 txtin += '  Четверг\n'
-            if globalday[4] == globaldayold[4]:
+            if globalday[0][4] == globaldayold[4]:
                 txtin += '  Пятницу\n'
-            if globalday[5] == globaldayold[5]:
+            if globalday[0][5] == globaldayold[5]:
                 txtin += '  Субботу\n'
             sendmes(txtin)
         else:
@@ -471,7 +474,7 @@ def checklist(): #Список участников в боте
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
 def checkgroups():
-    global globalday
+    global groups
     txtall = ''
     for group in groups:
         txt = group+'\n'
@@ -524,10 +527,10 @@ def detectcomm(): #Обработка комманд
 
 def checkbug(): #Если опять будет err:Опять наебнулись массивы. - дофиксить и вписать в цикл
     global kastilcheck,globalday,kastilflag
-    if globalday == empty and kastilcheck <= 0:
+    if globalday[0] == empty and kastilcheck <= 0:
         kastilcheck = 10
     if kastilcheck > 0:
-        if globalday == empty:
+        if globalday[0] == empty:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:Опять наебнулись массивы.', "random_id": random.randint(100, 2147483647)})
             kastilflag = 0
         kastilcheck -= 1
