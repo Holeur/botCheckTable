@@ -11,17 +11,17 @@ from selenium.webdriver.firefox.options import Options
 def zeromas(x):
     global day1,day2,day3,day4,day5,day6,globalday
     if x==1:
-        globalday[0] = [['','','','','','','']]
+        globalday[0][0] = [['','','','','','','']]
     elif x==2:
-        globalday[1] = [['','','','','','','']]
+        globalday[0][1] = [['','','','','','','']]
     elif x==3:
-        globalday[2] = [['','','','','','','']]
+        globalday[0][2] = [['','','','','','','']]
     elif x==4:
-        globalday[3] = [['','','','','','','']]
+        globalday[0][3] = [['','','','','','','']]
     elif x==5:
-        globalday[4] = [['','','','','','','']]
+        globalday[0][4] = [['','','','','','','']]
     elif x==6:
-        globalday[5] = [['','','','','','','']]
+        globalday[0][5] = [['','','','','','','']]
     else:
         globalday = [[[['','','','','','','']],
                      [['','','','','','','']],
