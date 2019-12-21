@@ -89,7 +89,7 @@ def gettablinfile(filename): #запоминание массивов в фаи�
     except Exception as e:
         print('gettablinfile err:',e)
         
-def loadfile(filename): #Загрзка day*old в фаил. Пока не используется.
+def loadfile(filename): #Загрзка dayold в фаил. Пока не используется.
     global globaldayold,globalday
     try:
         file = open(filename,'r')
@@ -130,7 +130,7 @@ def save(): #Перевод основных массивов в память.
     except Exception as e:
         print('save err:',e)
 
-def update(group): #открытие страницы.
+def update(group): #Открытие страницы определенной группы.
     browser.refresh()
     time.sleep(3)
     try:
@@ -166,7 +166,7 @@ def day(nameday): #Выбор массива по названию. Не исп�
     elif nameday == 'day6old':
         return day6old
 
-def zap(nday): #Заполнение выбранного массива
+def zap(nday): #Заполнение выбранного дня в массиве.
     global line,browser,globalday
     flag1 = 1
     line2 = 2
@@ -185,7 +185,7 @@ def zap(nday): #Заполнение выбранного массива
                 flag1 = 0
                 del globalday[0][nday-1][-1]
 
-def taketabl(): #Заполнение всех основных массивов по дням недели
+def taketabl(): #Заполнение массива по дням недели.
     global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
     for line in range(1,37):
@@ -221,7 +221,7 @@ def taketabl(): #Заполнение всех основных массивов
             print('taketabl err:',e) 
     print(globalday) #Вывод в консоль собранных массивов
 
-def writetxtall(numday): #Алгоритм создания сообщения
+def writetxtall(numday): #Алгоритм создания сообщения.
     global globalday,globaldayold
     try:
         global txtall,flag1
@@ -337,12 +337,12 @@ def writetxtall(numday): #Алгоритм создания сообщения
     except Exception as e:
         print('writetextall err:',e)
     
-def filewrite(text): #Запись полученного текста в фаил
+def filewrite(text): #Запись полученного текста в фаил. Пока не используется.
     file = open('logs.txt','a')
     file.write(text)
     file.close()
     
-def sendmes(text): #Скидывание оповещений нескольким людям
+def sendmes(text): #Отправление сообщения нескольким людям.
     global names,sendingerrflag
     for elem in names[0]:
         try:
@@ -356,7 +356,7 @@ def sendmes(text): #Скидывание оповещений нескольки
                 vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
         
                 
-def eq(): #сравнение таблиц
+def eq(): #Сравнение таблиц.
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
@@ -418,7 +418,7 @@ def eq(): #сравнение таблиц
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
-def checkupt():
+def checkupt(): #Проверка на случай не загрузки сайта.
     global checkflag,tabledate
     try:
         tabledate = browser.find_element_by_xpath('/html/body/div/div[1]/form/div[1]/select').text
@@ -426,7 +426,7 @@ def checkupt():
     except:
         checkflag = 0
 
-def getnames():
+def getnames(): #Использовал личку сообщества как бд с именами участников. XD
     global names
     oldnames = names[0]
     names[0] = ['holeur']
@@ -447,7 +447,7 @@ def getnames():
                     print('Добавлен в массив имен',name)
     print(names)
 
-def getgroups():
+def getgroups(): #Скопированный алгоритм getnames. Только с группами.
     global groups
     oldgroups = groups
     groups = ['17СПИ3']
@@ -463,7 +463,7 @@ def getgroups():
                 print('Добавлен в массив групп',group)
     print(groups)
     
-def delerr(): #Функция удаления всех ошибок
+def delerr(): #Функция удаления всех ошибок.
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
@@ -475,7 +475,7 @@ def delerr(): #Функция удаления всех ошибок
             print("Error",id,"can not be deleted:",e)
             vk.method("messages.delete",{"message_ids":id,"delete_for_all":"0","group_id":"181204528"})
             
-def checklist(): #Список участников в боте
+def checklist(): #Список участников.
     global names
     txtall = ''
     for num in range(len(names)):
@@ -485,7 +485,7 @@ def checklist(): #Список участников в боте
             txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
-def checkgroups():
+def checkgroups(): #Список групп.
     global groups
     txtall = ''
     for group in groups:
@@ -493,7 +493,7 @@ def checkgroups():
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
 
-def testperm():
+def testperm(): #Попытка в проверку доступа к участнику со стороны сообщества. Не работает ибо в вк работают твари. https://vk.com/holeur?z=photo125524519_457246955%2Falbum125524519_00%2Frev
     global names
     txtall = ''
     for name in names[0]:
@@ -506,7 +506,7 @@ def testperm():
         except Exception as e:
             print('testperm err:',e,name)
 
-def checkmassive(x4,x3,x2,x1):
+def checkmassive(x4,x3,x2,x1): #Получение элемента из массива. Пока что не работает.
     global globalday,sendingerrflag
     try:
         print(globalday[x4][x3][x2][x1])
@@ -516,11 +516,11 @@ def checkmassive(x4,x3,x2,x1):
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
 
-def help(id):
+def help(id): #Получение помощи по командам. Сделано пока кастыльно, но работает.
     txt = 'com:del - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
     vk.method("messages.send", {"domain": id, "message":txt, "random_id": random.randint(100, 2147483647)})
     
-def detectcomm(): #Обработка комманд
+def detectcomm(): #Обработчик комманд
     global sendingerrflag,globalday
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
@@ -567,7 +567,9 @@ def checkbug(): #Если опять будет err:Опять наебнули�
             kastilflag = 0
         kastilcheck -= 1
             
-#loadfile('bd.txt')
+#
+# Основная часть кода где обьявляются все функции.
+#
 flag1 = 1
 flag228 = 0
 while True:
