@@ -61,7 +61,7 @@ sendingerrflag = 1
 kastilflag = 1
 kastilcheck = 0
 
-def groupappend():
+def globalgroupappend():
     global globalday
     globalday.append([[['','','','','','','']],
               [['','','','','','','']],
@@ -458,7 +458,7 @@ def getgroups():
             group = mes["text"][7:]
             if group not in groups:
                 groups.append(group)
-                groupappend()
+                globalgroupappend()
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
     print(groups)
@@ -515,6 +515,10 @@ def checkmassive(x4,x3,x2,x1):
         print('Индекса не существует.')
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
+
+def help(id):
+    txt = 'com:del - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
+    vk.method("messages.send", {"domain": id, "message":txt, "random_id": random.randint(100, 2147483647)})
     
 def detectcomm(): #Обработка комманд
     global sendingerrflag,globalday
@@ -542,6 +546,9 @@ def detectcomm(): #Обработка комманд
                 vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
         elif message["text"][:9] == "com:send:":
             sendmes(message["text"][9:])
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:help":
+            help(message["id"])
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
         elif message["text"] == "com:groupslist":
             checkgroups()
