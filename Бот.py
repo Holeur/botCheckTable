@@ -541,16 +541,15 @@ while True:
         getnames()
         getgroups()
         index = 0
-        for group in groups:
-            update(group)
-            checkupt()
-            if checkflag:
-                time.sleep(4)
-                taketabl()
-                eq()
-                flag1 = 0
-                save()
-            index += 1
+        update(group[0])
+        checkupt()
+        if checkflag:
+            time.sleep(4)
+            taketabl()
+            eq()
+            flag1 = 0
+            save()
+        index += 1
     except Exception as e:
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
