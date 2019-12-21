@@ -539,7 +539,7 @@ while True:
     try:
         detectcomm()
         getnames()
-        #getgroups()
+        getgroups()
         index = 0
         for group in groups:
             update(group)
