@@ -397,18 +397,18 @@ def eq(): #Сравнение таблиц.
                     sendmes(txtall)
                 #filewrite(txtall)
         elif flag1 == 0:
-            txtin = "Появилось расписание на следуйщую неделю на: "
-            if globalday[0][0] == globaldayold[0][0]:
+            txtin = "Появилось расписание на следуйщую неделю на: \n"
+            if globalday[0][0] != globaldayold[0][0]:
                 txtin += '  Понедельник\n'
-            if globalday[0][1] == globaldayold[0][1]:
+            if globalday[0][1] != globaldayold[0][1]:
                 txtin += '  Вторник\n'
-            if globalday[0][2] == globaldayold[0][2]:
+            if globalday[0][2] != globaldayold[0][2]:
                 txtin += '  Среду\n'
-            if globalday[0][3] == globaldayold[0][3]:
+            if globalday[0][3] != globaldayold[0][3]:
                 txtin += '  Четверг\n'
-            if globalday[0][4] == globaldayold[0][4]:
+            if globalday[0][4] != globaldayold[0][4]:
                 txtin += '  Пятницу\n'
-            if globalday[0][5] == globaldayold[0][5]:
+            if globalday[0][5] != globaldayold[0][5]:
                 txtin += '  Субботу\n'
             sendmes(txtin)
         else:
