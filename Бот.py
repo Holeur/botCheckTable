@@ -512,7 +512,7 @@ def detectcomm(): #Обработка комманд
             delerr()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
         elif message["text"][:12] == "com:getelem:": #com:getelem:2:2:2:2
-            checkmassive(int(message["text"][13]),int(message["text"][15]),int(message["text"][17]),int(message["text"][13]))
+            checkmassive(int(message["text"][12]),int(message["text"][14]),int(message["text"][16]),int(message["text"][18]))
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
         elif message["text"] == "com:list":
             checklist()
