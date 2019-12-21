@@ -420,7 +420,7 @@ def getnames():
     oldnames = names[0]
     names[0] = ['holeur']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
-    print(messages["count"])
+    print(messages["count"]+1)
     for mes in messages["items"]:
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
@@ -441,7 +441,7 @@ def getgroups():
     oldgroups = groups
     groups = ['17СПИ3']
     messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
-    print(messages["count"])
+    print(messages["count"]+1)
     for mes in messages["items"]:
         if '+addgr' == mes["text"][:6]:
             group = mes["text"][7:]
@@ -493,6 +493,16 @@ def testperm():
             txtall += txt+'\n'
         except Exception as e:
             print('testperm err:',e,name)
+
+def checkmassive(x4,x3,x2,x1):
+    global globalday,sendingerrflag
+    try:
+        print(globalday[x4][x3][x2][x1])
+        vk.method("messages.send", {"domain": 'holeur', "message":'Элеммент:'+str(globalday[x4][x3][x2][x1]), "random_id": random.randint(100, 2147483647)})
+    except IndexError:
+        print('Индекса не существует.')
+        if sendingerrflag:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
     
 def detectcomm(): #Обработка комманд
     global sendingerrflag
@@ -500,6 +510,9 @@ def detectcomm(): #Обработка комманд
     for message in messages["items"]:
         if message["text"] == "com:del":
             delerr()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        elif message["text"][:12] == "com:getelem:": #com:getelem:2:2:2:2
+            checkmassive(int(message["text"][13]),int(message["text"][15]),int(message["text"][17]),int(message["text"][13]))
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
         elif message["text"] == "com:list":
             checklist()
