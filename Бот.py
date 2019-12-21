@@ -9,147 +9,36 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
 def zeromas(x):
-    global day1,day2,day3,day4,day5,day6
+    global day1,day2,day3,day4,day5,day6,globalday
     if x==1:
-        day1 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-    elif x==2:        
-        day2 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-    elif x==3:   
-        day3 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-    elif x==4:   
-        day4 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-    elif x==5:        
-        day5 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-    elif x==6:   
-        day6 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
+        globalday[0] = [['','','','','','','']]
+    elif x==2:
+        globalday[1] = [['','','','','','','']]
+    elif x==3:
+        globalday[2] = [['','','','','','','']]
+    elif x==4:
+        globalday[3] = [['','','','','','','']]
+    elif x==5:
+        globalday[4] = [['','','','','','','']]
+    elif x==6:
+        globalday[5] = [['','','','','','','']]
     else:
-        day1 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-        day2 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-        day3 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-        day4 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-        day5 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
-        day6 = [['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','',''],
-                ['','','','','','','']]
+        globalday = [[['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']],
+                     [['','','','','','','']]]
 
-day1old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
-day2old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
-day3old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
-day4old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
-day5old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
-day6old = [['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','',''],
-        ['','','','','','','']]
-        
+globalday = [[['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']],
+            [['','','','','','','']]]
+globaldayold = [[['','','','','','','']]]
+empty = globalday
+
 #/html/body/div/div[2]/table/tbody/tr[1]/th Первый день недели 
 #/html/body/div/div[2]/table/tbody/tr[2]/th[1] Первое название заголовка
 #/html/body/div/div[2]/table/tbody/tr[3]/td[1] Первый элемент таблицы
@@ -160,12 +49,15 @@ browser = webdriver.Chrome()
 browser.get('https://timetable.ptpit.ru/getTimeTable#')
 vk = vk_api.VkApi(token=os.getenv("BOT_TOKEN"))
 
-#names = ['holeur',137600777,'kleschevnikovs']
-names = ['holeur']
+names = [['holeur']]
+groups = ['17СПИ3']
 date = ''
 olddate = ''
+sendingerrflag = 1
+kastilflag = 1
+kastilcheck = 0
 
-def gettablinfile(filename): #запоминание массивов в фаил
+def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется
     try:
         file = open(filename,'w')
         numline = 0
@@ -185,14 +77,14 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         print('gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка day*old в фаил. Пока не используется
-    global day1old,day2old,day3old,day4old,day5old,day6old
+    global globaldayold,globalday
     try:
         file = open(filename,'r')
         numline = 0
         numelem = 0
         num = 1
         for line in file:
-            day('day'+str(num)+'old')[numline][numelem] = line[0:len(line)-1]
+            globalday[num-1][numline][numelem] = line[0:len(line)-1]
             numelem += 1
             if numelem >= 7:
                 numelem = 0
@@ -207,16 +99,17 @@ def loadfile(filename): #Загрзка day*old в фаил. Пока не ис�
         print('Массивы загружены из файла')
     except Exception as e:
         print('loadfile err:',e)
-    
+        
 def save(): #перевод основных массивов в память
-    global day1old,day2old,day3old,day4old,day5old,day6old,olddate,date
+    global globaldayold,globalday,olddate,date
     try:
-        day1old = day1
-        day2old = day2
-        day3old = day3
-        day4old = day4
-        day5old = day5
-        day6old = day6
+        for num in range(6): #day1old = day1...
+            try:
+                globaldayold[num] = globalday[num]
+            except IndexError:
+                globaldayold.append([])
+                globaldayold[num] = globalday[num]
+        #print(globaldayold)
         olddate = date
         zeromas(0)
         print('Массивы сохранены')
@@ -228,13 +121,13 @@ def update(group): #открытие страницы
     browser.refresh()
     time.sleep(3)
     try:
-        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_value(group)
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(group)
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
         update(group)
     
-def day(nameday): #Выбор массива по названию
+def day(nameday): #Выбор массива по названию. Не используется. Лежит в память о старом алгоритме
     if nameday == 'day1':
         return day1
     elif nameday == 'day2':
@@ -261,198 +154,255 @@ def day(nameday): #Выбор массива по названию
         return day6old
 
 def zap(nday): #Заполнение выбранного массива
-    global line,browser
+    global line,browser,globalday
     flag1 = 1
     line2 = 2
     elem = 1
     while flag1:
         try:
-            day(nday)[line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            #print(day(nday)[line2-2][elem-1])
+            globalday[nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            #print(globalday[nday-1][line2-2][elem-1])
             elem += 1
             if elem > 7:
                 elem = 1
                 line2 += 1
+                globalday[nday-1].append(['','','','','','',''])
         except selenium.common.exceptions.NoSuchElementException:
             flag1 = 0
+            del globalday[nday-1][-1]
 
 def taketabl(): #Заполнение всех основных массивов по дням недели
-    global line,date
+    global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
-    for line in range(1,36):
+    for line in range(1,37):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
                 zeromas(1)
-                zap('day1')
+                zap(1)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
                 zeromas(2)
-                zap('day2')
+                zap(2)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
                 zeromas(3)
-                zap('day3')
+                zap(3)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
                 zeromas(4)
-                zap('day4')
+                zap(4)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
                 zeromas(5)
-                zap('day5')
+                zap(5)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
                 zeromas(6)
-                zap('day6')
+                zap(6)
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
-    for num in range(1,7):
-        print(day('day'+str(num))) #Вывод в консоль собранных массивов
+        except Exception as e:
+            print('taketabl err:',e) 
+    print(globalday) #Вывод в консоль собранных массивов
 
 def writetxtall(numday): #Алгоритм создания сообщения
-    global txtall,flag1
-    txt = ''
-    txtall = ''
-    numelem = 0
-    numline = 0
-    for line in day(numday):
-        for elem in line:
-            if numelem == 0:
-                if day(numday)[numline][0] != day(numday+'old')[numline][0]:
-                    txt = '*Пара> ' + elem + '\n'
-                else:
-                    txt = 'Пара> ' + elem + '\n'
-            elif numelem == 1:
-                if day(numday)[numline][1] != day(numday+'old')[numline][1]:
-                    txt = '*Время> ' + elem + '\n'
-                else:
-                    txt = 'Время> ' + elem + '\n'
-            elif numelem == 2:
-                if day(numday)[numline][2] != day(numday+'old')[numline][2]:
-                    txt = '*Предмет> ' + elem + '\n'
-                else:
-                    txt = 'Предмет> ' + elem + '\n'
-            elif numelem == 3:
-                if day(numday)[numline][3] != day(numday+'old')[numline][3]:
-                    txt = '*Подгруппа> ' + elem + '\n'
-                else:
-                    txt = 'Подгруппа> ' + elem + '\n'
-            elif numelem == 4:
-                # if day(numday)[numline][4] != day(numday+'old')[numline][4]:
-                    # txt = '*Группа> ' + elem + '\n'
-                # else:
-                    # txt = 'Группа> ' + elem + '\n'
-                if elem == '':
-                    print('Пропускаем пустоту')
-                else:
-                    print(elem+'пропускаем')
-            elif numelem == 5:
-                if day(numday)[numline][5] != day(numday+'old')[numline][5]:
-                    txt = '*Преподаватель> ' + elem + '\n'
-                else:
-                    txt = 'Преподаватель> ' + elem + '\n'
-            elif numelem == 6:
-                if day(numday)[numline][6] != day(numday+'old')[numline][6]:
-                    txt = '*Кабинет> ' + elem + '\n'
-                else:
-                    txt = 'Кабинет> ' + elem + '\n'
-            else:
-                print('Что-то пропущено...')
-            txtall += txt
-            txt = ''
-            numelem += 1
-        numline += 1
+    global globalday,globaldayold
+    try:
+        global txtall,flag1
+        txt = ''
+        txtall = ''
         numelem = 0
-        txtall += '---------------------------\n'
-    if numday == 'day1':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day2':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day3':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day4':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day5':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    elif numday == 'day6':
-        txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
-    if flag1:
-        txtall = '{Первый цикл}\n' + txtall
-
+        numline = 0
+        for line in globalday[numday-1]:
+            for elem in line:
+                if numelem == 0:
+                    try:
+                        if globalday[numday-1][numline][0] != globaldayold[numday-1][numline][0]:
+                            txt = '*Пара> ' + elem + '\n'
+                        else:
+                            txt = 'Пара> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][0] != '':
+                            txt = '*Пара> ' + elem + '\n'
+                        else:
+                            txt = 'Пара> ' + elem + '\n'
+                elif numelem == 1:
+                    try:
+                        if globalday[numday-1][numline][1] != globaldayold[numday-1][numline][1]:
+                            txt = '*Время> ' + elem + '\n'
+                        else:
+                            txt = 'Время> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][1] != '':
+                            txt = '*Время> ' + elem + '\n'
+                        else:
+                            txt = 'Время> ' + elem + '\n'
+                elif numelem == 2:
+                    try:
+                        if globalday[numday-1][numline][2] != globaldayold[numday-1][numline][2]:
+                            txt = '*Предмет> ' + elem + '\n'
+                        else:
+                            txt = 'Предмет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][2] != '':
+                            txt = '*Предмет> ' + elem + '\n'
+                        else:
+                            txt = 'Предмет> ' + elem + '\n'
+                elif numelem == 3:
+                    try:
+                        if globalday[numday-1][numline][3] != globaldayold[numday-1][numline][3]:
+                            txt = '*Подгруппа> ' + elem + '\n'
+                        else:
+                            txt = 'Подгруппа> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][3] != '':
+                            txt = '*Подгруппа> ' + elem + '\n'
+                        else:
+                            txt = 'Подгруппа> ' + elem + '\n'
+                elif numelem == 4:
+                    # try:
+                        # if globalday[numday-1][numline][4] != globaldayold[numday-1][numline][4]:
+                            # txt = '*Группа> ' + elem + '\n'
+                        # else:
+                            # txt = 'Группа> ' + elem + '\n'
+                    # except IndexError:
+                        # if globalday[numday-1][numline][4] != '':
+                            # txt = '*Группа> ' + elem + '\n'
+                        # else:
+                            # txt = 'Группа> ' + elem + '\n'
+                    if elem == '':
+                        print('Пропускаем пустоту')
+                    else:
+                        print(elem,'пропускаем')
+                elif numelem == 5:
+                    try:
+                        if globalday[numday-1][numline][5] != globaldayold[numday-1][numline][5]:
+                            txt = '*Преподаватель> ' + elem + '\n'
+                        else:
+                            txt = 'Преподаватель> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][5] != '':
+                            txt = '*Преподаватель> ' + elem + '\n'
+                        else:
+                            txt = 'Преподаватель> ' + elem + '\n'
+                elif numelem == 6:
+                    try:
+                        if globalday[numday-1][numline][6] != globaldayold[numday-1][numline][6]:
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                    except IndexError:
+                        if globalday[numday-1][numline][6] != '':
+                            txt = '*Кабинет> ' + elem + '\n'
+                        else:
+                            txt = 'Кабинет> ' + elem + '\n'
+                else:
+                    print('Что-то пропущено...')
+                txtall += txt
+                txt = ''
+                numelem += 1
+            numline += 1
+            numelem = 0
+            txtall += '---------------------------\n'
+        if numday == 1:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 2:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 3:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 4:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 5:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        elif numday == 6:
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+        if flag1:
+            txtall = '{Первый цикл}\n' + txtall
+    except Exception as e:
+        print('writetextall err:',e)
+    
 def filewrite(text): #Запись полученного текста в фаил
     file = open('logs.txt','a')
     file.write(text)
     file.close()
     
 def sendmes(text): #Скидывание оповещений нескольким людям
-    global names
-    for elem in names:
+    global names,sendingerrflag
+    for elem in names[0]:
         try:
             if isinstance(elem,int):
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
             else:
                 vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
         except Exception as e:
-            print('sendmes err:',e)
-            
+            print('sendmes',elem,'err:',e)
+            if sendingerrflag:
+                vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
+        
+                
 def eq(): #сравнение таблиц
-    global day1old,day2old,day3old,day4old,day5old,day6old,day1,day2,day3,day4,day5,day6,flag1,txtall
-    if date == olddate:
-        if day1 != day1old:
-            print('Понедельник изменили')
-            writetxtall('day1')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day2 != day2old:
-            print('Вторник изменили')
-            writetxtall('day2')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day3 != day3old:
-            print('Среду изменили')
-            writetxtall('day3')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day4 != day4old:
-            print('Четверг изменили')
-            writetxtall('day4')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day5 != day5old:
-            print('Пятницу изменили')
-            writetxtall('day5')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-        if day6 != day6old:
-            print('Субботу изменили')
-            writetxtall('day6')
-            if flag1 == 0:
-                sendmes(txtall)
-            #filewrite(txtall)
-    elif flag1 == 0:
-        txtin = "Появилось расписание на следуйщую неделю на: "
-        if day1 == day1old:
-            txtin += '  Понедельник\n'
-        if day2 == day2old:
-            txtin += '  Вторник\n'
-        if day3 == day3old:
-            txtin += '  Среду\n'
-        if day4 == day4old:
-            txtin += '  Четверг\n'
-        if day5 == day5old:
-            txtin += '  Пятницу\n'
-        if day6 == day6old:
-            txtin += '  Субботу\n'
-        sendmes(txtin)
-    else:
-        vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
+    global sendingerrflag,globaldayold,globalday,flag1,txtall
+    try:
+        if date == olddate:
+            if globalday[0] != globaldayold[0]:
+                print('Понедельник изменили')
+                writetxtall(1)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if globalday[1] != globaldayold[1]:
+                print('Вторник изменили')
+                writetxtall(2)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if globalday[2] != globaldayold[2]:
+                print('Среду изменили')
+                writetxtall(3)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if globalday[3] != globaldayold[3]:
+                print('Четверг изменили')
+                writetxtall(4)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if globalday[4] != globaldayold[4]:
+                print('Пятницу изменили')
+                writetxtall(5)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+            if globalday[5] != globaldayold[5]:
+                print('Субботу изменили')
+                writetxtall(6)
+                if flag1 == 0:
+                    sendmes(txtall)
+                #filewrite(txtall)
+        elif flag1 == 0:
+            txtin = "Появилось расписание на следуйщую неделю на: "
+            if globalday[0] == globaldayold[0]:
+                txtin += '  Понедельник\n'
+            if globalday[1] == globaldayold[1]:
+                txtin += '  Вторник\n'
+            if globalday[2] == globaldayold[2]:
+                txtin += '  Среду\n'
+            if globalday[3] == globaldayold[3]:
+                txtin += '  Четверг\n'
+            if globalday[4] == globaldayold[4]:
+                txtin += '  Пятницу\n'
+            if globalday[5] == globaldayold[5]:
+                txtin += '  Субботу\n'
+            sendmes(txtin)
+        else:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
+    except Exception as e:
+        print('eq err:',e)
+        if sendingerrflag:
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
 def checkupt():
     global checkflag,tabledate
@@ -464,27 +414,40 @@ def checkupt():
 
 def getnames():
     global names
-    oldnames = names
-    names = ['holeur']
-    number = 0
+    oldnames = names[0]
+    names[0] = ['holeur']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"])
     for mes in messages["items"]:
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
             try:
-                if int(name) not in names:
-                    names.append(int(name))
+                if int(name) not in names[0]:
+                    names[0].append(int(name))
                 if int(name) not in oldnames:
-                    print('Добавлен в массив',name)
+                    print('Добавлен в массив имен',name)
             except ValueError:
-                if name not in names:
-                    names.append(name)
+                if name not in names[0]:
+                    names[0].append(name)
                 if name not in oldnames:
-                    print('Добавлен в массив',name)
-        number += 1
+                    print('Добавлен в массив имен',name)
     print(names)
 
+def getgroups():
+    global groups
+    oldgroups = groups
+    groups = ['17СПИ3']
+    messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
+    print(messages["count"])
+    for mes in messages["items"]:
+        if '+addgr' == mes["text"][:6]:
+            group = mes["text"][7:]
+            if group not in groups:
+                groups.append(group)
+            if group not in oldgroups:
+                print('Добавлен в массив групп',group)
+    print(groups)
+    
 def delerr(): #Функция удаления всех ошибок
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
@@ -500,12 +463,36 @@ def delerr(): #Функция удаления всех ошибок
 def checklist(): #Список участников в боте
     global names
     txtall = ''
-    for name in names:
-        txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+    for num in range(len(names)):
+        txtall += '------------------------'+'\n'+'Группа: '+str(groups[num])+'\n'
+        for name in names[num]:
+            txt = str(name)+': '+str(vk.method("users.get",{"user_ids":name})[0]["first_name"])+' '+str(vk.method("users.get",{"user_ids":name})[0]["last_name"])+'\n'
+            txtall += txt
+    vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+
+def checkgroups():
+    global globalday
+    txtall = ''
+    for group in groups:
+        txt = group+'\n'
         txtall += txt
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})
+
+def testperm():
+    global names
+    txtall = ''
+    for name in names[0]:
+        try:
+            if vk.method("messages.isMessagesFromGroupAllowed",{"group_id":"181204528","user_id":name}):
+                txt = name,'красавчик.'
+            else:
+                txt = name,'не читает закреп.'
+            txtall += txt+'\n'
+        except Exception as e:
+            print('testperm err:',e,name)
     
 def detectcomm(): #Обработка комманд
+    global sendingerrflag
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
         if message["text"] == "com:del":
@@ -514,18 +501,47 @@ def detectcomm(): #Обработка комманд
         elif message["text"] == "com:list":
             checklist()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:erroff":
+            if sendingerrflag:
+                sendingerrflag = 0
+                print('errsend:',sendingerrflag)
+                vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок выключен.', "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+            else:
+                sendingerrflag = 1
+                print('errsend:',sendingerrflag)
+                vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок включен.', "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"][:9] == "com:send:":
+            sendmes(message["text"][9:])
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        elif message["text"] == "com:groupslist":
+            checkgroups()
+            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})   
         else:
             vk.method("messages.send", {"domain": 'holeur', "message":'Команда не опознана.', "random_id": random.randint(100, 2147483647)})
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
 
-zeromas(0) #Для того, чтобы обьявить массивы
+def checkbug(): #Если опять будет err:Опять наебнулись массивы. - дофиксить и вписать в цикл
+    global kastilcheck,globalday,kastilflag
+    if globalday == empty and kastilcheck <= 0:
+        kastilcheck = 10
+    if kastilcheck > 0:
+        if globalday == empty:
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:Опять наебнулись массивы.', "random_id": random.randint(100, 2147483647)})
+            kastilflag = 0
+        kastilcheck -= 1
+            
 #loadfile('bd.txt')
 flag1 = 1
+flag228 = 0
 while True:
     try:
         detectcomm()
         getnames()
-        update("81")
+        getgroups()
+        index = 0
+        update(groups[0])
         checkupt()
         if checkflag:
             time.sleep(4)
@@ -533,6 +549,7 @@ while True:
             eq()
             flag1 = 0
             save()
-            time.sleep(3)
+        index += 1
     except Exception as e:
-        vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
+        if sendingerrflag:
+            vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
