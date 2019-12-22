@@ -23,13 +23,14 @@ def groupzeromas(group):
                   [['','','','','','','']],
                   [['','','','','','','']],
                   [['','','','','','','']]]
-
-globalday = [[[['','','','','','','']],
-              [['','','','','','','']],
-              [['','','','','','','']],
-              [['','','','','','','']],
-              [['','','','','','','']],
-              [['','','','','','','']]]]
+def fullzeromas(): 
+    global globaday
+    globalday = [[[['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']]]]
 
 globaldayold = [[[['','','','','','','']]]]
 empty = globalday
@@ -112,10 +113,10 @@ def save(group): #Перевод основных массивов в памят
     try:
         for num in range(6): #day1old = day1...
             try:
-                globaldayold[0][num] = globalday[0][num]
+                globaldayold[group][num] = globalday[group][num]
             except IndexError:
-                globaldayold[0].append([])
-                globaldayold[0][num] = globalday[0][num]
+                globaldayold[group].append([])
+                globaldayold[group][num] = globalday[group][num]
         #print(globaldayold)
         olddate = date
         print('Массивы сохранены')
@@ -217,10 +218,9 @@ def taketabl(groupnum): #Заполнение массива по дням не�
             print('taketabl err:',e) 
     print(globalday) #Вывод в консоль собранных массивов
 
-def writetxtall(numday): #Алгоритм создания сообщения.
-    global globalday,globaldayold
+def writetxtall(group,numday): #Алгоритм создания сообщения.
+    global globalday,globaldayold,groups,txtall,flag1,groups
     try:
-        global txtall,flag1
         txt = ''
         txtall = ''
         numelem = 0
@@ -317,17 +317,17 @@ def writetxtall(numday): #Алгоритм создания сообщения.
             numelem = 0
             txtall += '---------------------------\n'
         if numday == 1:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 2:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 3:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 4:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 5:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 6:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         if flag1:
             txtall = '{Первый цикл}\n' + txtall
     except Exception as e:
@@ -358,37 +358,37 @@ def eq(): #Сравнение таблиц.
         if date == olddate:
             if globalday[0][0] != globaldayold[0][0]:
                 print('Понедельник изменили')
-                writetxtall(1)
+                writetxtall(0,1)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
             if globalday[0][1] != globaldayold[0][1]:
                 print('Вторник изменили')
-                writetxtall(2)
+                writetxtall(0,2)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
             if globalday[0][2] != globaldayold[0][2]:
                 print('Среду изменили')
-                writetxtall(3)
+                writetxtall(0,3)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
             if globalday[0][3] != globaldayold[0][3]:
                 print('Четверг изменили')
-                writetxtall(4)
+                writetxtall(0,4)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
             if globalday[0][4] != globaldayold[0][4]:
                 print('Пятницу изменили')
-                writetxtall(5)
+                writetxtall(0,5)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
             if globalday[0][5] != globaldayold[0][5]:
                 print('Субботу изменили')
-                writetxtall(6)
+                writetxtall(0,6)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
@@ -571,6 +571,7 @@ flag1 = 1
 flag228 = 0
 while True:
     try:
+        fullzeromas()
         detectcomm()
         getnames()
         getgroups()
