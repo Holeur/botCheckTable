@@ -234,8 +234,8 @@ def taketabl(groupnum): #Заполнение массива по дням не�
                 print('Суббота')
                 zeromas(groupnum,5)
                 zap(groupnum,5)
-        #except selenium.common.exceptions.NoSuchElementException:
-            #print('Не найдена строка под номером',line)
+        except selenium.common.exceptions.NoSuchElementException:
+            print('Не найдена строка под номером',line)
             #print()
         except Exception as e:
             print('taketabl err:',e) 
