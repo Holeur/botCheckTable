@@ -123,7 +123,7 @@ def save(group): #Перевод основных массивов в памят
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
-        print('save err:',e)
+        print('save err:',e,globalday,globaldayold)
 
 def update(group): #Открытие страницы определенной группы.
     global groups
