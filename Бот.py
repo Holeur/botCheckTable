@@ -577,7 +577,7 @@ while True:
         getnames()
         getgroups()
         index = 0
-        for numgroup in range(len(groups))
+        for numgroup in range(len(groups)):
             update(groups[numgroup])
             checkupt()
             if checkflag:
