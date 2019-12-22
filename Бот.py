@@ -440,6 +440,12 @@ def checkupt(): #Проверка на случай не загрузки сай
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
     global names,groups
     oldnames = names
+    flag4 = 1
+    while flag4:
+        if len(oldnames) >= len(groups):
+            flag4 = 0
+        else:
+            oldnames.append([])
     names = [['holeur']]
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
@@ -481,7 +487,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 print('Добавлен в массив групп',group)
                 names.append(['holeur'])
                 globalgroupappend()
-                #flag1 = 1
+                flag1 = 1
     print(groups)
     
 def delerr(): #Функция удаления всех ошибок.
