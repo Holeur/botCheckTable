@@ -437,7 +437,7 @@ def getnames(group): #Использовал личку сообщества к�
     global names
     oldnames = names[group]
     names[group] = ['holeur']
-    names[1] = ['holeur','263804863']
+    names[1] = ['holeur',263804863]
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
@@ -583,7 +583,7 @@ flag1 = 1
 flag2 = 0
 while True:
     try:
-        fullzeromas()
+        #fullzeromas()
         detectcomm()
         getgroups()
         getnames(0)
