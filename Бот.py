@@ -127,7 +127,7 @@ def loadfile(filename): #Загрзка dayold в фаил. Пока не исп
         print('loadfile err:',e)
         
 def save(group): #Перевод основных массивов в память.
-    global globaldayold,globalday,olddate,date
+    global globaldayold,globalday
     try:
         for num in range(6): #day1old = day1...
             try:
@@ -136,7 +136,6 @@ def save(group): #Перевод основных массивов в памят
                 globaldayold[group].append([])
                 globaldayold[group][num] = globalday[group][num]
         #print(globaldayold)
-        olddate = date
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
@@ -200,9 +199,13 @@ def zap(groupnum,nday): #Заполнение выбранного дня в м�
     except Exception as e:
         print("zap err:",e)
 
-def taketabl(groupnum): #Заполнение массива по дням недели.
-    global line,date,globalday
+def checkdate():
+    global date,olddate
+    olddate = date
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
+    
+def taketabl(groupnum): #Заполнение массива по дням недели.
+    global line,globalday
     for line in range(1,48):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
@@ -335,17 +338,17 @@ def writetxtall(group,numday): #Алгоритм создания сообщен
             numelem = 0
             txtall += '---------------------------\n'
         if numday == 1:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПонедельник изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 2:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nВторник изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 3:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСреду изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 4:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nЧетверг изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 5:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nПятницу изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         elif numday == 6:
-            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили у '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
+            txtall = '/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\nСубботу изменили у группы '+str(groups[group])+'\n/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\n'+txtall+'\n'
         if flag1:
             txtall = '{Первый цикл}\n' + txtall
     except Exception as e:
@@ -371,7 +374,7 @@ def sendmes(group,text): #Отправление сообщения нескол
         
                 
 def eq(group): #Сравнение таблиц.
-    global sendingerrflag,globaldayold,globalday,flag1,txtall
+    global sendingerrflag,globaldayold,globalday,flag1,txtall,groups
     try:
         if date == olddate:
             if globalday[group][0] != globaldayold[group][0]:
@@ -410,9 +413,9 @@ def eq(group): #Сравнение таблиц.
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
-        elif flag1 == 0:
+        else:
             groupzeromas(group)
-            txtin = "Появилось расписание на следуйщую неделю на: \n"
+            txtin = "У группы "+str(groups[group])+" появилось расписание на следуйщую неделю на: \n"
             if globalday[group][0] != globaldayold[group][0]:
                 txtin += '  Понедельник\n'
             if globalday[group][1] != globaldayold[group][1]:
@@ -443,7 +446,7 @@ def getnames(group): #Использовал личку сообщества к�
     global names
     oldnames = names[group]
     names[group] = ['holeur']
-    names[1] = ['holeur']
+    names[1] = ['holeur','263804863']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
@@ -593,8 +596,9 @@ while True:
         detectcomm()
         getgroups()
         getnames(0)
+        checkdate()
         for numgroup in range(len(groups)):
-            print('Обработка группы:',groups[numgroup])
+            print('Обработка расписания группы:',groups[numgroup])
             update(numgroup)
             checkupt()
             if checkflag:
