@@ -441,7 +441,7 @@ def getnames(): #Использовал личку сообщества как �
     global names,groups
     oldnames = names
     names[0] = ['holeur']
-    names[1] = ['holeur',263804863]
+    names[1] = ['holeur']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
@@ -458,12 +458,12 @@ def getnames(): #Использовал личку сообщества как �
             try:
                 if int(name) not in names[groups.index(namegroup)]:
                     names[groups.index(namegroup)].append(int(name))
-                if int(name) not in oldnames:
+                if int(name) not in oldnames[groups.index(namegroup)]:
                     print('Добавлен в массив имен',name,'в группу',namegroup)
             except ValueError:
                 if name not in names[groups.index(namegroup)]:
                     names[groups.index(namegroup)].append(name)
-                if name not in oldnames:
+                if name not in oldnames[groups.index(namegroup)]:
                     print('Добавлен в массив имен',name,'в группу',namegroup)
     print(names)
 
@@ -545,7 +545,7 @@ def detectcomm(): #Обработчик комманд
     global sendingerrflag,globalday
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
-        if message["text"] == "com:del":
+        if message["text"] == "com:delerr":
             delerr()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
         elif message["text"][:12] == "com:getelem:": #com:getelem:2:2:2:2
