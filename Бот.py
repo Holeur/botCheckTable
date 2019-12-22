@@ -15,14 +15,14 @@ def zeromas(group,day):
     except Exception as e:
         print('zeromas err:',e,globalday)
     
-def fullzeromas():
+def groupzeromas(group):
     global globalday
-    globalday = [[[['','','','','','','']],
+    globalday[group] = [[['','','','','','','']],
                   [['','','','','','','']],
                   [['','','','','','','']],
                   [['','','','','','','']],
                   [['','','','','','','']],
-                  [['','','','','','','']]]]
+                  [['','','','','','','']]]
 
 globalday = [[[['','','','','','','']],
               [['','','','','','','']],
@@ -107,7 +107,7 @@ def loadfile(filename): #Загрзка dayold в фаил. Пока не исп
     except Exception as e:
         print('loadfile err:',e)
         
-def save(): #Перевод основных массивов в память.
+def save(group): #Перевод основных массивов в память.
     global globaldayold,globalday,olddate,date
     try:
         for num in range(6): #day1old = day1...
@@ -118,7 +118,7 @@ def save(): #Перевод основных массивов в память.
                 globaldayold[0][num] = globalday[0][num]
         #print(globaldayold)
         olddate = date
-        fullzeromas()
+        groupzeromas(group)
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
@@ -581,7 +581,7 @@ while True:
             taketabl(0)
             eq()
             flag1 = 0
-            save()
+            save(0)
         update(1)
         checkupt()
         if checkflag:
