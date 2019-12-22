@@ -122,10 +122,11 @@ def save(): #Перевод основных массивов в память.
         print('save err:',e)
 
 def update(group): #Открытие страницы определенной группы.
+    global groups
     browser.refresh()
     time.sleep(3)
     try:
-        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(group)
+        Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(groups[group])
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
     except:
         print('Опять ошибка с поиском элемента')
@@ -165,7 +166,7 @@ def zap(groupnum,nday): #Заполнение выбранного дня в м�
     while flag1:
         try:
             globalday[groupnum][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            #print(globalday[0][nday-1][line2-2][elem-1])
+            #print(globalday[groupnum][nday-1][line2-2][elem-1])
             elem += 1
             if elem > 7:
                 elem = 1
@@ -178,7 +179,7 @@ def zap(groupnum,nday): #Заполнение выбранного дня в м�
 def taketabl(groupnum): #Заполнение массива по дням недели.
     global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
-    for line in range(1,37):
+    for line in range(1,48):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
