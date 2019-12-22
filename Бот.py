@@ -461,9 +461,9 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
             group = mes["text"][7:]
             if group not in groups:
                 groups.append(group)
-                globalgroupappend()
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
+                globalgroupappend()
     print(groups)
     
 def delerr(): #Функция удаления всех ошибок.
