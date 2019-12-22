@@ -582,7 +582,7 @@ while True:
             checkupt()
             if checkflag:
                 time.sleep(4)
-                taketabl(group)
+                taketabl(numgroup)
                 eq()
                 flag1 = 0
                 save()
