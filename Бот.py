@@ -598,7 +598,7 @@ while True:
         #fullzeromas()
         detectcomm()
         getgroups()
-        getnames(0)
+        getnames()
         for numgroup in range(len(groups)):
             print('Обработка расписания группы:',groups[numgroup])
             update(numgroup)
