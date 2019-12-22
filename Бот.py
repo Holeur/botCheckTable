@@ -69,7 +69,7 @@ kastilflag = 1
 kastilcheck = 0
 
 def globalgroupappend(): #Добавление место под группу в массиве.
-    global globalday
+    global globalday,globaldayold
     globalday.append([[['','','','','','','']],
               [['','','','','','','']],
               [['','','','','','','']],
