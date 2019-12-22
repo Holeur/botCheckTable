@@ -440,8 +440,6 @@ def checkupt(): #Проверка на случай не загрузки сай
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
     global names,groups
     oldnames = names
-    names[0] = ['holeur']
-    names[1] = ['holeur']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
@@ -482,6 +480,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 print('Добавлен в массив групп',group)
                 names.append([])
                 globalgroupappend()
+                flag1 = 1
     print(groups)
     
 def delerr(): #Функция удаления всех ошибок.
@@ -538,13 +537,15 @@ def checkmassive(x4,x3,x2,x1): #Получение элемента из мас�
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
 
 def help(id): #Получение помощи по командам. Сделано пока кастыльно, но работает.
-    txt = 'com:del - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
+    txt = '-/|\-\ncom:delerr - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
     vk.method("messages.send", {"domain": id, "message":txt, "random_id": random.randint(100, 2147483647)})
     
 def detectcomm(): #Обработчик комманд
     global sendingerrflag,globalday
     messages = vk.method("messages.search",{"q":"com:","peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
+        if '-/|\-' in message:
+            continue
         if message["text"] == "com:delerr":
             delerr()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
