@@ -358,68 +358,66 @@ def sendmes(text): #Отправление сообщения нескольки
                 vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
         
                 
-def eq(): #Сравнение таблиц.
+def eq(group): #Сравнение таблиц.
     global sendingerrflag,globaldayold,globalday,flag1,txtall
     try:
         if date == olddate:
-            if globalday[0][0] != globaldayold[0][0]:
+            if globalday[group][0] != globaldayold[group][0]:
                 print('Понедельник изменили')
-                writetxtall(0,1)
+                writetxtall(group,1)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][1] != globaldayold[0][1]:
+            if globalday[group][1] != globaldayold[group][1]:
                 print('Вторник изменили')
-                writetxtall(0,2)
+                writetxtall(group,2)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][2] != globaldayold[0][2]:
+            if globalday[group][2] != globaldayold[group][2]:
                 print('Среду изменили')
-                writetxtall(0,3)
+                writetxtall(group,3)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][3] != globaldayold[0][3]:
+            if globalday[group][3] != globaldayold[group][3]:
                 print('Четверг изменили')
-                writetxtall(0,4)
+                writetxtall(group,4)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][4] != globaldayold[0][4]:
+            if globalday[group][4] != globaldayold[group][4]:
                 print('Пятницу изменили')
-                writetxtall(0,5)
+                writetxtall(group,5)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
-            if globalday[0][5] != globaldayold[0][5]:
+            if globalday[group][5] != globaldayold[group][5]:
                 print('Субботу изменили')
-                writetxtall(0,6)
+                writetxtall(group,6)
                 if flag1 == 0:
                     sendmes(txtall)
                 #filewrite(txtall)
         elif flag1 == 0:
-            groupzeromas(0)
+            groupzeromas(group)
             txtin = "Появилось расписание на следуйщую неделю на: \n"
-            if globalday[0][0] != globaldayold[0][0]:
+            if globalday[group][0] != globaldayold[group][0]:
                 txtin += '  Понедельник\n'
-            if globalday[0][1] != globaldayold[0][1]:
+            if globalday[group][1] != globaldayold[group][1]:
                 txtin += '  Вторник\n'
-            if globalday[0][2] != globaldayold[0][2]:
+            if globalday[group][2] != globaldayold[group][2]:
                 txtin += '  Среду\n'
-            if globalday[0][3] != globaldayold[0][3]:
+            if globalday[group][3] != globaldayold[group][3]:
                 txtin += '  Четверг\n'
-            if globalday[0][4] != globaldayold[0][4]:
+            if globalday[group][4] != globaldayold[group][4]:
                 txtin += '  Пятницу\n'
-            if globalday[0][5] != globaldayold[0][5]:
+            if globalday[group][5] != globaldayold[group][5]:
                 txtin += '  Субботу\n'
             sendmes(txtin)
-        else:
-            vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
         print('eq err:',e)
         if sendingerrflag:
-            vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.send", {"domain": 'holeur', "message":'eq err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
 def checkupt(): #Проверка на случай не загрузки сайта.
     global checkflag,tabledate
@@ -574,7 +572,7 @@ def checkbug(): #Если опять будет err:Опять наебнули�
 # Основная часть кода где обьявляются все функции.
 #
 flag1 = 1
-flag228 = 0
+flag2 = 0
 while True:
     try:
         fullzeromas()
@@ -586,14 +584,16 @@ while True:
         if checkflag:
             time.sleep(4)
             taketabl(0)
-            eq()
-            flag1 = 0
+            eq(0)
             save(0)
         update(1)
         checkupt()
         if checkflag:
             time.sleep(4)
             taketabl(1)
+            flag1 = 0
+        if flag1:
+            vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
