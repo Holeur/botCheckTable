@@ -537,6 +537,12 @@ def checkmassive(x4,x3,x2,x1): #Получение элемента из мас�
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
 
+def deletemes(text):
+    messages = vk.method("messages.search",{"q":text,"peer_id":"125524519","group_id":"181204528","count":"99"})
+    for message in messages["items"]:
+        vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        print('Удалено со стороны бота:',message["text"])
+        
 def help(id): #Получение помощи по командам. Сделано пока кастыльно, но работает.
     txt = '-/|\-\ncom:delerr - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
     vk.method("messages.send", {"domain": id, "message":txt, "random_id": random.randint(100, 2147483647)})
@@ -550,6 +556,8 @@ def detectcomm(): #Обработчик комманд
         if message["text"] == "com:delerr":
             delerr()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        elif message["text"][:11] == 'com:delmes:':
+            deletemes(message["text"][12:])
         elif message["text"][:12] == "com:getelem:": #com:getelem:2:2:2:2
             checkmassive(int(message["text"][12]),int(message["text"][14]),int(message["text"][16]),int(message["text"][18]))
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
