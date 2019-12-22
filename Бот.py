@@ -479,9 +479,9 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 groups.append(group)
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
-                names.append([])
+                names.append(['holeur'])
                 globalgroupappend()
-                flag1 = 1
+                #flag1 = 1
     print(groups)
     
 def delerr(): #Функция удаления всех ошибок.
