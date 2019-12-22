@@ -248,60 +248,60 @@ def writetxtall(group,numday): #Алгоритм создания сообщен
         txtall = ''
         numelem = 0
         numline = 0
-        for line in globalday[0][numday-1]:
+        for line in globalday[group][numday-1]:
             for elem in line:
                 if numelem == 0:
                     try:
-                        if globalday[0][numday-1][numline][0] != globaldayold[0][numday-1][numline][0]:
+                        if globalday[group][numday-1][numline][0] != globaldayold[group][numday-1][numline][0]:
                             txt = '*Пара> ' + elem + '\n'
                         else:
                             txt = 'Пара> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][0] != '':
+                        if globalday[group][numday-1][numline][0] != '':
                             txt = '*Пара> ' + elem + '\n'
                         else:
                             txt = 'Пара> ' + elem + '\n'
                 elif numelem == 1:
                     try:
-                        if globalday[0][numday-1][numline][1] != globaldayold[0][numday-1][numline][1]:
+                        if globalday[group][numday-1][numline][1] != globaldayold[group][numday-1][numline][1]:
                             txt = '*Время> ' + elem + '\n'
                         else:
                             txt = 'Время> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][1] != '':
+                        if globalday[group][numday-1][numline][1] != '':
                             txt = '*Время> ' + elem + '\n'
                         else:
                             txt = 'Время> ' + elem + '\n'
                 elif numelem == 2:
                     try:
-                        if globalday[0][numday-1][numline][2] != globaldayold[0][numday-1][numline][2]:
+                        if globalday[group][numday-1][numline][2] != globaldayold[group][numday-1][numline][2]:
                             txt = '*Предмет> ' + elem + '\n'
                         else:
                             txt = 'Предмет> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][2] != '':
+                        if globalday[group][numday-1][numline][2] != '':
                             txt = '*Предмет> ' + elem + '\n'
                         else:
                             txt = 'Предмет> ' + elem + '\n'
                 elif numelem == 3:
                     try:
-                        if globalday[0][numday-1][numline][3] != globaldayold[0][numday-1][numline][3]:
+                        if globalday[group][numday-1][numline][3] != globaldayold[group][numday-1][numline][3]:
                             txt = '*Подгруппа> ' + elem + '\n'
                         else:
                             txt = 'Подгруппа> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][3] != '':
+                        if globalday[group][numday-1][numline][3] != '':
                             txt = '*Подгруппа> ' + elem + '\n'
                         else:
                             txt = 'Подгруппа> ' + elem + '\n'
                 elif numelem == 4:
                     # try:
-                        # if globalday[0][numday-1][numline][4] != globaldayold[0][numday-1][numline][4]:
+                        # if globalday[group][numday-1][numline][4] != globaldayold[group][numday-1][numline][4]:
                             # txt = '*Группа> ' + elem + '\n'
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
                     # except IndexError:
-                        # if globalday[0][numday-1][numline][4] != '':
+                        # if globalday[group][numday-1][numline][4] != '':
                             # txt = '*Группа> ' + elem + '\n'
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
@@ -311,23 +311,23 @@ def writetxtall(group,numday): #Алгоритм создания сообщен
                         print(elem,'пропускаем')
                 elif numelem == 5:
                     try:
-                        if globalday[0][numday-1][numline][5] != globaldayold[0][numday-1][numline][5]:
+                        if globalday[group][numday-1][numline][5] != globaldayold[group][numday-1][numline][5]:
                             txt = '*Преподаватель> ' + elem + '\n'
                         else:
                             txt = 'Преподаватель> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][5] != '':
+                        if globalday[group][numday-1][numline][5] != '':
                             txt = '*Преподаватель> ' + elem + '\n'
                         else:
                             txt = 'Преподаватель> ' + elem + '\n'
                 elif numelem == 6:
                     try:
-                        if globalday[0][numday-1][numline][6] != globaldayold[0][numday-1][numline][6]:
+                        if globalday[group][numday-1][numline][6] != globaldayold[group][numday-1][numline][6]:
                             txt = '*Кабинет> ' + elem + '\n'
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
                     except IndexError:
-                        if globalday[0][numday-1][numline][6] != '':
+                        if globalday[group][numday-1][numline][6] != '':
                             txt = '*Кабинет> ' + elem + '\n'
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
