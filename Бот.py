@@ -118,7 +118,6 @@ def save(group): #Перевод основных массивов в памят
                 globaldayold[0][num] = globalday[0][num]
         #print(globaldayold)
         olddate = date
-        groupzeromas(group)
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
@@ -394,6 +393,7 @@ def eq(): #Сравнение таблиц.
                     sendmes(txtall)
                 #filewrite(txtall)
         elif flag1 == 0:
+            groupzeromas(0)
             txtin = "Появилось расписание на следуйщую неделю на: \n"
             if globalday[0][0] != globaldayold[0][0]:
                 txtin += '  Понедельник\n'
