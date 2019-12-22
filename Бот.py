@@ -415,15 +415,15 @@ def eq(group): #Сравнение таблиц.
                     sendmes(group,txtall)
                 #filewrite(txtall)
         else:
-            if flag1:
-                print('Новая неделя')
+            print('Новая неделя')
+            if flag1 == 0:
                 groupzeromas(group)
-                if globalday[group][0] != globaldayold[group][0]:
-                    print('Понедельник изменили')
-                    writetxtall(group,1)
-                    if flag1 == 0:
-                        sendmes(group,txtall)
-                    #filewrite(txtall)
+            if globalday[group][0] != globaldayold[group][0]:
+                print('Понедельник изменили')
+                writetxtall(group,1)
+                if flag1 == 0:
+                    sendmes(group,txtall)
+                #filewrite(txtall)
     except Exception as e:
         print('eq err:',e)
         if sendingerrflag:
