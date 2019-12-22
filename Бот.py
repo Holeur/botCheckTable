@@ -160,21 +160,24 @@ def day(nameday): #Выбор массива по названию. Не исп�
 
 def zap(groupnum,nday): #Заполнение выбранного дня в массиве.
     global line,browser,globalday
-    flag1 = 1
-    line2 = 2
-    elem = 1
-    while flag1:
-        try:
-            globalday[groupnum][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-            #print(globalday[groupnum][nday-1][line2-2][elem-1])
-            elem += 1
-            if elem > 7:
-                elem = 1
-                line2 += 1
-                globalday[groupnum][nday-1].append(['','','','','','',''])
-        except selenium.common.exceptions.NoSuchElementException:
-            flag1 = 0
-            del globalday[groupnum][nday-1][-1]
+    try:
+        flag1 = 1
+        line2 = 2
+        elem = 1
+        while flag1:
+            try:
+                globalday[groupnum][nday][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+                #print(globalday[groupnum][nday][line2-2][elem-1])
+                elem += 1
+                if elem > 7:
+                    elem = 1
+                    line2 += 1
+                    globalday[groupnum][nday].append(['','','','','','',''])
+            except selenium.common.exceptions.NoSuchElementException:
+                flag1 = 0
+                del globalday[groupnum][nday][-1]
+    except Exception as e:
+        print("zap err:",e)
 
 def taketabl(groupnum): #Заполнение массива по дням недели.
     global line,date,globalday
@@ -184,27 +187,27 @@ def taketabl(groupnum): #Заполнение массива по дням не�
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
                 zeromas(groupnum,0)
-                zap(groupnum,1)
+                zap(groupnum,0)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
                 zeromas(groupnum,1)
-                zap(groupnum,2)
+                zap(groupnum,1)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
                 zeromas(groupnum,2)
-                zap(groupnum,3)
+                zap(groupnum,2)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
                 zeromas(groupnum,3)
-                zap(groupnum,4)
+                zap(groupnum,3)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
                 zeromas(groupnum,4)
-                zap(groupnum,5)
+                zap(groupnum,4)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
                 zeromas(groupnum,5)
-                zap(groupnum,6)
+                zap(groupnum,5)
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
