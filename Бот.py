@@ -437,26 +437,34 @@ def checkupt(): #Проверка на случай не загрузки сай
     except:
         checkflag = 0
 
-def getnames(group): #Использовал личку сообщества как бд с именами участников. XD
-    global names
-    oldnames = names[group]
-    names[group] = ['holeur']
+def getnames(): #Использовал личку сообщества как бд с именами участников. XD
+    global names,groups
+    oldnames = names
+    names[0] = ['holeur']
     names[1] = ['holeur',263804863]
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
-        if '+add' == mes["text"][:4]:
-            name = mes["text"][5:]
+        if '+add' == mes["text"][:4]: #+add:4563456:17СПИ3
+            name = mes["text"][5:mes["text"].rfind(':'):]
             try:
-                if int(name) not in names[group]:
-                    names[group].append(int(name))
+                namegroup = mes["text"][mes["text"].rfind(':')+1:]
+                if namegroup == '':
+                    namegroup == '17СПИ3'
+                elif namegroup not in groups:
+                    print('Группы не существует')
+            except Exception as e:
+                print('getnames namegroup err:',e)
+            try:
+                if int(name) not in names[groups.index(namegroup)]:
+                    names[groups.index(namegroup)].append(int(name))
                 if int(name) not in oldnames:
-                    print('Добавлен в массив имен',name)
+                    print('Добавлен в массив имен',name,'в группу',namegroup)
             except ValueError:
-                if name not in names[group]:
-                    names[group].append(name)
+                if name not in names[groups.index(namegroup)]:
+                    names[groups.index(namegroup)].append(name)
                 if name not in oldnames:
-                    print('Добавлен в массив имен',name)
+                    print('Добавлен в массив имен',name,'в группу',namegroup)
     print(names)
 
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
