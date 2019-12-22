@@ -415,14 +415,15 @@ def eq(group): #Сравнение таблиц.
                     sendmes(group,txtall)
                 #filewrite(txtall)
         else:
-            print('Новая неделя')
-            groupzeromas(group)
-            if globalday[group][0] != globaldayold[group][0]:
-                print('Понедельник изменили')
-                writetxtall(group,1)
-                if flag1 == 0:
-                    sendmes(group,txtall)
-                #filewrite(txtall)
+            if flag1:
+                print('Новая неделя')
+                groupzeromas(group)
+                if globalday[group][0] != globaldayold[group][0]:
+                    print('Понедельник изменили')
+                    writetxtall(group,1)
+                    if flag1 == 0:
+                        sendmes(group,txtall)
+                    #filewrite(txtall)
     except Exception as e:
         print('eq err:',e)
         if sendingerrflag:
@@ -590,18 +591,18 @@ while True:
         detectcomm()
         getgroups()
         getnames(0)
-        checkdate(1)
         for numgroup in range(len(groups)):
             print('Обработка расписания группы:',groups[numgroup])
             update(numgroup)
             checkupt()
+            checkdate(1)
             if checkflag:
                 time.sleep(4)
                 taketabl(numgroup)
                 eq(numgroup)
                 save(numgroup)
                 flag1 = 0
-        checkdate(2)
+            checkdate(2)
         if flag1:
             vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
