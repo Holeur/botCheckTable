@@ -344,9 +344,9 @@ def filewrite(text): #Запись полученного текста в фаи
     file.write(text)
     file.close()
     
-def sendmes(text): #Отправление сообщения нескольким людям.
+def sendmes(group,text): #Отправление сообщения нескольким людям.
     global names,sendingerrflag
-    for elem in names[0]:
+    for elem in names[group]:
         try:
             if isinstance(elem,int):
                 vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
@@ -366,37 +366,37 @@ def eq(group): #Сравнение таблиц.
                 print('Понедельник изменили')
                 writetxtall(group,1)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][1] != globaldayold[group][1]:
                 print('Вторник изменили')
                 writetxtall(group,2)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][2] != globaldayold[group][2]:
                 print('Среду изменили')
                 writetxtall(group,3)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][3] != globaldayold[group][3]:
                 print('Четверг изменили')
                 writetxtall(group,4)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][4] != globaldayold[group][4]:
                 print('Пятницу изменили')
                 writetxtall(group,5)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][5] != globaldayold[group][5]:
                 print('Субботу изменили')
                 writetxtall(group,6)
                 if flag1 == 0:
-                    sendmes(txtall)
+                    sendmes(group,txtall)
                 #filewrite(txtall)
         elif flag1 == 0:
             groupzeromas(group)
