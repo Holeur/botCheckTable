@@ -440,6 +440,7 @@ def checkupt(): #Проверка на случай не загрузки сай
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
     global names,groups
     oldnames = names
+    names = [['holeur']]
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
