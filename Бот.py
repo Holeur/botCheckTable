@@ -458,12 +458,12 @@ def getnames(): #Использовал личку сообщества как �
                 try:
                     if int(name) not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(int(name))
-                    if int(name) not in oldnames[groups.index(namegroup)]:
+                    if int(name) not in oldnames:
                         print('Добавлен в массив имен',name,'в группу',namegroup)
                 except ValueError:
                     if name not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(name)
-                    if name not in oldnames[groups.index(namegroup)]:
+                    if name not in oldnames:
                         print('Добавлен в массив имен',name,'в группу',namegroup)
         print(names)
     except Exception as e:
