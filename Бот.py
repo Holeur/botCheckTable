@@ -375,7 +375,7 @@ def sendmes(group,text): #Отправление сообщения нескол
                 vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
 
 def eq(group): #Сравнение таблиц.
-    global sendingerrflag,globaldayold,globalday,flag1,txtall,groups
+    global sendingerrflag,globaldayold,globalday,flag1,txtall,groups,date,olddate
     try:
         if date == olddate:
             if globalday[group][0] != globaldayold[group][0]:
