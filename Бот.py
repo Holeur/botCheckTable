@@ -438,39 +438,36 @@ def checkupt(): #Проверка на случай не загрузки сай
         checkflag = 0
 
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
-    global names,groups
-    oldnames = names
-    flag4 = 1
-    while flag4:
-        if len(oldnames) >= len(groups):
-            flag4 = 0
-        else:
-            oldnames.append([])
-    names = [['holeur']]
-    messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
-    print(messages["count"]+1)
-    for mes in messages["items"]:
-        if '+add' == mes["text"][:4]: #+add:4563456:17СПИ3
-            name = mes["text"][5:mes["text"].rfind(':'):]
-            try:
-                namegroup = mes["text"][mes["text"].rfind(':')+1:]
-                if namegroup == '':
-                    namegroup = '17СПИ3'
-                elif namegroup not in groups:
-                    print('Группы не существует')
-            except Exception as e:
-                print('getnames namegroup err:',e)
-            try:
-                if int(name) not in names[groups.index(namegroup)]:
-                    names[groups.index(namegroup)].append(int(name))
-                if int(name) not in oldnames[groups.index(namegroup)]:
-                    print('Добавлен в массив имен',name,'в группу',namegroup)
-            except ValueError:
-                if name not in names[groups.index(namegroup)]:
-                    names[groups.index(namegroup)].append(name)
-                if name not in oldnames[groups.index(namegroup)]:
-                    print('Добавлен в массив имен',name,'в группу',namegroup)
-    print(names)
+    try:    
+        global names,groups
+        oldnames = names
+        names = [['holeur']]
+        messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
+        print(messages["count"]+1)
+        for mes in messages["items"]:
+            if '+add' == mes["text"][:4]: #+add:4563456:17СПИ3
+                name = mes["text"][5:mes["text"].rfind(':'):]
+                try:
+                    namegroup = mes["text"][mes["text"].rfind(':')+1:]
+                    if namegroup == '':
+                        namegroup = '17СПИ3'
+                    elif namegroup not in groups:
+                        print('Группы не существует')
+                except Exception as e:
+                    print('getnames namegroup err:',e)
+                try:
+                    if int(name) not in names[groups.index(namegroup)]:
+                        names[groups.index(namegroup)].append(int(name))
+                    if int(name) not in oldnames[groups.index(namegroup)]:
+                        print('Добавлен в массив имен',name,'в группу',namegroup)
+                except ValueError:
+                    if name not in names[groups.index(namegroup)]:
+                        names[groups.index(namegroup)].append(name)
+                    if name not in oldnames[groups.index(namegroup)]:
+                        print('Добавлен в массив имен',name,'в группу',namegroup)
+        print(names)
+    except Exception as e:
+        print('getnames err:',e)
 
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
     global groups,names
