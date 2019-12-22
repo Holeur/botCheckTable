@@ -10,7 +10,10 @@ from selenium.webdriver.firefox.options import Options
 
 def zeromas(group,day):
     global globalday
-    globalday[group][day] = [['','','','','','','']]
+    try:
+        globalday[group][day] = [['','','','','','','']]
+    except Exception as e:
+        print('zeromas err:',e,globalday)
     
 def fullzeromas():
     global globalday
