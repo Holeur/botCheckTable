@@ -427,23 +427,24 @@ def checkupt(): #Проверка на случай не загрузки сай
     except:
         checkflag = 0
 
-def getnames(): #Использовал личку сообщества как бд с именами участников. XD
+def getnames(group): #Использовал личку сообщества как бд с именами участников. XD
     global names
-    oldnames = names[0]
-    names[0] = ['holeur']
+    oldnames = names[group]
+    names[group] = ['holeur']
+    names[1] = ['holeur']
     messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
         if '+add' == mes["text"][:4]:
             name = mes["text"][5:]
             try:
-                if int(name) not in names[0]:
-                    names[0].append(int(name))
+                if int(name) not in names[group]:
+                    names[group].append(int(name))
                 if int(name) not in oldnames:
                     print('Добавлен в массив имен',name)
             except ValueError:
-                if name not in names[0]:
-                    names[0].append(name)
+                if name not in names[group]:
+                    names[group].append(name)
                 if name not in oldnames:
                     print('Добавлен в массив имен',name)
     print(names)
@@ -577,21 +578,16 @@ while True:
     try:
         fullzeromas()
         detectcomm()
-        getnames()
+        getnames(0)
         getgroups()
-        update(0)
-        checkupt()
-        if checkflag:
-            time.sleep(4)
-            taketabl(0)
-            eq(0)
-            save(0)
-        update(1)
-        checkupt()
-        if checkflag:
-            time.sleep(4)
-            taketabl(1)
-            flag1 = 0
+        for numgroup in range(len(groups)):
+            update(numgroup)
+            checkupt()
+            if checkflag:
+                time.sleep(4)
+                taketabl(numgroup)
+                eq(numgroup)
+                save(numgroup)
         if flag1:
             vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
