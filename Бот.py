@@ -166,26 +166,25 @@ def day(nameday): #Выбор массива по названию. Не исп�
     elif nameday == 'day6old':
         return day6old
 
-def zap(nday): #Заполнение выбранного дня в массиве.
+def zap(nday,groupnum): #Заполнение выбранного дня в массиве.
     global line,browser,globalday
     flag1 = 1
     line2 = 2
     elem = 1
-    for groupnum in range(len(groups)):
-        while flag1:
-            try:
-                globalday[groupnum][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
-                #print(globalday[0][nday-1][line2-2][elem-1])
-                elem += 1
-                if elem > 7:
-                    elem = 1
-                    line2 += 1
-                    globalday[0][nday-1].append(['','','','','','',''])
-            except selenium.common.exceptions.NoSuchElementException:
-                flag1 = 0
-                del globalday[0][nday-1][-1]
+    while flag1:
+        try:
+            globalday[groupnum][nday-1][line2-2][elem-1] = browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line+line2)+']/td['+str(elem)+']').text
+            #print(globalday[0][nday-1][line2-2][elem-1])
+            elem += 1
+            if elem > 7:
+                elem = 1
+                line2 += 1
+                globalday[groupnum][nday-1].append(['','','','','','',''])
+        except selenium.common.exceptions.NoSuchElementException:
+            flag1 = 0
+            del globalday[groupnum][nday-1][-1]
 
-def taketabl(): #Заполнение массива по дням недели.
+def taketabl(groupnum): #Заполнение массива по дням недели.
     global line,date,globalday
     date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
     for line in range(1,37):
@@ -193,27 +192,27 @@ def taketabl(): #Заполнение массива по дням недели.
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
                 zeromas(1)
-                zap(1)
+                zap(1,groupnum)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
                 zeromas(2)
-                zap(2)
+                zap(2,groupnum)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
                 zeromas(3)
-                zap(3)
+                zap(3,groupnum)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
                 zeromas(4)
-                zap(4)
+                zap(4,groupnum)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
                 zeromas(5)
-                zap(5)
+                zap(5,groupnum)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
                 zeromas(6)
-                zap(6)
+                zap(6,groupnum)
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
@@ -578,15 +577,16 @@ while True:
         getnames()
         getgroups()
         index = 0
-        update(groups[0])
-        checkupt()
-        if checkflag:
-            time.sleep(4)
-            taketabl()
-            eq()
-            flag1 = 0
-            save()
-        index += 1
+        for numgroup in range(len(groups))
+            update(groups[numgroup])
+            checkupt()
+            if checkflag:
+                time.sleep(4)
+                taketabl(group)
+                eq()
+                flag1 = 0
+                save()
+            index += 1
     except Exception as e:
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
