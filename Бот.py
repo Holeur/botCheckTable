@@ -144,7 +144,7 @@ def save(group): #Перевод основных массивов в памят
 def update(group): #Открытие страницы определенной группы.
     global groups
     browser.refresh()
-    time.sleep(3)
+    time.sleep(4)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(groups[group])
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
