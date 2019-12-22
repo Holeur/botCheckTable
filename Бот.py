@@ -413,7 +413,7 @@ def eq(group): #Сравнение таблиц.
                 txtin += '  Пятницу\n'
             if globalday[group][5] != globaldayold[group][5]:
                 txtin += '  Субботу\n'
-            sendmes(txtin)
+            sendmes(group,txtin)
     except Exception as e:
         print('eq err:',e)
         if sendingerrflag:
@@ -582,6 +582,7 @@ while True:
         getgroups()
         getnames(0)
         for numgroup in range(len(groups)):
+            print('Обработка группы:',groups[numgroup])
             update(numgroup)
             checkupt()
             if checkflag:
