@@ -8,27 +8,18 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
-def zeromas(x):
-    global day1,day2,day3,day4,day5,day6,globalday
-    if x==1:
-        globalday[0][0] = [['','','','','','','']]
-    elif x==2:
-        globalday[0][1] = [['','','','','','','']]
-    elif x==3:
-        globalday[0][2] = [['','','','','','','']]
-    elif x==4:
-        globalday[0][3] = [['','','','','','','']]
-    elif x==5:
-        globalday[0][4] = [['','','','','','','']]
-    elif x==6:
-        globalday[0][5] = [['','','','','','','']]
-    else:
-        globalday = [[[['','','','','','','']],
-                      [['','','','','','','']],
-                      [['','','','','','','']],
-                      [['','','','','','','']],
-                      [['','','','','','','']],
-                      [['','','','','','','']]]]
+def zeromas(group,day):
+    global globalday
+    globalday[group][day] = [['','','','','','','']]
+    
+def fullzeromas():
+    global globalday
+    globalday = [[[['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']],
+                  [['','','','','','','']]]]
 
 globalday = [[[['','','','','','','']],
               [['','','','','','','']],
@@ -124,7 +115,7 @@ def save(): #Перевод основных массивов в память.
                 globaldayold[0][num] = globalday[0][num]
         #print(globaldayold)
         olddate = date
-        zeromas(0)
+        fullzeromas()
         print('Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
@@ -191,27 +182,27 @@ def taketabl(groupnum): #Заполнение массива по дням не�
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
-                zeromas(1)
+                zeromas(0,1)
                 zap(1,groupnum)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
-                zeromas(2)
+                zeromas(0,2)
                 zap(2,groupnum)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
-                zeromas(3)
+                zeromas(0,3)
                 zap(3,groupnum)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
-                zeromas(4)
+                zeromas(0,4)
                 zap(4,groupnum)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
-                zeromas(5)
+                zeromas(0,5)
                 zap(5,groupnum)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
-                zeromas(6)
+                zeromas(0,6)
                 zap(6,groupnum)
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
