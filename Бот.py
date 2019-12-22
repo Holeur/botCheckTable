@@ -364,15 +364,14 @@ def sendmes(group,text): #Отправление сообщения нескол
     for elem in names[group]:
         try:
             if isinstance(elem,int):
-                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
             else:
-                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
         except Exception as e:
             print('sendmes',elem,'err:',e)
             if sendingerrflag:
                 vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
-        
-                
+
 def eq(group): #Сравнение таблиц.
     global sendingerrflag,globaldayold,globalday,flag1,txtall,groups
     try:
@@ -415,20 +414,12 @@ def eq(group): #Сравнение таблиц.
                 #filewrite(txtall)
         else:
             groupzeromas(group)
-            txtin = "У группы "+str(groups[group])+" появилось расписание на следуйщую неделю на: \n"
             if globalday[group][0] != globaldayold[group][0]:
-                txtin += '  Понедельник\n'
-            if globalday[group][1] != globaldayold[group][1]:
-                txtin += '  Вторник\n'
-            if globalday[group][2] != globaldayold[group][2]:
-                txtin += '  Среду\n'
-            if globalday[group][3] != globaldayold[group][3]:
-                txtin += '  Четверг\n'
-            if globalday[group][4] != globaldayold[group][4]:
-                txtin += '  Пятницу\n'
-            if globalday[group][5] != globaldayold[group][5]:
-                txtin += '  Субботу\n'
-            sendmes(group,txtin)
+                print('Понедельник изменили')
+                writetxtall(group,1)
+                if flag1 == 0:
+                    sendmes(group,txtall)
+                #filewrite(txtall)
     except Exception as e:
         print('eq err:',e)
         if sendingerrflag:
