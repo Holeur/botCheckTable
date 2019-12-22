@@ -112,7 +112,7 @@ def loadfile(filename): #Загрзка dayold в фаил. Пока не исп
 def save(group): #Перевод основных массивов в память.
     global globaldayold,globalday,olddate,date
     try:
-        for num in range(6): #day1old = day1...
+        for num in range(7): #day1old = day1...
             try:
                 globaldayold[group][num] = globalday[group][num]
             except IndexError:
