@@ -199,11 +199,13 @@ def zap(groupnum,nday): #Заполнение выбранного дня в м�
     except Exception as e:
         print("zap err:",e)
 
-def checkdate():
+def checkdate(pos):
     global date,olddate
-    olddate = date
-    date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
-    
+    if pos == 1:
+        date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
+    elif pos == 2:
+        olddate = date
+        
 def taketabl(groupnum): #Заполнение массива по дням недели.
     global line,globalday
     for line in range(1,48):
@@ -233,7 +235,7 @@ def taketabl(groupnum): #Заполнение массива по дням не�
                 zeromas(groupnum,5)
                 zap(groupnum,5)
         except selenium.common.exceptions.NoSuchElementException:
-            print('Не найдена строка под номером',line)
+            #print('Не найдена строка под номером',line)
             #print()
         except Exception as e:
             print('taketabl err:',e) 
@@ -413,6 +415,7 @@ def eq(group): #Сравнение таблиц.
                     sendmes(group,txtall)
                 #filewrite(txtall)
         else:
+            print('Новая неделя')
             groupzeromas(group)
             if globalday[group][0] != globaldayold[group][0]:
                 print('Понедельник изменили')
@@ -587,7 +590,7 @@ while True:
         detectcomm()
         getgroups()
         getnames(0)
-        checkdate()
+        checkdate(1)
         for numgroup in range(len(groups)):
             print('Обработка расписания группы:',groups[numgroup])
             update(numgroup)
@@ -598,6 +601,7 @@ while True:
                 eq(numgroup)
                 save(numgroup)
                 flag1 = 0
+        checkdate(2)
         if flag1:
             vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
