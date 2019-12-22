@@ -450,7 +450,7 @@ def getnames(): #Использовал личку сообщества как �
             try:
                 namegroup = mes["text"][mes["text"].rfind(':')+1:]
                 if namegroup == '':
-                    namegroup == '17СПИ3'
+                    namegroup = '17СПИ3'
                 elif namegroup not in groups:
                     print('Группы не существует')
             except Exception as e:
