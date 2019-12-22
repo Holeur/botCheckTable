@@ -601,8 +601,8 @@ while True:
                 taketabl(numgroup)
                 eq(numgroup)
                 save(numgroup)
-                flag1 = 0
             checkdate(2)
+        flag1 = 0
         if flag1:
             vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
     except Exception as e:
