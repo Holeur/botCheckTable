@@ -450,7 +450,7 @@ def getnames(group): #Использовал личку сообщества к�
     print(names)
 
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
-    global groups
+    global groups,names
     oldgroups = groups
     groups = ['17СПИ3']
     messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
@@ -462,6 +462,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 groups.append(group)
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
+                names.append([])
                 globalgroupappend()
     print(groups)
     
@@ -578,8 +579,8 @@ while True:
     try:
         fullzeromas()
         detectcomm()
-        getnames(0)
         getgroups()
+        getnames(0)
         for numgroup in range(len(groups)):
             update(numgroup)
             checkupt()
