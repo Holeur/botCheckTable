@@ -157,7 +157,7 @@ def day(nameday): #Выбор массива по названию. Не исп�
     elif nameday == 'day6old':
         return day6old
 
-def zap(nday,groupnum): #Заполнение выбранного дня в массиве.
+def zap(groupnum,nday): #Заполнение выбранного дня в массиве.
     global line,browser,globalday
     flag1 = 1
     line2 = 2
@@ -182,28 +182,28 @@ def taketabl(groupnum): #Заполнение массива по дням не�
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Понедельник')
-                zeromas(0,1)
-                zap(1,groupnum)
+                zeromas(groupnum,0)
+                zap(groupnum,1)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Вторник')
-                zeromas(0,2)
-                zap(2,groupnum)
+                zeromas(groupnum,1)
+                zap(groupnum,2)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Среда')
-                zeromas(0,3)
-                zap(3,groupnum)
+                zeromas(groupnum,2)
+                zap(groupnum,3)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Четверг')
-                zeromas(0,4)
-                zap(4,groupnum)
+                zeromas(groupnum,3)
+                zap(groupnum,4)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Пятница')
-                zeromas(0,5)
-                zap(5,groupnum)
+                zeromas(groupnum,4)
+                zap(groupnum,5)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
                 print('Суббота')
-                zeromas(0,6)
-                zap(6,groupnum)
+                zeromas(groupnum,5)
+                zap(groupnum,6)
         except selenium.common.exceptions.NoSuchElementException:
             print('Не найдена строка под номером',line)
             #print()
@@ -567,17 +567,19 @@ while True:
         detectcomm()
         getnames()
         getgroups()
-        index = 0
-        for numgroup in range(len(groups)):
-            update(groups[numgroup])
-            checkupt()
-            if checkflag:
-                time.sleep(4)
-                taketabl(numgroup)
-                eq()
-                flag1 = 0
-                save()
-            index += 1
+        update(0)
+        checkupt()
+        if checkflag:
+            time.sleep(4)
+            taketabl(0)
+            eq()
+            flag1 = 0
+            save()
+        update(1)
+        checkupt()
+        if checkflag:
+            time.sleep(4)
+            taketabl(1)
     except Exception as e:
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
