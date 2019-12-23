@@ -554,11 +554,10 @@ def checkmassive(x4,x3,x2,x1): #Получение элемента из мас�
 def checknewmes():
     messages = vk.method("messages.getConversations",{"filter":'unread',"count":"99","group_id":"181204528"})
     txtall = ''
-    for message in messages['items']:
+    for message in messages:
         txtall += '----------------------' + '\n'
-        txtall += 'Пользователь: ' + messages['first_name'] + ' ' + message['last_name'] + '\n'
-        txtall += 'Id: ' + str(messages['id']) + '\n'
-        txtall += 'Последнее сообщение: ' + message['text'] + '\n'
+        txtall += 'Пользователь: ' + message['profiles'][messages.index(message)]['first_name'] + ' ' + message['profiles'][messages.index(message)]['last_name'] + '\n'
+        txtall += 'Последнее сообщение: ' + message['items'][messages.index(message)]['text'] + '\n'
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})    
 
 def deletemes(text):
