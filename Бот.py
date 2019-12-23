@@ -579,12 +579,12 @@ def detectcomm(): #Обработчик комманд
         if message["text"] == "com:delerr":
             delerr()
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
-        elif message["text"][:14] == 'com:checkgroup':
-            checknewmes()
-            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
-        elif message["text"][:11] == 'com:delmes:':
-            deletemes(message["text"][12:])
-            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        # elif message["text"][:14] == 'com:checkgroup':
+            # checknewmes()
+            # vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
+        # elif message["text"][:11] == 'com:delmes:':
+            # deletemes(message["text"][12:])
+            # vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
         elif message["text"][:12] == "com:getelem:": #com:getelem:2:2:2:2
             checkmassive(int(message["text"][12]),int(message["text"][14]),int(message["text"][16]),int(message["text"][18]))
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})
