@@ -460,7 +460,7 @@ def getnames(): #Использовал личку сообщества как �
                     for oldname in oldnames:      
                         if int(name) not in oldname:
                             count += 1
-                    if count == len(oldnames)
+                    if count == len(oldnames):
                         print('Добавлен в массив имен',name,'в группу',namegroup)
                             
                 except ValueError:
@@ -470,7 +470,7 @@ def getnames(): #Использовал личку сообщества как �
                     for oldname in oldnames:    
                         if name not in oldname:
                             count += 1
-                    if count == len(oldnames)
+                    if count == len(oldnames):
                         print('Добавлен в массив имен',name,'в группу',namegroup)
             except Exception as e:
                 print('getnames add name err:',e)
