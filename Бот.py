@@ -444,15 +444,16 @@ def getnames(): #Использовал личку сообщества как �
         messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
         print(messages["count"]+1)
         for mes in messages["items"]:
-                try:
-                    name = mes["text"][5:mes["text"].rfind(':'):]
-                    namegroup = mes["text"][mes["text"].rfind(':')+1:]
-                    if namegroup == '':
-                        namegroup = '17СПИ3'
-                    elif namegroup not in groups:
-                        print('Группы не существует')
-                except Exception as e:
-                    print('getnames namegroup err:',e)
+            try:
+                name = mes["text"][5:mes["text"].rfind(':'):]
+                namegroup = mes["text"][mes["text"].rfind(':')+1:]
+                if namegroup == '':
+                    namegroup = '17СПИ3'
+                elif namegroup not in groups:
+                    print('Группы не существует')
+            except Exception as e:
+                print('getnames namegroup err:',e)
+            try:
                 try:
                     if int(name) not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(int(name))
@@ -463,6 +464,8 @@ def getnames(): #Использовал личку сообщества как �
                         names[groups.index(namegroup)].append(name)
                     if name not in oldnames:
                         print('Добавлен в массив имен',name,'в группу',namegroup)
+            except Exception as e:
+                print('getnames add name err:',e)
         print(names)
     except Exception as e:
         print('getnames err:',e)
