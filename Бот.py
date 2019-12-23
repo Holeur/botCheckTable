@@ -558,7 +558,7 @@ def checknewmes():
         txtall += '----------------------' + '\n'
         txtall += 'Пользователь: ' + message['profiles']['first_name'] + ' ' + message['profiles']['last_name'] + '\n'
         txtall += 'Id: ' + str(message['profiles']['id']) + '\n'
-        txtall += 'Последнее сообщение: ' + message['items']['last_message'] + '\n'
+        txtall += 'Последнее сообщение: ' + message['items'][0]['last_message'] + '\n'
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})    
 
 def deletemes(text):
