@@ -484,6 +484,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
             group = mes["text"][7:]
             if group not in groups:
                 groups.append(group)
+                names.append(['holeur'])
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
                 names.append(['holeur'])
