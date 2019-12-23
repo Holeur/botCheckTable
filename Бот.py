@@ -556,7 +556,7 @@ def checknewmes():
     txtall = ''
     for message in messages:
         txtall += '----------------------' + '\n'
-        txtall += 'Пользователь: ' + message['profiles'][0]['first_name'] + ' ' + message['profiles']['last_name'] + '\n'
+        txtall += 'Пользователь: ' + message['profiles'][0]['first_name'] + ' ' + message['profiles'][0]['last_name'] + '\n'
         txtall += 'Id: ' + str(message['profiles'][0]['id']) + '\n'
         txtall += 'Последнее сообщение: ' + message['items'][0]['last_message'] + '\n'
     vk.method("messages.send", {"domain": 'holeur', "message":txtall, "random_id": random.randint(100, 2147483647)})    
