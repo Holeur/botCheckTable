@@ -242,7 +242,7 @@ def taketabl(groupnum): #Заполнение массива по дням не�
     print(globalday) #Вывод в консоль собранных массивов
 
 def writetxtall(group,numday): #Алгоритм создания сообщения.
-    global globalday,globaldayold,groups,txtall,flag1,groups
+    global globalday,globaldayold,groups,txtall,flag1
     try:
         txt = ''
         txtall = ''
@@ -457,13 +457,15 @@ def getnames(): #Использовал личку сообщества как �
                 try:
                     if int(name) not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(int(name))
-                    if int(name) not in oldnames:
-                        print('Добавлен в массив имен',name,'в группу',namegroup)
+                    for oldname in oldnames:      
+                        if int(name) not in oldname:
+                            print('Добавлен в массив имен',name,'в группу',namegroup)
                 except ValueError:
                     if name not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(name)
-                    if name not in oldnames:
-                        print('Добавлен в массив имен',name,'в группу',namegroup)
+                    for oldname in oldnames:    
+                        if name not in oldname:
+                            print('Добавлен в массив имен',name,'в группу',namegroup)
             except Exception as e:
                 print('getnames add name err:',e)
         print(names)
@@ -625,9 +627,9 @@ while True:
                 eq(numgroup)
                 save(numgroup)
             checkdate(2)
-        flag1 = 0
         if flag1:
-            vk.method("messages.send", {"domain": 'holeur', "message":'Бот включился.', "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.send", {"domain": 'holeur', "message":'Бот обновился.', "random_id": random.randint(100, 2147483647)})
+        flag1 = 0
     except Exception as e:
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e), "random_id": random.randint(100, 2147483647)})
