@@ -439,8 +439,7 @@ def checkupt(): #Проверка на случай не загрузки сай
 
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
     try:    
-        global names,groups
-        oldnames = names
+        global names,groups,oldnames
         messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
         print(messages["count"]+1)
         for mes in messages["items"]:
@@ -473,8 +472,9 @@ def getnames(): #Использовал личку сообщества как �
         print('getnames err:',e)
 
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
-    global groups,names
+    global groups,names,oldnames
     oldgroups = groups
+    oldnames = names
     groups = ['17СПИ3']
     names = [['holeur']]
     messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
@@ -487,7 +487,6 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 names.append(['holeur'])
             if group not in oldgroups:
                 print('Добавлен в массив групп',group)
-                names.append(['holeur'])
                 globalgroupappend()
                 flag1 = 1
     print(groups)
