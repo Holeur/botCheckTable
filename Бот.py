@@ -441,13 +441,11 @@ def getnames(): #Использовал личку сообщества как �
     try:    
         global names,groups
         oldnames = names
-        names = [['holeur']]
         messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
         print(messages["count"]+1)
         for mes in messages["items"]:
-            if '+add' == mes["text"][:4]: #+add:4563456:17СПИ3
-                name = mes["text"][5:mes["text"].rfind(':'):]
                 try:
+                    name = mes["text"][5:mes["text"].rfind(':'):]
                     namegroup = mes["text"][mes["text"].rfind(':')+1:]
                     if namegroup == '':
                         namegroup = '17СПИ3'
@@ -473,6 +471,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
     global groups,names
     oldgroups = groups
     groups = ['17СПИ3']
+    names = [['holeur']]
     messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
     print(messages["count"]+1)
     for mes in messages["items"]:
