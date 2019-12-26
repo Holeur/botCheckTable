@@ -606,9 +606,9 @@ def detectcomm(): #Обработчик комманд
                 print('errsend:',sendingerrflag)
                 vk.method("messages.send", {"domain": 'holeur', "message":'Вывод ошибок включен.', "random_id": random.randint(100, 2147483647)})
                 vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
-        elif message["text"][:9] == "com:send:":
-            sendmes(message["text"][9:])
-            vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
+        # elif message["text"][:9] == "com:send:":
+            # sendmes(message["text"][9:])
+            # vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
         elif message["text"] == "com:help":
             help('holeur')
             vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
