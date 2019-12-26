@@ -144,13 +144,15 @@ def save(group): #Перевод основных массивов в памят
 def update(group): #Открытие страницы определенной группы.
     global groups
     browser.refresh()
-    time.sleep(4)
+    time.sleep(1)
     try:
         Select(browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]')).select_by_visible_text(groups[group])
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
+        time.sleep(1)
     except:
         print('Опять ошибка с поиском элемента')
         update(group)
+    
     
 def day(nameday): #Выбор массива по названию. Не используется. Лежит в память о старом алгоритме.
     if nameday == 'day1':
