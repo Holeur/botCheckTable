@@ -429,12 +429,16 @@ def eq(group): #Сравнение таблиц.
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'eq err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
-def checkupt(numgroup): #Проверка на случай не загрузки сайта.
+def checkupt(group): #Проверка на случай не загрузки сайта.
     global checkflag,tabledate
     try:
-        groups[numgroup] = browser.find_element_by_xpath('/html/body/div/div[1]/form/div[2]/select[1]').text
-        checkflag = 1
-    except:
+        if groups[group] != browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr[3]/td[5]').text:
+            checkflag = 0
+        else:
+            checkflag = 1
+    except Exception as e:
+        print('err:Проверка сайта не удалась',e)
+        vk.method("messages.send", {"domain": 'holeur', "message":'err:Проверка сайта не удалась'+str(e), "random_id": random.randint(100, 2147483647)})
         checkflag = 0
 
 def getnames(): #Использовал личку сообщества как бд с именами участников. XD
