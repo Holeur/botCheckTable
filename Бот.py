@@ -91,16 +91,16 @@ def gettablinfile(filename): #запоминание массивов в фаи�
         for num in range(1,7):
             for line in day('day'+str(num)+'old'):
                 for elem in line:
-                    #print('Попытка загрузить элемент',num,numline,numelem)
+                    #print('note:Попытка загрузить элемент',num,numline,numelem)
                     file.write(day('day'+str(num)+'old')[numline][numelem]+'\n')
                     numelem += 1
                 numline += 1
                 numelem = 0
             numline = 0
         file.close()
-        print('Сохраненые массивы скопированны в фаил')
+        print('note:Сохраненые массивы скопированны в фаил')
     except Exception as e:
-        print('gettablinfile err:',e)
+        print('note:gettablinfile err:',e)
         
 def loadfile(filename): #Загрзка dayold в фаил. Пока не используется.
     global globaldayold,globalday
@@ -122,7 +122,7 @@ def loadfile(filename): #Загрзка dayold в фаил. Пока не исп
             if num > 6:
                 break
         file.close()
-        print('Массивы загружены из файла')
+        print('note:Массивы загружены из файла')
     except Exception as e:
         print('loadfile err:',e)
         
@@ -136,7 +136,7 @@ def save(group): #Перевод основных массивов в памят
                 globaldayold[group].append([])
                 globaldayold[group][num] = globalday[group][num]
         #print(globaldayold)
-        print('Массивы сохранены')
+        print('note:Массивы сохранены')
         #gettablinfile('bd.txt')
     except Exception as e:
         print('save err:',e,globalday,globaldayold)
@@ -150,7 +150,7 @@ def update(group): #Открытие страницы определенной �
         browser.find_element_by_xpath('//*[@id="btnGetTimetable"]').click()
         time.sleep(1)
     except:
-        print('Опять ошибка с поиском элемента')
+        print('err:Опять ошибка с поиском элемента')
         update(group)
     
     
@@ -213,31 +213,31 @@ def taketabl(groupnum): #Заполнение массива по дням не�
     for line in range(1,48):
         try:
             if 'Понедельник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Понедельник')
+                print('note:Понедельник')
                 zeromas(groupnum,0)
                 zap(groupnum,0)
             elif 'Вторник' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Вторник')
+                print('note:Вторник')
                 zeromas(groupnum,1)
                 zap(groupnum,1)
             elif 'Среда' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Среда')
+                print('note:Среда')
                 zeromas(groupnum,2)
                 zap(groupnum,2)
             elif 'Четверг' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Четверг')
+                print('note:Четверг')
                 zeromas(groupnum,3)
                 zap(groupnum,3)
             elif 'Пятница' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Пятница')
+                print('note:Пятница')
                 zeromas(groupnum,4)
                 zap(groupnum,4)
             elif 'Суббота' in browser.find_element_by_xpath('/html/body/div/div[2]/table/tbody/tr['+str(line)+']/th').text:
-                print('Суббота')
+                print('note:Суббота')
                 zeromas(groupnum,5)
                 zap(groupnum,5)
         except selenium.common.exceptions.NoSuchElementException:
-            print('Не найдена строка под номером',line)
+            print('note:Не найдена строка под номером',line)
             #print()
         except Exception as e:
             print('taketabl err:',e) 
@@ -308,9 +308,9 @@ def writetxtall(group,numday): #Алгоритм создания сообщен
                         # else:
                             # txt = 'Группа> ' + elem + '\n'
                     if elem == '':
-                        print('Пропускаем пустоту')
+                        print('note:Пропускаем пустоту')
                     else:
-                        print(elem,'пропускаем')
+                        print('note:',elem,'пропускаем')
                 elif numelem == 5:
                     try:
                         if globalday[group][numday-1][numline][5] != globaldayold[group][numday-1][numline][5]:
@@ -334,7 +334,7 @@ def writetxtall(group,numday): #Алгоритм создания сообщен
                         else:
                             txt = 'Кабинет> ' + elem + '\n'
                 else:
-                    print('Что-то пропущено...')
+                    print('note:Что-то пропущено...')
                 txtall += txt
                 txt = ''
                 numelem += 1
@@ -381,47 +381,47 @@ def eq(group): #Сравнение таблиц.
     try:
         if date == olddate:
             if globalday[group][0] != globaldayold[group][0]:
-                print('Понедельник изменили')
+                print('note:Понедельник изменили')
                 writetxtall(group,1)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][1] != globaldayold[group][1]:
-                print('Вторник изменили')
+                print('note:Вторник изменили')
                 writetxtall(group,2)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][2] != globaldayold[group][2]:
-                print('Среду изменили')
+                print('note:Среду изменили')
                 writetxtall(group,3)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][3] != globaldayold[group][3]:
-                print('Четверг изменили')
+                print('note:Четверг изменили')
                 writetxtall(group,4)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][4] != globaldayold[group][4]:
-                print('Пятницу изменили')
+                print('note:Пятницу изменили')
                 writetxtall(group,5)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
             if globalday[group][5] != globaldayold[group][5]:
-                print('Субботу изменили')
+                print('note:Субботу изменили')
                 writetxtall(group,6)
                 if flag1 == 0:
                     sendmes(group,txtall)
                 #filewrite(txtall)
         else:
-            print('Новая неделя')
+            print('note:Новая неделя')
             if flag1 == 0:
                 groupzeromas(group)
             if globalday[group][0] != globaldayold[group][0]:
-                print('Понедельник изменили')
+                print('note:Понедельник изменили')
                 writetxtall(group,1)
                 if flag1 == 0:
                     sendmes(group,txtall)
@@ -439,6 +439,7 @@ def checkupt(group): #Проверка на случай не загрузки �
         else:
             checkflag = 1
     except selenium.common.exceptions.NoSuchElementException:
+        print('note:Хром - тварь',e)
         checkflag = 0
     except Exception as e:
         print('err:Проверка сайта не удалась',e)
@@ -458,7 +459,7 @@ def getnames(): #Использовал личку сообщества как �
                 if namegroup == '':
                     namegroup = '17СПИ3'
                 elif namegroup not in groups:
-                    print('Группы не существует')
+                    print('err:Группы не существует')
             except Exception as e:
                 print('getnames namegroup err:',e)
             try:
@@ -470,7 +471,7 @@ def getnames(): #Использовал личку сообщества как �
                         if int(name) not in oldname:
                             count += 1
                     if count == len(oldnames):
-                        print('Добавлен в массив имен',name,'в группу',namegroup)
+                        print('note:Добавлен в массив имен',name,'в группу',namegroup)
                             
                 except ValueError:
                     if name not in names[groups.index(namegroup)]:
@@ -480,7 +481,7 @@ def getnames(): #Использовал личку сообщества как �
                         if name not in oldname:
                             count += 1
                     if count == len(oldnames):
-                        print('Добавлен в массив имен',name,'в группу',namegroup)
+                        print('note:Добавлен в массив имен',name,'в группу',namegroup)
             except Exception as e:
                 print('getnames add name err:',e)
         print(names)
@@ -502,7 +503,7 @@ def getgroups(): #Скопированный алгоритм getnames. Толь
                 groups.append(group)
                 names.append(['holeur'])
             if group not in oldgroups:
-                print('Добавлен в массив групп',group)
+                print('note:Добавлен в массив групп',group)
                 globalgroupappend()
                 flag1 = 1
     print(groups)
@@ -556,7 +557,7 @@ def checkmassive(x4,x3,x2,x1): #Получение элемента из мас�
         print(globalday[x4][x3][x2][x1])
         vk.method("messages.send", {"domain": 'holeur', "message":'Элемент:'+str(globalday[x4][x3][x2][x1]), "random_id": random.randint(100, 2147483647)})
     except IndexError:
-        print('Индекса не существует.')
+        print('err:Индекса не существует.')
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'Индекса не существует.', "random_id": random.randint(100, 2147483647)})
 
@@ -573,7 +574,7 @@ def deletemes(text):
     messages = vk.method("messages.search",{"q":text,"peer_id":"125524519","group_id":"181204528","count":"99"})
     for message in messages["items"]:
         vk.method("messages.delete",{"message_ids":message["id"],"delete_for_all":"0","group_id":"181204528"})    
-        print('Удалено со стороны бота:',message["text"])
+        print('note:Удалено со стороны бота:',message["text"])
         
 def help(id): #Получение помощи по командам. Сделано пока кастыльно, но работает.
     txt = '-/|\-\ncom:checkgroup - Проверка лички группы\ncom:delerr - Удаление недавних ошибок\ncom:getelem: - неработающая хрень\ncom:list - список участников\ncom:erroff - включение/выключение ошибок\ncom:send - рассылка сообщения всем участникам\ncom:grouplist - список всех групп участников\n+add:* - добавление участника\n+addgr:* добавление группы'
@@ -646,7 +647,7 @@ while True:
         getgroups()
         getnames()
         for numgroup in range(len(groups)):
-            print('Обработка расписания группы:',groups[numgroup])
+            print('note:Обработка расписания группы:',groups[numgroup])
             update(numgroup)
             checkupt(numgroup)
             checkdate(1)
