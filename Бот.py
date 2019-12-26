@@ -372,7 +372,7 @@ def sendmes(group,text): #Отправление сообщения нескол
         except Exception as e:
             print('sendmes',elem,'err:',e)
             if sendingerrflag:
-                vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+str(elem), "random_id": random.randint(100, 2147483647)})
+                vk.method("messages.send", {"domain": 'holeur', "message":'err:'+str(e)+' '+str(elem), "random_id": random.randint(100, 2147483647)})
 
 def eq(group): #Сравнение таблиц.
     global sendingerrflag,globaldayold,globalday,flag1,txtall,groups,date,olddate
@@ -429,10 +429,10 @@ def eq(group): #Сравнение таблиц.
         if sendingerrflag:
             vk.method("messages.send", {"domain": 'holeur', "message":'eq err:'+str(e), "random_id": random.randint(100, 2147483647)})
         
-def checkupt(): #Проверка на случай не загрузки сайта.
+def checkupt(numgroup): #Проверка на случай не загрузки сайта.
     global checkflag,tabledate
     try:
-        tabledate = browser.find_element_by_xpath('/html/body/div/div[1]/form/div[1]/select').text
+        groups[numgroup] = browser.find_element_by_xpath('/html/body/div/div[1]/form/div[2]/select[1]').text
         checkflag = 1
     except:
         checkflag = 0
@@ -639,7 +639,7 @@ while True:
         for numgroup in range(len(groups)):
             print('Обработка расписания группы:',groups[numgroup])
             update(numgroup)
-            checkupt()
+            checkupt(numgroup)
             checkdate(1)
             if checkflag:
                 time.sleep(4)
