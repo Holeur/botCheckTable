@@ -502,6 +502,7 @@ def getmembers():
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             profid = allconversations['profiles'][numconvers]['id']
+            print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
             for message in messages['items']:
                 if message['text'][:5] == '.add:':
@@ -524,14 +525,14 @@ def getmembers():
                             for name in group:
                                 if profid == name:
                                     flaghave = 3
-                                    coord = group
+                                    coord = oldgroup
                                     flag9 = 1
                                     break
                             if flag9:
                                 break
                     if flaghave == 0: #При условии отсутствия в старых и новых массивах.
                         if coord not in groups:
-                            groups.append(coord)
+                            groups.append(message['text'][5:])
                             names.append([])
                         if coord not in oldgroups:
                             globalgroupappend()
@@ -547,7 +548,7 @@ def getmembers():
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 3: #При условии отсутствия в новых массивах.
                         if coord not in groups:
-                            groups.append(coord)
+                            groups.append(message['text'][5:])
                             names.append([])
                         if coord not in oldgroups:
                             globalgroupappend()
