@@ -507,7 +507,9 @@ def getmembers():
                 if message['text'][:5] == '+add:':
                     flag9 = 0
                     flaghave = 0
-                    if message['text'][5:] not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
+                    if message['text'][5:] in browser.find_element_by_xpath('/html/body/div/div[1]/form/div[2]/select[1]').text:
+                        print()
+                    else:
                         flaghave = 2
                     if flaghave == 0:
                         for group in names:
