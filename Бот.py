@@ -505,7 +505,9 @@ def getmembers():
             print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
             for message in messages['items']:
+                group = ''
                 if message['text'][:5] == '.add:':
+                    group = message['text'][5:]
                     flag9 = 0
                     flaghave = 0
                     if message['text'][5:] not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
@@ -555,11 +557,10 @@ def getmembers():
                             flag1 = 1
                         names[groups.index(message['text'][5:])].append(name)
                 if message['text'][:5] == '.quit':
-                    lastmesadd = vk.method("messages.search",{"q":".add:","peer_id":id,"group_id":"181204528"})
-                    if lastmesadd[:5] == ".add:":
-                        messageid = lastmesadd['items'][0]['id']
-                        vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
-                        sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[5:])+'.')
+                    lastmesadd = vk.method("messages.search",{"q":".add:"+str(group),"peer_id":profid,"group_id":"181204528"})
+                    messageid = lastmesadd['items'][0]['id']
+                    vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
+                    sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[5:])+'.')
             numconvers += 1
         print(groups)
         print(names)
