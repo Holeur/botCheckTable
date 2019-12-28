@@ -496,7 +496,7 @@ def getmembers():
         oldnames = names
         groups = []
         names = [[]]
-        allconversations = vk.method("messages.search",{"count":"99","group_id":"181204528"})
+        allconversations = vk.method("messages.getConversations",{"count":"99","group_id":"181204528"})
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
@@ -562,7 +562,7 @@ def getmembers():
         print(groups)
         print(names)
     except Exception as e:
-        print('getnamesnew err:',e)
+        print('getmembers err:',e)
         
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
     global groups,names,oldnames
