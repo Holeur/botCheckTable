@@ -539,7 +539,7 @@ def getmembers():
                         if coord not in oldgroups:
                             globalgroupappend()
                             flag1 = 1
-                        names[groups.index(message['text'][5:])].append(name)
+                        names[groups.index(message['text'][5:])].append(profid)
                         sendmesones(profid,'Вы добавлен в группу '+str(message['text'][5:]))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
                     elif flaghave == 1: #При условии наличия в группе coord.
@@ -555,7 +555,7 @@ def getmembers():
                         if coord not in oldgroups:
                             globalgroupappend()
                             flag1 = 1
-                        names[groups.index(message['text'][5:])].append(name)
+                        names[groups.index(message['text'][5:])].append(profid)
                 if message['text'][:5] == '.quit':
                     lastmesadd = vk.method("messages.search",{"q":".add:"+str(group),"peer_id":profid,"group_id":"181204528"})
                     messageid = lastmesadd['items'][0]['id']
