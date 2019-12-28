@@ -500,7 +500,7 @@ def getmembers():
         numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
-            profid = allconversations['profiles'][nummes]['id']
+            profid = allconversations['profiles'][numconvers]['id']
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
             for message in messages['items']:
                 if message['text'][:5] == '+add:':
