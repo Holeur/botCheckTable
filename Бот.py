@@ -497,15 +497,15 @@ def getmembers():
         groups = []
         names = [[]]
         allconversations = vk.method("messages.getConversations",{"count":"99","extended":"1","fields":"screen_name","group_id":"181204528"})
+        numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
+            profid = allconversations['profiles'][nummes]['id']
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
-            nummes = 0
             for message in messages['items']:
                 if message['text'][:5] == '+add:':
                     flag9 = 0
                     flaghave = 0
-                    profid = messages['profiles'][nummes]['id']
                     if message['text'][5:] not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
                         flaghave = 2
                     if flaghave == 0:
@@ -558,7 +558,7 @@ def getmembers():
                         messageid = lastmesadd['items'][0]['id']
                         vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
                         sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[5:])+'.')
-                nummes += 1
+            numconvers += 1
         print(groups)
         print(names)
     except Exception as e:
