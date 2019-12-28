@@ -6,7 +6,6 @@ import random
 import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.firefox.options import Options
 
 def zeromas(group,day):
     global globalday
@@ -362,15 +361,18 @@ def filewrite(text): #Запись полученного текста в фаи
     file = open('logs.txt','a')
     file.write(text)
     file.close()
-    
+
+def sendmesones(id,text):
+    if isinstance(id,int):
+        vk.method("messages.send", {"user_id": id, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
+    else:
+        vk.method("messages.send", {"domain": id, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
+                
 def sendmes(group,text): #Отправление сообщения нескольким людям.
     global names,sendingerrflag
     for elem in names[group]:
         try:
-            if isinstance(elem,int):
-                vk.method("messages.send", {"user_id": elem, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
-            else:
-                vk.method("messages.send", {"domain": elem, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
+            sendmesones(elem,text)
         except Exception as e:
             print('sendmes',elem,'err:',e)
             if sendingerrflag:
@@ -472,7 +474,6 @@ def getnames(): #Использовал личку сообщества как �
                             count += 1
                     if count == len(oldnames):
                         print('note:Добавлен в массив имен',name,'в группу',namegroup)
-                            
                 except ValueError:
                     if name not in names[groups.index(namegroup)]:
                         names[groups.index(namegroup)].append(name)
@@ -488,6 +489,81 @@ def getnames(): #Использовал личку сообщества как �
     except Exception as e:
         print('getnames err:',e)
 
+def getmembers():
+    global groups,names,oldnames,oldgroups,flag1
+    try:
+        oldgroups = groups
+        oldnames = names
+        groups = []
+        names = [[]]
+        allconversations = vk.method("messages.search",{"count":"200","group_id":"181204528"})
+        for conversation in allconversations['items']:
+            id = conversation['conversation']['peer']['id']
+            messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
+            nummes = 0
+            for message in messages['items']:
+                if message['text'][:5] == '+add:':
+                    flag9 = 0
+                    flaghave = 0
+                    profid = messages['profiles'][nummes]['id']
+                    if message['text'][5:] not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
+                        flaghave = 2
+                    if flaghave == 0:
+                        for group in names:
+                            for name in group:
+                                if profid == name:
+                                    flaghave = 1
+                                    coord = group
+                                    flag9 = 1
+                                    break
+                            if flag9:
+                                break
+                    if flaghave == 0:
+                        for group in oldnames:
+                            for name in group:
+                                if profid == name:
+                                    flaghave = 3
+                                    coord = group
+                                    flag9 = 1
+                                    break
+                            if flag9:
+                                break
+                    if flaghave == 0: #При условии отсутствия в старых и новых массивах.
+                        if coord not in groups:
+                            groups.append(coord)
+                            names.append([])
+                        if coord not in oldgroups:
+                            globalgroupappend()
+                            flag1 = 1
+                        names[groups.index(message['text'][5:])].append(name)
+                        sendmesones(profid,'Вы добавлен в группу '+str(names[groups.index(message['text'][5:])]))
+                        print('note:',profid,'был добавлен в список участников в группу',coord)
+                    elif flaghave == 1: #При условии наличия в группе coord.
+                        sendmesones(profid,'Вы уже есть в группе '+str(coord)+'. Используйте комманду +quit чтобы выйти из группы.')
+                        vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
+                    elif flaghave == 2: #При условии отсутствия выбранной группы.
+                        sendmesones(profid,'Группы '+str(coord)+' не существует.')
+                        vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
+                    elif flaghave == 3: #При условии отсутствия в новых массивах.
+                        if coord not in groups:
+                            groups.append(coord)
+                            names.append([])
+                        if coord not in oldgroups:
+                            globalgroupappend()
+                            flag1 = 1
+                        names[groups.index(message['text'][5:])].append(name)
+                if message['text'][:5] == '+quit':
+                    lastmesadd = vk.method("messages.search",{"q":"+add:","peer_id":id,"group_id":"181204528"})
+                    if lastmesadd[:5] == "+add:":
+                        messageid = lastmesadd['items'][0]['id']
+                        vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
+                        sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[5:])+'.')
+                nummes += 1
+        print(groups)
+        print(names)
+    except Exception as e:
+        print('getnamesnew err:',e)
+        
 def getgroups(): #Скопированный алгоритм getnames. Только с группами.
     global groups,names,oldnames
     oldgroups = groups
@@ -635,17 +711,25 @@ def checkbug(): #Если опять будет err:Опять наебнули�
             kastilflag = 0
         kastilcheck -= 1
             
+def checkcountmembers():
+    count = 0
+    for group in names:
+        count += len(group)
+    if count >= 100:
+        if flag3 == 0:
+            vk.method("messages.send", {"domain": 'holeur', "message":'war:Количество участников превышает 100 человек.', "random_id": random.randint(100, 2147483647)})
+            flag3 = 1
 #
 # Основная часть кода где обьявляются все функции.
 #
 flag1 = 1
 flag2 = 0
+flag3 = 0
 while True:
     try:
         #fullzeromas()
         detectcomm()
-        getgroups()
-        getnames()
+        getmembers()
         for numgroup in range(len(groups)):
             print('note:Обработка расписания группы:',groups[numgroup])
             update(numgroup)
