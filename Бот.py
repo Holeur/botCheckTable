@@ -496,7 +496,7 @@ def getmembers():
         oldnames = names
         groups = []
         names = [[]]
-        allconversations = vk.method("messages.getConversations",{"count":"99","group_id":"181204528","extended":'1'})
+        allconversations = vk.method("messages.getConversations",{"count":"99","extended":"1","fields":"screen_name","group_id":"181204528"})
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
