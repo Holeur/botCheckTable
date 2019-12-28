@@ -540,7 +540,7 @@ def getmembers():
                             globalgroupappend()
                             flag1 = 1
                         names[groups.index(message['text'][5:])].append(name)
-                        sendmesones(profid,'Вы добавлен в группу '+str(names[groups.index(message['text'][5:])]))
+                        sendmesones(profid,'Вы добавлен в группу '+str(message['text'][5:]))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
                     elif flaghave == 1: #При условии наличия в группе coord.
                         sendmesones(profid,'Вы уже есть в группе '+str(coord)+'. Используйте комманду +quit чтобы выйти из группы.')
