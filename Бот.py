@@ -496,7 +496,7 @@ def getmembers():
         oldnames = names
         groups = []
         names = [[]]
-        allconversations = vk.method("messages.search",{"count":"200","group_id":"181204528"})
+        allconversations = vk.method("messages.search",{"count":"99","group_id":"181204528"})
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
@@ -715,9 +715,9 @@ def checkcountmembers():
     count = 0
     for group in names:
         count += len(group)
-    if count >= 100:
+    if count >= 50:
         if flag3 == 0:
-            vk.method("messages.send", {"domain": 'holeur', "message":'war:Количество участников превышает 100 человек.', "random_id": random.randint(100, 2147483647)})
+            vk.method("messages.send", {"domain": 'holeur', "message":'war:Количество участников превышает 50 человек.', "random_id": random.randint(100, 2147483647)})
             flag3 = 1
 #
 # Основная часть кода где обьявляются все функции.
