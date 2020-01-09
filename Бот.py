@@ -501,66 +501,61 @@ def getmembers():
         numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
-            profid = allconversations['profiles'][numconvers]['id']
+            profid = allconversations['profiles'][numconvers]['screen_name']
             print('note:пользователь:',profid,id)
-            messages = vk.method("messages.search",{"q":"+","peer_id":id,"group_id":"181204528"})
+            messages = vk.method("messages.search",{"q":".com:","peer_id":id,"group_id":"181204528"})
             for message in messages['items']:
-                group = ''
-                if message['text'][:5] == '.add:':
-                    group = message['text'][5:]
+                if message['text'][:9] == '.com:add:':
+                    namegroup = message['text'][9:]
                     flag9 = 0
                     flaghave = 0
-                    if message['text'][5:] not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
+                    if namegroup not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
                         flaghave = 2
                     if flaghave == 0:
                         for group in names:
-                            for name in group:
-                                if profid == name:
-                                    flaghave = 1
-                                    coord = group
-                                    flag9 = 1
-                                    break
                             if flag9:
                                 break
+                            if profid in group:
+                                flaghave = 1
+                                coord = group
+                                flag9 = 1
                     if flaghave == 0:
                         for group in oldnames:
-                            for name in group:
-                                if profid == name:
-                                    flaghave = 3
-                                    coord = oldgroup
-                                    flag9 = 1
-                                    break
                             if flag9:
                                 break
+                            if profid in group:
+                                flaghave = 3
+                                coord = group
+                                flag9 = 1
                     if flaghave == 0: #При условии отсутствия в старых и новых массивах.
                         if coord not in groups:
-                            groups.append(message['text'][5:])
+                            groups.append(namegroup)
                             names.append([])
                         if coord not in oldgroups:
                             globalgroupappend()
                             flag1 = 1
-                        names[groups.index(message['text'][5:])].append(profid)
-                        sendmesones(profid,'Вы добавлен в группу '+str(message['text'][5:]))
+                        names[groups.index(namegroup)].append(profid)
+                        sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
-                    elif flaghave == 1: #При условии наличия в группе coord.
+                    elif flaghave == 1: #При условии наличия в новом массиве группы coord.
                         sendmesones(profid,'Вы уже есть в группе '+str(coord)+'. Используйте комманду +quit чтобы выйти из группы.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 2: #При условии отсутствия выбранной группы.
                         sendmesones(profid,'Группы '+str(coord)+' не существует.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
-                    elif flaghave == 3: #При условии отсутствия в новых массивах.
+                    elif flaghave == 3: #При условии наличия в старом массиве группы coord.
                         if coord not in groups:
-                            groups.append(message['text'][5:])
+                            groups.append(namegroup)
                             names.append([])
                         if coord not in oldgroups:
-                            globalgroupappend()
                             flag1 = 1
-                        names[groups.index(message['text'][5:])].append(profid)
-                if message['text'][:5] == '.quit':
-                    lastmesadd = vk.method("messages.search",{"q":".add:"+str(group),"peer_id":profid,"group_id":"181204528"})
+                        names[groups.index(namegroup)].append(profid)
+                if message['text'][:9] == '.com:quit':
+                    lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":profid,"group_id":"181204528"})
                     messageid = lastmesadd['items'][0]['id']
                     vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
-                    sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[5:])+'.')
+                    vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
+                    sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[9:])+'.')
             numconvers += 1
         print(groups)
         print(names)
