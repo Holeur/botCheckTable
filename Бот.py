@@ -538,7 +538,7 @@ def getmembers():
                         sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
                     elif flaghave == 1: #При условии наличия в новом массиве группы coord.
-                        sendmesones(profid,'Вы уже есть в группе '+str(coord)+'. Используйте комманду +quit чтобы выйти из группы.')
+                        sendmesones(profid,'Вы уже есть в группе '+str(namegroup)+'. Используйте комманду +upd:quit чтобы выйти из группы.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 2: #При условии отсутствия выбранной группы.
                         sendmesones(profid,'Группы '+str(coord)+' не существует.')
@@ -549,7 +549,7 @@ def getmembers():
                             names.append([])
                         names[groups.index(namegroup)].append(profid)
                 if message['text'][:9] == '+upd:quit':
-                    lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":profid,"group_id":"181204528"})
+                    lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":id,"group_id":"181204528"})
                     messageid = lastmesadd['items'][0]['id']
                     vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
                     vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
