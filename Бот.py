@@ -503,9 +503,9 @@ def getmembers():
             id = conversation['conversation']['peer']['id']
             profid = allconversations['profiles'][numconvers]['screen_name']
             print('note:пользователь:',profid,id)
-            messages = vk.method("messages.search",{"q":".com:","peer_id":id,"group_id":"181204528"})
+            messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             for message in messages['items']:
-                if message['text'][:9] == '.com:add:':
+                if message['text'][:9] == '+upd:add:':
                     namegroup = message['text'][9:]
                     flag9 = 0
                     flaghave = 0
@@ -550,7 +550,7 @@ def getmembers():
                         if coord not in oldgroups:
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
-                if message['text'][:9] == '.com:quit':
+                if message['text'][:9] == '+upd:quit':
                     lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":profid,"group_id":"181204528"})
                     messageid = lastmesadd['items'][0]['id']
                     vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
