@@ -549,7 +549,7 @@ def getmembers():
                             names.append([])
                         names[groups.index(namegroup)].append(profid)
                 if message['text'][:9] == '+upd:quit':
-                    lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":id,"group_id":"181204528"})
+                    lastmesadd = vk.method("messages.search",{"q":"+upd:add:","peer_id":id,"group_id":"181204528"})
                     messageid = lastmesadd['items'][0]['id']
                     vk.method("messages.delete",{"message_ids":messageid,"delete_for_all":"0","group_id":"181204528"})
                     vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
