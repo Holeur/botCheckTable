@@ -547,8 +547,6 @@ def getmembers():
                         if coord not in groups:
                             groups.append(namegroup)
                             names.append([])
-                        if coord not in oldgroups:
-                            flag1 = 1
                         names[groups.index(namegroup)].append(profid)
                 if message['text'][:9] == '+upd:quit':
                     lastmesadd = vk.method("messages.search",{"q":".com:add:","peer_id":profid,"group_id":"181204528"})
