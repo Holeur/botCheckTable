@@ -501,7 +501,7 @@ def getmembers():
         numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
-            profid = allconversations['profiles'][numconvers]['id']
+            profid = allconversations['profiles'][numconvers]['domain']
             print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             nummes = 0
@@ -558,9 +558,6 @@ def getmembers():
                         sendmesones(profid,'Группы '+str(coord)+' не существует.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 3: #При условии наличия в старом массиве группы coord.
-                        if coord not in groups:
-                            groups.append(namegroup)
-                            names.append([])
                         names[groups.index(namegroup)].append(profid)
                 nummes += 1
             numconvers += 1
