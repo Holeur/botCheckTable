@@ -508,7 +508,7 @@ def getmembers():
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             for message in reversed(messages['items']):
                 if message['text'][:9] == '+upd:add:':
-                    namegroup = message['text'][9:]
+                    namegroup = message['text'][9:].strip()
                     flag9 = 0
                     flaghave = 0
                     if namegroup not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
