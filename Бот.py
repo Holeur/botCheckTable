@@ -557,7 +557,7 @@ def getmembers():
                             for mes in lastmesadd['items']:
                                 vk.method("messages.delete",{"message_ids":mes['id'],"delete_for_all":"0","group_id":"181204528"})
                             vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
-                            sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd['items'][len(lastmesadd['items']-1)]['text'][9:])+'.')
+                            sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd['items'][len(lastmesadd['items'])-1]['text'][9:])+'.')
                         else:
                             sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
                     except Exception as e:
