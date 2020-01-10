@@ -501,7 +501,7 @@ def getmembers():
         numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
-            user = vk.method("messages.getConversationsMembers",{"peer_id":id,"fields":"domain","group_id":"181204528"})
+            user = vk.method("messages.getConversationMembers",{"peer_id":id,"fields":"domain","group_id":"181204528"})
             profid = user['profiles'][0]['domain']
             #allconversations['profiles'][allconversations['items'].index(conversation)+1]['domain']
             print('note:пользователь:',profid,id)
