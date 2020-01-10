@@ -552,7 +552,6 @@ def getmembers():
                 if message['text'][:9] == '+upd:quit':
                     try:
                         lastmesadd = vk.method("messages.search",{"q":"+upd:add:","peer_id":id,"group_id":"181204528"})
-                        messageid = lastmesadd['items'][0]['id']
                         for mes in lastmesadd['items']:
                             messageid += str(mes['id'])+','
                         vk.method("messages.delete",{"message_ids":messageid[len(messageid)-1:],"delete_for_all":"0","group_id":"181204528"})
