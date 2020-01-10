@@ -555,8 +555,7 @@ def getmembers():
                         if lastmesadd['count'] > 0:
                             messageid = ''
                             for mes in lastmesadd['items']:
-                                messageid += str(mes['id'])+','
-                            vk.method("messages.delete",{"message_ids":messageid[len(messageid)-1:],"delete_for_all":"0","group_id":"181204528"})
+                                vk.method("messages.delete",{"message_ids":mes['id'],"delete_for_all":"0","group_id":"181204528"})
                             vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                             sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[9:])+'.')
                         else:
