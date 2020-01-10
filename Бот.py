@@ -502,8 +502,6 @@ def getmembers():
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             profid = allconversations['profiles'][numconvers]['domain']
-            if isinstance(profid[2],int):
-                profid = int(profid)
             print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             nummes = 0
@@ -526,8 +524,8 @@ def getmembers():
                     flag9 = 0
                     flaghave = 0
                     if namegroup not in browser.find_element_by_xpath('/html/body/div[1]/div[1]/form/div[2]/select[1]').text:
-                        flaghave = 2
-                    if flaghave == 0:
+                        flaghave = 3
+                    if flaghave == 0: #При условии наличия в новом массиве групп.
                         for group in names:
                             if flag9:
                                 break
@@ -535,32 +533,39 @@ def getmembers():
                                 flaghave = 1
                                 coord = group
                                 flag9 = 1
-                    if flaghave == 0:
+                    if flaghave == 0: #При условии наличия в старом массиве групп.
                         for group in oldnames:
                             if flag9:
                                 break
                             if profid in group:
-                                flaghave = 3
+                                flaghave = 2
                                 coord = group
                                 flag9 = 1
                     if flaghave == 0: #При условии отсутствия в старых и новых массивах.
-                        if coord not in groups:
+                        if namegroup not in groups:
                             groups.append(namegroup)
                             names.append([])
-                        if coord not in oldgroups:
+                        if namegroup not in oldgroups:
                             globalgroupappend()
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
                         sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
-                    elif flaghave == 1: #При условии наличия в новом массиве группы coord.
-                        sendmesones(profid,'Вы вышли из группы '+str(namegroup)+' и зашли в '+str(messages['items'][nummes-1]['text'][9:])+'.')
+                    elif flaghave == 1: #При условии наличия в новом массиве групп.
+                        sendmesones(profid,'Вы уже в группе '+str(groups[names.index[coord]])+'. Используйте +upd:quit чтобы выйти.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
-                    elif flaghave == 2: #При условии отсутствия выбранной группы.
+                    elif flaghave == 2: #При условии наличия в старом массиве групп.
+                        if namegroup not in groups:
+                            groups.append(namegroup)
+                            names.append([])
+                        if namegroup not in oldgroups:
+                            globalgroupappend()
+                            flag1 = 1
+                        names[groups.index(namegroup)].append(profid)
+                    elif flaghave == 3: #При условии отсутствия выбранной группы.
                         sendmesones(profid,'Группы '+str(coord)+' не существует.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
-                    elif flaghave == 3: #При условии наличия в старом массиве группы coord.
-                        names[groups.index(namegroup)].append(profid)
+                       
                 nummes += 1
             numconvers += 1
         print(groups)
