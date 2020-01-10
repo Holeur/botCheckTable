@@ -560,7 +560,7 @@ def getmembers():
                             sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[9:])+'.')
                         else:
                             sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
-                    except:
+                    except Exception as e:
                         print('getnames quit err:',e)
                 nummes += 1
             numconvers += 1
