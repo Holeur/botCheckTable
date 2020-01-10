@@ -497,11 +497,13 @@ def getmembers():
         groups = []
         names = [[]]
         coord = ''
-        allconversations = vk.method("messages.getConversations",{"count":"99","extended":"1","fields":"screen_name","group_id":"181204528"})
+        allconversations = vk.method("messages.getConversations",{"count":"99","extended":"1","fields":"id,domain","group_id":"181204528"})
         numconvers = 0
         for conversation in allconversations['items']:
             id = conversation['conversation']['peer']['id']
             profid = allconversations['profiles'][numconvers]['domain']
+            if isinstance(profid[2],int):
+                profid = int(profid)
             print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             nummes = 0
