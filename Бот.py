@@ -506,19 +506,6 @@ def getmembers():
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             nummes = 0
             for message in reversed(messages['items']):
-                if message['text'][:9] == '+upd:quit':
-                    try: 
-                        lastmesadd = vk.method("messages.search",{"q":"+upd:add:","peer_id":id,"group_id":"181204528"})
-                        if lastmesadd['count'] > 0:
-                            messageid = ''
-                            for mes in lastmesadd['items']:
-                                vk.method("messages.delete",{"message_ids":mes['id'],"delete_for_all":"0","group_id":"181204528"})
-                            vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
-                            sendmesones(profid,'Вы успешно вышли из группы '+str(lastmesadd['items'][len(lastmesadd['items'])-1]['text'][9:])+'.')
-                        else:
-                            sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
-                    except Exception as e:
-                        print('getnames quit err:',e)
                 if message['text'][:9] == '+upd:add:':
                     namegroup = message['text'][9:]
                     flag9 = 0
@@ -563,8 +550,22 @@ def getmembers():
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
                     elif flaghave == 3: #При условии отсутствия выбранной группы.
-                        sendmesones(profid,'Группы '+str(coord)+' не существует.')
+                        sendmesones(profid,'Группы '+str(namegroup)+' не существует.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
+                if message['text'][:9] == '+upd:quit':
+                    try: 
+                        lastmesadd = vk.method("messages.search",{"q":"+upd:add:","peer_id":id,"group_id":"181204528"})
+                        if lastmesadd['count'] > 0:
+                            messageid = ''
+                            for mes in lastmesadd['items']:
+                                vk.method("messages.delete",{"message_ids":mes['id'],"delete_for_all":"0","group_id":"181204528"})
+                            vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
+                            sendmesones(profid,'Вы успешно вышли из группы '+str(lastmesadd['items'][len(lastmesadd['items'])-1]['text'][9:])+'.')
+                        else:
+                            sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
+                    except Exception as e:
+                        print('getnames quit err:',e)
+                
                 nummes += 1
             numconvers += 1
         print(groups)
