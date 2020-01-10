@@ -504,6 +504,7 @@ def getmembers():
             profid = allconversations['profiles'][numconvers]['screen_name']
             print('note:пользователь:',profid,id)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
+            nummes = 0
             for message in messages['items']:
                 if message['text'][:9] == '+upd:add:':
                     namegroup = message['text'][9:]
@@ -538,7 +539,7 @@ def getmembers():
                         sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',coord)
                     elif flaghave == 1: #При условии наличия в новом массиве группы coord.
-                        sendmesones(profid,'Вы удачно сменили группу на '+str(namegroup)+'.')
+                        sendmesones(profid,'Вы удачно вышли из группы '+str(namegroup)+' и зашли в '+str(messages['items'][nummes-1]['text'][9:])+'.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 2: #При условии отсутствия выбранной группы.
                         sendmesones(profid,'Группы '+str(coord)+' не существует.')
@@ -557,6 +558,7 @@ def getmembers():
                         sendmesones(profid,'Вы успешно вышли из группы'+str(lastmesadd[9:])+'.')
                     except:
                         sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
+                nummes += 1
             numconvers += 1
         print(groups)
         print(names)
