@@ -553,6 +553,7 @@ def getmembers():
                     try: 
                         lastmesadd = vk.method("messages.search",{"q":"+upd:add:","peer_id":id,"group_id":"181204528"})
                         if lastmesadd['count'] > 0:
+                            messageid = ''
                             for mes in lastmesadd['items']:
                                 messageid += str(mes['id'])+','
                             vk.method("messages.delete",{"message_ids":messageid[len(messageid)-1:],"delete_for_all":"0","group_id":"181204528"})
