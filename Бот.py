@@ -550,9 +550,9 @@ def getmembers():
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
                         sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
-                        print('note:',profid,'был добавлен в список участников в группу',coord)
+                        print('note:',profid,'был добавлен в список участников в группу',namegroup)
                     elif flaghave == 1: #При условии наличия в новом массиве групп.
-                        sendmesones(profid,'Вы уже в группе '+str(groups[names.index[coord]])+'. Используйте +upd:quit чтобы выйти.')
+                        sendmesones(profid,'Вы уже в группе '+str(groups[names.index(coord)])+'. Используйте +upd:quit чтобы выйти.')
                         vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                     elif flaghave == 2: #При условии наличия в старом массиве групп.
                         if namegroup not in groups:
