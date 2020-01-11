@@ -537,7 +537,8 @@ def getmembers():
                             globalgroupappend()
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
-                        sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
+                        if flag1 == 0:
+                            sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',namegroup)
                     elif flaghave == 1: #При условии наличия в новом массиве групп.
                         sendmesones(profid,'Вы уже находитесь в '+str(groups[names.index(coord)])+'. Чтобы выйти из группы напишите +upd:quit.')
