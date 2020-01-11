@@ -503,8 +503,13 @@ def getmembers():
             id = conversation['conversation']['peer']['id']
             user = vk.method("messages.getConversationMembers",{"peer_id":id,"fields":"domain","group_id":"181204528"})
             profid = user['profiles'][0]['domain']
-            #allconversations['profiles'][allconversations['items'].index(conversation)+1]['domain']
-            print('note:пользователь:',profid,id)
+            idtype = 'str'
+            try:
+                profid = int(profid[2:])
+                idtype = 'int'
+            except ValueError:
+                print(profid,'не является числом')
+            print('note:пользователь:',profid,id,idtype)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             for message in reversed(messages['items']):
                 if message['text'][:9] == '+upd:add:':
