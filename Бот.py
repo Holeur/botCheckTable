@@ -335,7 +335,7 @@ def filewrite(text): #Запись полученного текста в фаи
     file.write(text)
     file.close()
 
-def sendmesones(id,text):
+def sendmesones(id,text): #Отправление сообщение одному человеку
     if isinstance(id,int):
         vk.method("messages.send", {"user_id": id, "message":text, "random_id": random.randint(100, 2147483647), "group_id":"181204528"})
     else:
@@ -501,6 +501,7 @@ def getmembers(): #Использовал личку сообщества как
                                 vk.method("messages.delete",{"message_ids":mes['id'],"delete_for_all":"0","group_id":"181204528"})
                             vk.method("messages.delete",{"message_ids":message['id'],"delete_for_all":"0","group_id":"181204528"})
                             sendmesones(profid,'Вы успешно вышли из группы '+str(lastmesadd['items'][len(lastmesadd['items'])-1]['text'][9:])+'.')
+                            print('note:',profid,'вышел из группы',lastmesadd['items'][len(lastmesadd['items'])-1]['text'][9:])
                         else:
                             sendmesones(profid,'Вы отсутствуете в какой либо группе. Чтобы зайти в группу введите +upd:add:*название группы*')
                     except Exception as e:
@@ -511,8 +512,6 @@ def getmembers(): #Использовал личку сообщества как
     except Exception as e:
         print('getmembers err:',e)
         
-
-    
 def delerr(): #Функция удаления всех ошибок.
     ids = []
     messages = vk.method("messages.search",{"q":"err:","peer_id":"125524519","group_id":"181204528","count":"99"})
