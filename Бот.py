@@ -81,7 +81,7 @@ def globalgroupappend(): #Добавление место под группу в
               [['','','','','','','']],
               [['','','','','','','']],
               [['','','','','','','']]])
-    
+              
 def gettablinfile(filename): #запоминание массивов в фаил. Пока не используется.
     try:
         file = open(filename,'w')
@@ -151,33 +151,6 @@ def update(group): #Открытие страницы определенной �
     except:
         print('err:Опять ошибка с поиском элемента')
         update(group)
-    
-    
-def day(nameday): #Выбор массива по названию. Не используется. Лежит в память о старом алгоритме.
-    if nameday == 'day1':
-        return day1
-    elif nameday == 'day2':
-        return day2
-    elif nameday == 'day3':
-        return day3
-    elif nameday == 'day4':
-        return day4
-    elif nameday == 'day5':
-        return day5
-    elif nameday == 'day6':
-        return day6
-    elif nameday == 'day1old':
-        return day1old
-    elif nameday == 'day2old':
-        return day2old
-    elif nameday == 'day3old':
-        return day3old
-    elif nameday == 'day4old':
-        return day4old
-    elif nameday == 'day5old':
-        return day5old
-    elif nameday == 'day6old':
-        return day6old
 
 def zap(groupnum,nday): #Заполнение выбранного дня в массиве.
     global line,browser,globalday
@@ -449,47 +422,7 @@ def checkupt(group): #Проверка на случай не загрузки �
             vk.method("messages.send", {"domain": 'holeur', "message":'err:Проверка сайта не удалась'+str(e), "random_id": random.randint(100, 2147483647)})
         checkflag = 0
 
-def getnames(): #Использовал личку сообщества как бд с именами участников. XD
-    try:    
-        global names,groups,oldnames
-        messages = vk.method("messages.search",{"q":"+add","peer_id":"125524519","group_id":"181204528"})
-        print(messages["count"]+1)
-        for mes in messages["items"]:
-            try:
-                name = mes["text"][5:mes["text"].rfind(':'):]
-                namegroup = mes["text"][mes["text"].rfind(':')+1:]
-                if namegroup == '':
-                    namegroup = '17СПИ3'
-                elif namegroup not in groups:
-                    print('err:Группы не существует')
-            except Exception as e:
-                print('getnames namegroup err:',e)
-            try:
-                try:
-                    if int(name) not in names[groups.index(namegroup)]:
-                        names[groups.index(namegroup)].append(int(name))
-                    count = 0
-                    for oldname in oldnames:      
-                        if int(name) not in oldname:
-                            count += 1
-                    if count == len(oldnames):
-                        print('note:Добавлен в массив имен',name,'в группу',namegroup)
-                except ValueError:
-                    if name not in names[groups.index(namegroup)]:
-                        names[groups.index(namegroup)].append(name)
-                    count = 0
-                    for oldname in oldnames:    
-                        if name not in oldname:
-                            count += 1
-                    if count == len(oldnames):
-                        print('note:Добавлен в массив имен',name,'в группу',namegroup)
-            except Exception as e:
-                print('getnames add name err:',e)
-        print(names)
-    except Exception as e:
-        print('getnames err:',e)
-
-def getmembers():
+def getmembers(): #Использовал личку сообщества как бд с именами участников. (лол что)
     global groups,names,oldnames,oldgroups,flag4
     try:
         oldgroups = groups
@@ -507,9 +440,9 @@ def getmembers():
             try:
                 profid = int(profid[2:])
                 idtype = 'int'
+                print('note:пользователь:',profid,id,idtype)
             except ValueError:
-                print('note:',profid,'не является числом')
-            print('note:пользователь:',profid,id,idtype)
+                print('note:пользователь:',profid,id,idtype)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             for message in reversed(messages['items']):
                 if message['text'][:9] == '+upd:add:':
@@ -578,25 +511,7 @@ def getmembers():
     except Exception as e:
         print('getmembers err:',e)
         
-def getgroups(): #Скопированный алгоритм getnames. Только с группами.
-    global groups,names,oldnames
-    oldgroups = groups
-    oldnames = names
-    groups = ['17СПИ3']
-    names = [['holeur']]
-    messages = vk.method("messages.search",{"q":"+addgr","peer_id":"125524519","group_id":"181204528"})
-    print(messages["count"]+1)
-    for mes in messages["items"]:
-        if '+addgr' == mes["text"][:6]:
-            group = mes["text"][7:]
-            if group not in groups:
-                groups.append(group)
-                names.append(['holeur'])
-            if group not in oldgroups:
-                print('note:Добавлен в массив групп',group)
-                globalgroupappend()
-                flag1 = 1
-    print(groups)
+
     
 def delerr(): #Функция удаления всех ошибок.
     ids = []
