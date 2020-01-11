@@ -490,7 +490,7 @@ def getnames(): #Использовал личку сообщества как �
         print('getnames err:',e)
 
 def getmembers():
-    global groups,names,oldnames,oldgroups,flag1
+    global groups,names,oldnames,oldgroups,flag4
     try:
         oldgroups = groups
         oldnames = names
@@ -508,7 +508,7 @@ def getmembers():
                 profid = int(profid[2:])
                 idtype = 'int'
             except ValueError:
-                print(profid,'не является числом')
+                print('note:',profid,'не является числом')
             print('note:пользователь:',profid,id,idtype)
             messages = vk.method("messages.search",{"q":"+upd:","peer_id":id,"group_id":"181204528"})
             for message in reversed(messages['items']):
@@ -542,7 +542,7 @@ def getmembers():
                             globalgroupappend()
                             flag1 = 1
                         names[groups.index(namegroup)].append(profid)
-                        if flag1 == 0:
+                        if flag4 == 0:
                             sendmesones(profid,'Вы добавлены в группу '+str(namegroup))
                         print('note:',profid,'был добавлен в список участников в группу',namegroup)
                     elif flaghave == 1: #При условии наличия в новом массиве групп.
