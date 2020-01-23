@@ -439,7 +439,7 @@ def checkupt(group): #Проверка на случай не загрузки �
         else:
             checkflag = 1
     except selenium.common.exceptions.NoSuchElementException:
-        print('note:Хром - тварь',e)
+        print('note:Хром - тварь')
         checkflag = 0
     except Exception as e:
         print('err:Проверка сайта не удалась',e)
