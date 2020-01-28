@@ -204,7 +204,7 @@ def zap(groupnum,nday): #Заполнение выбранного дня в м�
 def checkdate(pos):
     global date,olddate
     if pos == 1:
-        date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select").text
+        date = browser.find_element_by_xpath("/html/body/div/div[1]/form/div[1]/select/option[@selected]").text
     elif pos == 2:
         olddate = date
         
