@@ -651,6 +651,7 @@ while True:
             update(numgroup)
             checkupt(numgroup)
             checkdate(1)
+            print('Дата на проверку:',date)
             if checkflag:
                 time.sleep(4)
                 taketabl(numgroup)
